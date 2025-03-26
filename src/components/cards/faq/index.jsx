@@ -54,10 +54,10 @@ function FAQ() {
     }, []);
 
     return (
-        <div id="faq" className="w-full px-[30px] max-[450px]:px-2 mb-[100px]">
+        <div id="faq" className="w-full px-[30px] max-[450px]:px-2 mb-[100px] mt-8">
             <h2
                 data-aos='fade-up'
-                className="font-bold text-center text-6xl xl:text-[80px] mb-8 font-[Aquire] text-[#EC0000]">FAQ</h2>
+                className="font-bold text-center text-3xl sm:text-6xl xl:text-[80px] font-[Aquire] text-[#EC0000]">FAQ</h2>
             <h3
                 data-aos='fade-up'
                 className="font-medium text-2xl md:text-4xl 2xl:text-5xl font-[Montserrat] text-center mb-8">Ko‘p beriladigan savollarga javob beramiz!</h3>

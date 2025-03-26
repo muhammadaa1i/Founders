@@ -14,7 +14,7 @@ function About() {
         <div id="about">
             <h1
                 data-aos='fade-up'
-                className="text-[#EC0000] font-bold text-4xl sm:text-6xl xl:text-[80px] leading-[100%] tracking-normal font-[Aquire] text-center">
+                className="text-[#EC0000] font-bold text-3xl sm:text-6xl xl:text-[80px] leading-[100%] tracking-normal font-[Aquire] text-center">
                 Biz haqimizda:
             </h1>
             <div
@@ -24,7 +24,7 @@ function About() {
                     src="https://www.youtube.com/embed/z7WIMyySMAE?si=VT8If3_JzDJ4yijV"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
-                    className="w-[90vw] h-[80vh] rounded-xl shadow-xl"
+                    className="w-[90vw] h-[40vh] min-[450px]:h-[50vh] sm:h-[60vh] md:h-[80vh] rounded-xl shadow-xl"
                 ></iframe>
             </div>
 

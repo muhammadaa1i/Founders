@@ -1,6 +1,4 @@
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import { useState, useEffect, useRef } from "react";
 import Teacher1 from "/src/assets/tech1.png";
 import Teacher2 from "/src/assets/tech2.png";
 import Teacher3 from "/src/assets/tech3.png";
@@ -25,59 +23,59 @@ const teachersData = [
 ];
 
 function Teachers() {
-    const settings = {
-        infinite: true,
-        speed: 500,
-        autoplay: true,
-        autoplaySpeed: 3000,
-        slidesToShow: 3,
-        slidesToScroll: 1,
-        responsive: [
-            {
-                breakpoint: 1024,
-                settings: {
-                    slidesToShow: 2
-                }
-            },
-            {
-                breakpoint: 992,
-                settings: {
-                    slidesToShow: 2
-                }
-            },
-            {
-                breakpoint: 640,
-                settings: {
-                    slidesToShow: 1
-                }
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [slidesToShow, setSlidesToShow] = useState(3);
+    const containerRef = useRef(null);
+    const transitionRef = useRef(true);
+
+    useEffect(() => {
+        const updateSlidesToShow = () => {
+            if (window.innerWidth < 640) {
+                setSlidesToShow(1);
+            } else if (window.innerWidth < 768) {
+                setSlidesToShow(2);
+            } else {
+                setSlidesToShow(3);
             }
-        ]
-    };
+        };
+        updateSlidesToShow();
+        window.addEventListener("resize", updateSlidesToShow);
+        return () => window.removeEventListener("resize", updateSlidesToShow);
+    }, []);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            transitionRef.current = true;
+            setCurrentIndex((prev) => prev + 1);
+        }, 3000);
+        return () => clearInterval(interval);
+    }, []);
+
+    useEffect(() => {
+        if (currentIndex >= teachersData.length) {
+            setTimeout(() => {
+                transitionRef.current = false;
+                setCurrentIndex(0);
+            }, 500);
+        }
+    }, [currentIndex]);
 
     return (
-        <div id='teachers' className="container m-auto relative text-center">
-            <h1
-                data-aos='fade-up'
-                className="text-[#EC0000] font-bold max-[400px]:text-3xl text-4xl sm:text-6xl xl:text-[80px] tracking-normal font-[Aquire]">
+        <div id='teachers' className="text-center relative">
+            <h1 className="text-[#EC0000] font-bold text-3xl sm:text-6xl xl:text-[80px] tracking-normal font-[Aquire]">
                 O‘qituvchilarimiz:
             </h1>
-            <div className="mt-8 relative min-[350px]:ml-4 min-[380px]:ml-8 min-[420px]:ml-12 min-[460px]:ml-18 min-[510px]:ml-28 min-[560px]:ml-36 sm:ml-0 md:ml-12 lg:ml-0 xl:ml-28">
-                <Slider {...settings}>
-                    {teachersData.map((item, index) => (
-                        <div
-                            data-aos='zoom-in'
-                            key={index}
-                            className="px-4">
-                            <TeacherCard
-                                img={item.img}
-                                teacher={item.teacher}
-                                IELTS={item.IELTS}
-                                Experience={item.Experience}
-                                position={item.position}
-                            />
+            <div className="overflow-hidden mt-8">
+                <div className="flex" style={{
+                    transform: `translateX(-${(currentIndex * (100 / slidesToShow))}%)`,
+                    transition: transitionRef.current ? "transform 0.5s ease-in-out" : "none"
+                }}>
+                    {[...teachersData, ...teachersData].map((item, index) => (
+                        <div key={index} className="flex-none px-2" style={{ width: `${100 / slidesToShow}%` }}>
+                            <TeacherCard {...item} />
                         </div>
                     ))}
-                </Slider>
+                </div>
             </div>
         </div>
     );

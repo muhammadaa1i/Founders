@@ -58,7 +58,7 @@ function Books() {
         <div id="books" className="books px-4 bg-gray-50">
             <h1
                 data-aos='fade-up'
-                className="text-[#EC0000] my-[20px] font-bold text-4xl sm:text-6xl xl:text-[80px] leading-[100%] tracking-normal font-[Aquire] text-center">
+                className="text-[#EC0000] my-[20px] font-bold text-3xl sm:text-6xl xl:text-[80px] leading-[100%] tracking-normal font-[Aquire] text-center">
                 Kitoblarimiz:
             </h1>
             <Slider {...settings} className="rounded-2xl px-[30px]">

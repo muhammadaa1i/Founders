@@ -68,7 +68,7 @@ function Course() {
       <h1
         data-aos='fade-up'
         id="courses"
-        className="text-[#EC0000] my-[30px] font-bold text-4xl sm:text-6xl xl:text-[80px] leading-[100%] font-[Aquire] text-center">
+        className="text-[#EC0000] my-[30px] font-bold text-3xl sm:text-6xl xl:text-[80px] leading-[100%] font-[Aquire] text-center">
         Kurslarimiz:</h1>
       <div className="mb-10 px-[20px] flex lg:flex-row flex-col gap-6">
         {courseFromData &&

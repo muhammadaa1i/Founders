@@ -1,71 +1,53 @@
-import React, { useEffect } from "react";
-import { Splide, SplideSlide } from "@splidejs/react-splide";
-import "@splidejs/react-splide/css";
-import '@splidejs/splide/css/core'
+import React, { useEffect, useRef, useState } from "react";
 
 import news1 from "/src/assets/news1.png";
 import news2 from "/src/assets/news2.png";
 import news3 from "/src/assets/news3.png";
-import kid from "/src/assets/kid.png";
 import news4 from "/src/assets/news4.png";
-import Aos from "aos";
+import kid from "/src/assets/kid.png";
 
 function News() {
     const imgs = [news1, news2, news3, news4, kid];
+    const sliderRef = useRef(null);
+    const [clones, setClones] = useState([]);
+
     useEffect(() => {
-        Aos.init({
-            duration: 800,
-        });
-        Aos.refresh();
+        setClones([...imgs, ...imgs]);
     }, []);
 
-    return (
-        <div className="news px-6 mt-[20px] bg-gray-50 flex flex-col items-center">
+    useEffect(() => {
+        const slider = sliderRef.current;
+        let scrollInterval;
+        
+        const startScrolling = () => {
+            scrollInterval = setInterval(() => {
+                if (slider) {
+                    slider.scrollLeft += 1;
+                    if (slider.scrollLeft >= slider.scrollWidth / 2) {
+                        slider.scrollLeft = 0;
+                    }
+                }
+            }, 15);
+        };
 
-            <h1
-                data-aos='fade-up'
-                className="text-[#EC0000] my-[20px] font-bold text-4xl sm:text-6xl xl:text-[80px] leading-[100%] tracking-normal font-[Aquire] text-center">
+        startScrolling();
+        return () => clearInterval(scrollInterval);
+    }, [clones]);
+
+    return (
+        <div className="news px-6 bg-gray-50 flex flex-col items-center overflow-hidden">
+            <h1 className="text-[#EC0000] my-[20px] font-bold text-3xl sm:text-6xl xl:text-[80px] leading-[100%] tracking-normal font-[Aquire] text-center">
                 Qaynoq yangiliklar:
             </h1>
 
-            <div
-                data-aos='zoom-in'
-                className="w-full">
-                <Splide
-                    options={{
-                        type: "loop",
-                        perPage: 4,
-                        perMove: 1,
-                        autoplay: true,
-                        interval: 3000,
-                        pauseOnHover: false,
-                        resetProgress: false,
-                        arrows: false,
-                        pagination: false,
-                        speed: 1000,
-                        gap: "1.5rem",
-                        breakpoints: {
-                            1280: { perPage: 3 },
-                            768: { perPage: 2 },
-                            480: { perPage: 1 },
-                        },
-                    }}
-                    className="py-5"
-                >
-                    {imgs.map((item, index) => (
-                        <SplideSlide key={index}>
-                            <div className="w-full h-full flex justify-center items-center">
-                                <div className="max-w-[250px] w-full 2xl:max-w-[300px] h-auto rounded-xl hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 p-4 flex items-center justify-center">
-                                    <img
-                                        src={item}
-                                        alt={`News ${index + 1}`}
-                                        className="w-[400px] h-[300px] rounded-[40px]"
-                                    />
-                                </div>
-                            </div>
-                        </SplideSlide>
+            <div className="w-full overflow-hidden relative">
+                <div ref={sliderRef} className="flex gap-6 w-full overflow-x-scroll no-scrollbar whitespace-nowrap scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
+                    {clones.map((item, index) => (
+                        <div key={index} className="min-w-[250px] 2xl:min-w-[300px] h-auto rounded-xl hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 p-4 flex items-center justify-center">
+                            <img src={item} alt={`News ${index + 1}`} className="w-[400px] h-[300px] rounded-[40px]" />
+                        </div>
                     ))}
-                </Splide>
+                </div>
             </div>
         </div>
     );
