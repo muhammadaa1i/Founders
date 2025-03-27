@@ -9,6 +9,7 @@ import Teacher7 from "/src/assets/tech7.avif";
 import Teacher8 from "/src/assets/tech8.avif";
 import Teacher9 from "/src/assets/tech9.avif";
 import TeacherCard from "./component/index";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const teachersData = [
     { img: Teacher1, teacher: "Iskhakova Leyla", Experience: "4 years+", IELTS: "7.0", position: "ESL Teacher | IELTS Instructor" },
@@ -60,6 +61,11 @@ function Teachers() {
                 transitionRef.current = false;
                 setCurrentIndex(0);
             }, 500);
+        } else if (currentIndex < 0) {
+            setTimeout(() => {
+                transitionRef.current = false;
+                setCurrentIndex(teachersData.length - 1);
+            }, 500);
         }
     }, [currentIndex]);
 
@@ -87,25 +93,37 @@ function Teachers() {
             <h1 className="text-[#EC0000] font-bold text-3xl sm:text-6xl xl:text-[80px] tracking-normal font-[Aquire]">
                 O‘qituvchilarimiz:
             </h1>
-            <div 
-                className="overflow-hidden mt-8"
-                onTouchStart={(e) => handleStart(e.touches[0].clientX)}
-                onTouchMove={(e) => handleMove(e.touches[0].clientX)}
-                onTouchEnd={handleEnd}
-                onMouseDown={(e) => handleStart(e.clientX)}
-                onMouseMove={(e) => handleMove(e.clientX)}
-                onMouseUp={handleEnd}
-                onMouseLeave={handleEnd}>
-                <div className="flex" style={{
-                    transform: `translateX(-${(currentIndex * (100 / slidesToShow))}%)`,
-                    transition: transitionRef.current ? "transform 0.5s ease-in-out" : "none"
-                }}>
-                    {[...teachersData, ...teachersData].map((item, index) => (
-                        <div key={index} className="flex-none px-2" style={{ width: `${100 / slidesToShow}%` }}>
-                            <TeacherCard {...item} />
-                        </div>
-                    ))}
+            <div className="relative mt-8">
+                <button 
+                    className="absolute left-1 top-1/2 transform -translate-y-1/2 bg-red-600 text-white p-2 rounded-full z-10"
+                    onClick={() => setCurrentIndex((prev) => prev - 1)}>
+                    <ChevronLeft size={24} />
+                </button>
+                <div 
+                    className="overflow-hidden"
+                    onTouchStart={(e) => handleStart(e.touches[0].clientX)}
+                    onTouchMove={(e) => handleMove(e.touches[0].clientX)}
+                    onTouchEnd={handleEnd}
+                    onMouseDown={(e) => handleStart(e.clientX)}
+                    onMouseMove={(e) => handleMove(e.clientX)}
+                    onMouseUp={handleEnd}
+                    onMouseLeave={handleEnd}>
+                    <div className="flex" style={{
+                        transform: `translateX(-${(currentIndex * (100 / slidesToShow))}%)`,
+                        transition: transitionRef.current ? "transform 0.5s ease-in-out" : "none"
+                    }}>
+                        {[...teachersData, ...teachersData].map((item, index) => (
+                            <div key={index} className="flex-none px-2" style={{ width: `${100 / slidesToShow}%` }}>
+                                <TeacherCard {...item} />
+                            </div>
+                        ))}
+                    </div>
                 </div>
+                <button 
+                    className="absolute right-1 top-1/2 transform -translate-y-1/2 bg-red-600 text-white p-2 rounded-full z-10"
+                    onClick={() => setCurrentIndex((prev) => prev + 1)}>
+                    <ChevronRight size={24} />
+                </button>
             </div>
         </div>
     );
