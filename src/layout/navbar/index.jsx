@@ -48,14 +48,14 @@ function Navbar() {
 
                     <ul
                         data-aos='flip-down'
-                        className="flex items-center xl:text-xl gap-[30px] sm:gap-[20px]">
+                        className="flex items-center xl:text-xl gap-[30px] sm:gap-[20px] ">
                         <li>
                             <ScrollLink
                                 to="about"
                                 smooth={true}
                                 duration={500}
                                 offset={-70}
-                                className="text-white uppercase font-[Aquire] ml-3"
+                                className="text-white uppercase font-[Aquire] ml-3 cursor-pointer"
                             >
                                 Biz haqimizda
                             </ScrollLink>
@@ -66,7 +66,7 @@ function Navbar() {
                                 smooth={true}
                                 duration={500}
                                 offset={-70}
-                                className="text-white uppercase font-[Aquire] "
+                                className="text-white uppercase font-[Aquire] cursor-pointer "
                             >
                                 O‘qituvchilarimiz
                             </ScrollLink>
@@ -77,7 +77,7 @@ function Navbar() {
                                 smooth={true}
                                 duration={500}
                                 offset={-70}
-                                className="text-white uppercase font-[Aquire]"
+                                className="text-white uppercase font-[Aquire] cursor-pointer"
                             >
                                 Kurslarimiz
                             </ScrollLink>
@@ -88,7 +88,7 @@ function Navbar() {
                                 smooth={true}
                                 duration={500}
                                 offset={-70}
-                                className="text-white uppercase font-[Aquire]"
+                                className="text-white uppercase font-[Aquire] cursor-pointer"
                             >
                                 Kitoblarimiz
                             </ScrollLink>
@@ -99,7 +99,7 @@ function Navbar() {
                                 smooth={true}
                                 duration={500}
                                 offset={-70}
-                                className="text-white uppercase font-[Aquire]"
+                                className="text-white uppercase font-[Aquire] cursor-pointer"
                             >
                                 FAQ
                             </ScrollLink>
@@ -110,7 +110,7 @@ function Navbar() {
                                 smooth={true}
                                 duration={500}
                                 offset={-70}
-                                className="text-white uppercase font-[Aquire]"
+                                className="text-white uppercase font-[Aquire] cursor-pointer"
                             >
                                 Kontakt
                             </ScrollLink>

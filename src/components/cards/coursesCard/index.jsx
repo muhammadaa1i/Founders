@@ -64,7 +64,7 @@ function Course() {
   }, []);
 
   return (
-    <>
+    <div className="py-[20px]">
       <h1
         data-aos='fade-up'
         id="courses"
@@ -74,7 +74,7 @@ function Course() {
         {courseFromData &&
           courseFromData.map((item) => <CourseCard key={item.title} {...item} />)}
       </div>
-    </>
+    </div>
   );
 }
 

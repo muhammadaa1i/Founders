@@ -54,25 +54,29 @@ function FAQ() {
     }, []);
 
     return (
-        <div id="faq" className="w-full px-[30px] max-[450px]:px-2 mb-[100px] mt-8">
+        <div id="faq" className="w-full  px-[30px] max-[450px]:px-2 mb-[100px] mt-8">
             <h2
                 data-aos='fade-up'
                 className="font-bold text-center text-3xl sm:text-6xl xl:text-[80px] font-[Aquire] text-[#EC0000]">FAQ</h2>
             <h3
                 data-aos='fade-up'
                 className="font-medium text-2xl md:text-4xl 2xl:text-5xl font-[Montserrat] text-center mb-8">Ko‘p beriladigan savollarga javob beramiz!</h3>
-            <div
-                data-aos='zoom-in'
-                className="px-[30px] border-2 border-[#EC0000] rounded-[20px] shadow-[0px_4px_20px_0px_rgba(0,0,0,0.35)]">
+          
+
+             <div
+                data-aos="zoom-in"
+                className="px-[30px] py-[15px] border-2 border-[#EC0000] rounded-[20px] shadow-[0px_4px_20px_0px_rgba(0,0,0,0.35)]"
+            >
                 {faqs.map((faq, index) => (
-                    <div key={index} className="border-b border-[red] mb-4">
+                    <div
+                        key={index}
+                        className="border-b border-[red] mb-4 last:border-b-0" // ✅ This removes border from the last item
+                    >
                         <button
                             onClick={() => toggle(index)}
                             className="w-full text-left py-4 flex justify-between items-center focus:outline-none"
                         >
-                            <span
-                                className="text-[24px] leading-[100%] tracking-[0%] font-[500] font-[Montserrat]"
-                            >
+                            <span className="text-[24px] leading-[100%] tracking-[0%] font-[500] font-[Montserrat]">
                                 {faq.question}
                             </span>
                             <span className="text-[16px] sm:text-xl xl:text-2xl">
@@ -89,7 +93,8 @@ function FAQ() {
                         )}
                     </div>
                 ))}
-            </div>
+            </div> 
+
         </div>
     );
 }
