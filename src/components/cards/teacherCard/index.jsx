@@ -49,25 +49,32 @@ function Teachers() {
         const interval = setInterval(() => {
             if (!isDragging.current) {
                 transitionRef.current = true;
-                setCurrentIndex((prev) => prev + 1);
+                setCurrentIndex((prev) => (prev + 1) % teachersData.length);
             }
         }, 3000);
         return () => clearInterval(interval);
     }, []);
 
     useEffect(() => {
-        if (currentIndex >= teachersData.length) {
-            setTimeout(() => {
-                transitionRef.current = false;
-                setCurrentIndex(0);
-            }, 500);
-        } else if (currentIndex < 0) {
+        if (currentIndex < 0) {
             setTimeout(() => {
                 transitionRef.current = false;
                 setCurrentIndex(teachersData.length - 1);
-            }, 500);
+            }, 0);
+        } else {
+            transitionRef.current = true;
         }
     }, [currentIndex]);
+
+    const goNext = () => {
+        transitionRef.current = true;
+        setCurrentIndex((prev) => (prev + 1) % teachersData.length);
+    };
+
+    const goPrev = () => {
+        transitionRef.current = true;
+        setCurrentIndex((prev) => (prev - 1 + teachersData.length) % teachersData.length);
+    };
 
     const handleStart = (clientX) => {
         isDragging.current = true;
@@ -96,7 +103,7 @@ function Teachers() {
             <div className="relative mt-8">
                 <button
                     className="absolute left-1 top-1/2 transform -translate-y-1/2 bg-red-600 text-white p-2 rounded-full z-10"
-                    onClick={() => setCurrentIndex((prev) => prev - 1)}>
+                    onClick={goPrev}>
                     <ChevronLeft size={24} />
                 </button>
                 <div
@@ -108,42 +115,33 @@ function Teachers() {
                     onMouseMove={(e) => handleMove(e.clientX)}
                     onMouseUp={handleEnd}
                     onMouseLeave={handleEnd}>
-                    <div className="flex" style={{
+                    <div className="flex my-5" style={{
                         transform: `translateX(-${(currentIndex * (100 / slidesToShow))}%)`,
                         transition: transitionRef.current ? "transform 0.5s ease-in-out" : "none"
                     }}>
-                        {[...teachersData, ...teachersData].map((item, index) => (
-                            <div key={index} className="flex-none px-2" style={{ width: `${100 / slidesToShow}%` }}>
-                                <TeacherCard {...item} />
-                            </div>
-                        ))}
-                    </div>
-                    <div
-                        className="overflow-hidden mt-8 py-[30px]"
-                        onTouchStart={(e) => handleStart(e.touches[0].clientX)}
-                        onTouchMove={(e) => handleMove(e.touches[0].clientX)}
-                        onTouchEnd={handleEnd}
-                        onMouseDown={(e) => handleStart(e.clientX)}
-                        onMouseMove={(e) => handleMove(e.clientX)}
-                        onMouseUp={handleEnd}
-                        onMouseLeave={handleEnd}>
-                        <div className="flex" style={{
-                            transform: `translateX(-${(currentIndex * (100 / slidesToShow))}%)`,
-                            transition: transitionRef.current ? "transform 0.5s ease-in-out" : "none"
-                        }}>
-                            {[...teachersData, ...teachersData].map((item, index) => (
-                                <div key={index} className="flex-none px-2" style={{ width: `${100 / slidesToShow}%` }}>
+                        {[...teachersData, ...teachersData].map((item, index) => {
+                            const centerIndex = (currentIndex + Math.floor(slidesToShow / 2)) % teachersData.length;
+                            const isActive = index % teachersData.length === centerIndex;
+
+                            return (
+                                <div
+                                    key={index}
+                                    className={`flex-none px-2 py-4 transition-transform duration-300 ease-in-out ${
+                                        isActive ? "scale-110" : "scale-100"
+                                    }`}
+                                    style={{ width: `${100 / slidesToShow}%` }}
+                                >
                                     <TeacherCard {...item} />
                                 </div>
-                            ))}
-                        </div>
-                        <button
-                            className="absolute right-1 top-1/2 transform -translate-y-1/2 bg-red-600 text-white p-2 rounded-full z-10"
-                            onClick={() => setCurrentIndex((prev) => prev + 1)}>
-                            <ChevronRight size={24} />
-                        </button>
+                            );
+                        })}
                     </div>
                 </div>
+                <button
+                    className="absolute right-1 top-1/2 transform -translate-y-1/2 bg-red-600 text-white p-2 rounded-full z-10"
+                    onClick={goNext}>
+                    <ChevronRight size={24} />
+                </button>
             </div>
         </div>
     );
