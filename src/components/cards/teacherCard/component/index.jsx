@@ -1,8 +1,7 @@
 function TeacherCard({ img, teacher, Experience, position, IELTS, isActive }) {
     return (
-        <div className={`bg-white  m-auto max-w-[300px] w-full h-[320px] lg:w-[360px] lg:h-[420px] rounded-[20px] md:rounded-[30px] my-2 p-4 md:p-6 shadow-[0_20px_20px_rgba(255,0,0,0.25)] flex flex-col items-center transition-all duration-500
-            ${isActive ? 'scale-120 shadow-2xl' : 'scale-100'}
-        `}>
+        <div className={`bg-white  m-auto max-w-[300px] w-full h-[320px] lg:w-[360px] lg:h-[420px] rounded-[20px] md:rounded-[30px] my-2 p-4 md:p-6 shadow-[0_20px_20px_rgba(255,0,0,0.25)] flex flex-col items-center transition-all duration-500 ${isActive ? 'scale-120 shadow-2xl' : 'scale-100'}`}>
+
             <div className="lg:w-36 lg:h-36 w-20 h-20 mx-auto overflow-hidden rounded-full border-4 bg-[#EC0000] border-[#EC0000] mb-4 transition-all duration-300 group-hover:border-[#c20000]">
                 <img
                     src={img}
@@ -25,6 +24,7 @@ function TeacherCard({ img, teacher, Experience, position, IELTS, isActive }) {
                     Position: <b>{position}</b>
                 </p>
             </div>
+            
         </div>
     );
 }

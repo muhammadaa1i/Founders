@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import Slider from "react-slick";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
@@ -19,12 +20,24 @@ import Aos from "aos";
 
 function CustomPrevArrow(props) {
     const { onClick } = props;
-    return <div className="custom-arrow custom-prev" onClick={onClick}></div>;
+    return (
+        <button
+            onClick={onClick}
+            className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-red-600 text-white w-10 h-10 flex items-center justify-center rounded-full shadow-lg z-10 hover:bg-red-700 transition">
+            <ChevronLeft size={24} />
+        </button>
+    );
 }
 
 function CustomNextArrow(props) {
     const { onClick } = props;
-    return <div className="custom-arrow custom-next" onClick={onClick}></div>;
+    return (
+        <button
+            onClick={onClick}
+            className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-red-600 text-white w-10 h-10 flex items-center justify-center rounded-full shadow-lg z-10 hover:bg-red-700 transition">
+            <ChevronRight size={24} />
+        </button>
+    );
 }
 
 function Books() {
@@ -47,6 +60,7 @@ function Books() {
         prevArrow: <CustomPrevArrow />,
         nextArrow: <CustomNextArrow />
     };
+
     useEffect(() => {
         Aos.init({
             duration: 800,
@@ -55,32 +69,34 @@ function Books() {
     }, []);
 
     return (
-        <div id="books" className="books px-4 bg-gray-50">
+        <div id="books" className="books px-4 bg-gray-50 relative">
             <h1
-                data-aos='fade-up'
+                data-aos="fade-up"
                 className="text-[#EC0000] my-[20px] font-bold text-3xl sm:text-6xl xl:text-[80px] leading-[100%] tracking-normal font-[Aquire] text-center">
                 Kitoblarimiz:
             </h1>
-            <Slider {...settings} className="rounded-2xl px-[30px]">
-                {bookCategories.map((category, index) => (
-                    <div
-                        data-aos='zoom-in'
-                        key={index}>
-                        <h2 className="text-2xl md:text-4xl 2xl:text-5xl font-[Montserrat] font-medium text-center">{category.title}</h2>
-                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-                            {category.books.map((book, i) => (
-                                <div key={i} className="w-full h-full">
-                                    <img
-                                        src={book}
-                                        alt={`${category.title} Book ${i + 1}`}
-                                        className="w-[200px] h-[200px] sm:w-[350px] sm:h-[350px] xl:w-[450px] xl:h-[450px] 2xl:w-[550px] 2xl:h-[550px] object-cover rounded-lg hover:scale-105 transition-transform duration-300 lazyload"
-                                    />
-                                </div>
-                            ))}
+            <div className="relative">
+                <Slider {...settings} className="rounded-2xl px-[30px]">
+                    {bookCategories.map((category, index) => (
+                        <div data-aos="zoom-in" key={index}>
+                            <h2 className="text-2xl md:text-4xl 2xl:text-5xl font-[Montserrat] font-medium text-center">
+                                {category.title}
+                            </h2>
+                            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                                {category.books.map((book, i) => (
+                                    <div key={i} className="w-full h-full">
+                                        <img
+                                            src={book}
+                                            alt={`${category.title} Book ${i + 1}`}
+                                            className="w-[200px] h-[200px] sm:w-[350px] sm:h-[350px] xl:w-[450px] xl:h-[450px] 2xl:w-[550px] 2xl:h-[550px] object-cover rounded-lg hover:scale-105 transition-transform duration-300 lazyload"
+                                        />
+                                    </div>
+                                ))}
+                            </div>
                         </div>
-                    </div>
-                ))}
-            </Slider>
+                    ))}
+                </Slider>
+            </div>
         </div>
     );
 }
