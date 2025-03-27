@@ -43,9 +43,9 @@ function News() {
             <div className="w-full overflow-hidden relative">
                 <div ref={sliderRef} className="flex gap-6 w-full overflow-x-scroll no-scrollbar whitespace-nowrap scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
                     {clones.map((item, index) => (
-                        <div key={index} className="min-w-[250px] 2xl:min-w-[300px] h-auto rounded-xl hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 p-4 flex items-center justify-center">
+                        <a href="https://www.instagram.com/founders_school?igsh=ZzZ1N3dkMWlkYWJ4" target="_blank" key={index} className="min-w-[250px] 2xl:min-w-[300px] h-auto rounded-xl hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 p-4 flex items-center justify-center">
                             <img src={item} alt={`News ${index + 1}`} className="w-[380px] h-[300px] rounded-[40px] lazyload" />
-                        </div>
+                        </a>
                     ))}
                 </div>
             </div>

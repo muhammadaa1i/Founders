@@ -28,7 +28,7 @@ function Navbar() {
                     </button>
                 </div>
 
-                <Link to="/" className="hidden xl:flex">
+                <Link to="/" className="hidden 2xl:flex">
                     <img
                         data-aos='flip-down'
                         src={Logo}
@@ -36,7 +36,7 @@ function Navbar() {
                         className="w-[180px] h-auto lazyload" />
                 </Link>
 
-                <Link to="/" className="hidden max-xl:flex max-lg:hidden">
+                <Link to="/" className="hidden max-2xl:flex max-lg:hidden">
                     <img
                         data-aos='flip-down'
                         src={BarLogo}
