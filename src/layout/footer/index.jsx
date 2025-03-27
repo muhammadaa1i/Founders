@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import Logo from "../../assets/logof.png";
+import Logo from "../../assets/logof.avif";
 import { useEffect } from "react";
 import Aos from "aos";
 
@@ -41,7 +41,7 @@ function Footer() {
                     <img
                         src={Logo}
                         alt="Logo"
-                        className="w-[200px] h-[50px] xl:w-[300px] xl:h-[60px]"
+                        className="w-[200px] h-[50px] xl:w-[300px] xl:h-[60px] lazyload"
                     />
                 </Link>
 

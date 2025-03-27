@@ -12,7 +12,7 @@ function TeacherCard({ img, teacher, Experience, position, IELTS, isActive }) {
             </div>
 
             <div className="flex flex-col gap-1 md:gap-2 items-center text-center mt-3 flex-1">
-                <h1 className="text-xl md:text-2xl font-bold text-[#EC0000]">{teacher}</h1>
+                <h1 className="text-xl md:text-2xl font-bold">{teacher}</h1>
                 <p className="text-base text-gray-700">
                     Experience: <b>{Experience}</b>
                 </p>

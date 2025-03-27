@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import Logo from "../../assets/logof.png";
-import BarLogo from "../../assets/logof2.png";
+import Logo from "../../assets/logof.avif";
+import BarLogo from "../../assets/logof2.avif";
 import Button from "../../components/button";
 import { Link as ScrollLink } from 'react-scroll';
 import AOS from "aos";
@@ -14,7 +14,7 @@ function Navbar() {
         AOS.init({
             duration: 800,
         });
-        AOS.refresh();
+         AOS.refresh();
     }, []);
 
     return (
@@ -24,7 +24,7 @@ function Navbar() {
                     data-aos='flip-down'
                     className="lg:hidden flex items-center gap-3">
                     <button onClick={() => setIsOpen(true)}>
-                        <img src={BarLogo} alt="Menu Icon" className="w-[28px] h-[30px] sm:w-[45px] sm:h-[40px]" />
+                        <img src={BarLogo} alt="Menu Icon" className="w-[28px] h-[30px] sm:w-[45px] sm:h-[40px] lazyload" />
                     </button>
                 </div>
 
@@ -33,7 +33,7 @@ function Navbar() {
                         data-aos='flip-down'
                         src={Logo}
                         alt="Logo"
-                        className="w-[180px] h-auto" />
+                        className="w-[180px] h-auto lazyload" />
                 </Link>
 
                 <Link to="/" className="hidden max-xl:flex max-lg:hidden">

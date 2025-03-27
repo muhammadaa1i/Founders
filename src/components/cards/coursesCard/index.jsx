@@ -1,9 +1,9 @@
 
 import CourseCard from "./components";
 
-import kid from "/src/assets/kid.png";
-import advanced from "/src/assets/advanced.png";
-import reading from "/src/assets/reading.png";
+import kid from "/src/assets/kid.avif";
+import advanced from "/src/assets/advanced.avif";
+import reading from "/src/assets/reading.avif";
 import { useEffect } from "react";
 import Aos from "aos";
 

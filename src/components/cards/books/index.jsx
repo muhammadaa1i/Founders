@@ -3,18 +3,18 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-import generalBook1 from "/src/assets/generalBook1.png";
-import generalBook2 from "/src/assets/generalBook2.png";
-import generalBook3 from "/src/assets/generalBook3.png";
-import generalBook4 from "/src/assets/generalBook4.png";
-import levelBook1 from "/src/assets/levelBook1.png";
-import levelBook2 from "/src/assets/levelBook2.png";
-import levelBook3 from "/src/assets/levelBook3.png";
-import levelBook4 from "/src/assets/levelBook4.png";
-import IeltsBook1 from "/src/assets/IeltsBook1.png";
-import IeltsBook2 from "/src/assets/IeltsBook2.png";
-import IeltsBook3 from "/src/assets/IeltsBook3.png";
-import IeltsBook4 from "/src/assets/IeltsBook4.png";
+import generalBook1 from "/src/assets/generalBook1.avif";
+import generalBook2 from "/src/assets/generalBook2.avif";
+import generalBook3 from "/src/assets/generalBook3.avif";
+import generalBook4 from "/src/assets/generalBook4.avif";
+import levelBook1 from "/src/assets/levelBook1.avif";
+import levelBook2 from "/src/assets/levelBook2.avif";
+import levelBook3 from "/src/assets/levelBook3.avif";
+import levelBook4 from "/src/assets/levelBook4.avif";
+import IeltsBook1 from "/src/assets/IeltsBook1.avif";
+import IeltsBook2 from "/src/assets/IeltsBook2.avif";
+import IeltsBook3 from "/src/assets/IeltsBook3.avif";
+import IeltsBook4 from "/src/assets/IeltsBook4.avif";
 import Aos from "aos";
 
 function CustomPrevArrow(props) {
@@ -73,7 +73,7 @@ function Books() {
                                     <img
                                         src={book}
                                         alt={`${category.title} Book ${i + 1}`}
-                                        className="w-[200px] h-[200px] sm:w-[350px] sm:h-[350px] xl:w-[450px] xl:h-[450px] 2xl:w-[550px] 2xl:h-[550px] object-cover rounded-lg hover:scale-105 transition-transform duration-300"
+                                        className="w-[200px] h-[200px] sm:w-[350px] sm:h-[350px] xl:w-[450px] xl:h-[450px] 2xl:w-[550px] 2xl:h-[550px] object-cover rounded-lg hover:scale-105 transition-transform duration-300 lazyload"
                                     />
                                 </div>
                             ))}

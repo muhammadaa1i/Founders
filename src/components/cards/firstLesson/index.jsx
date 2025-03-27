@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import mainPic from "/src/assets/mainpic.png";
+import mainPic from "/src/assets/mainpic.avif";
 import Aos from "aos";
 
 function First() {
@@ -29,7 +29,7 @@ function First() {
             <div
                 data-aos='fade-up'
                 className="rounded-[30px] m-auto sm:rounded-[40px] md:rounded-[50px] w-[90%] sm:w-[80%] md:max-w-[700px] xl:w-full h-auto flex justify-center">
-                <img src={mainPic} alt="image_main" className="w-[60%] max-h-[800px] h-full md:w-[100%] xl:w-[835px] rounded-[30px] sm:rounded-[40px] md:rounded-[50px]" />
+                <img src={mainPic} alt="image_main" className="w-[60%] max-h-[800px] h-full md:w-[100%] xl:w-[835px] rounded-[30px] sm:rounded-[40px] md:rounded-[50px] lazyload" />
             </div>
         </section>
     );

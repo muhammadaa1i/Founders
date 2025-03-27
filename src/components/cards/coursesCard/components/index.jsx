@@ -32,7 +32,7 @@ function CourseCard({
                 <img
                     src={img}
                     alt="Image"
-                    className="rounded-full w-[60px] h-[60px] object-cover"
+                    className="rounded-full w-[60px] h-[60px] object-cover lazyload"
                 />
                 <h2 className="text-[24px] md:text-[40px] leading-[100%] tracking-normal text-[#2c3e50] font-bold montserrat_font_700">
                     {title}

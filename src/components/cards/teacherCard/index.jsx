@@ -1,13 +1,13 @@
 import { useState, useEffect, useRef } from "react";
-import Teacher1 from "/src/assets/tech1.png";
-import Teacher2 from "/src/assets/tech2.png";
-import Teacher3 from "/src/assets/tech3.png";
-import Teacher4 from "/src/assets/tech4.png";
-import Teacher5 from "/src/assets/tech5.png";
-import Teacher6 from "/src/assets/tech6.png";
-import Teacher7 from "/src/assets/tech7.png";
-import Teacher8 from "/src/assets/tech8.png";
-import Teacher9 from "/src/assets/tech9.png";
+import Teacher1 from "/src/assets/tech1.avif";
+import Teacher2 from "/src/assets/tech2.avif";
+import Teacher3 from "/src/assets/tech3.avif";
+import Teacher4 from "/src/assets/tech4.avif";
+import Teacher5 from "/src/assets/tech5.avif";
+import Teacher6 from "/src/assets/tech6.avif";
+import Teacher7 from "/src/assets/tech7.avif";
+import Teacher8 from "/src/assets/tech8.avif";
+import Teacher9 from "/src/assets/tech9.avif";
 import TeacherCard from "./component/index";
 
 const teachersData = [
@@ -27,6 +27,8 @@ function Teachers() {
     const [slidesToShow, setSlidesToShow] = useState(3);
     const containerRef = useRef(null);
     const transitionRef = useRef(true);
+    const startX = useRef(0);
+    const isDragging = useRef(false);
 
     useEffect(() => {
         const updateSlidesToShow = () => {
@@ -45,8 +47,10 @@ function Teachers() {
 
     useEffect(() => {
         const interval = setInterval(() => {
-            transitionRef.current = true;
-            setCurrentIndex((prev) => prev + 1);
+            if (!isDragging.current) {
+                transitionRef.current = true;
+                setCurrentIndex((prev) => prev + 1);
+            }
         }, 3000);
         return () => clearInterval(interval);
     }, []);
@@ -60,12 +64,36 @@ function Teachers() {
         }
     }, [currentIndex]);
 
+    const handleMouseDown = (e) => {
+        isDragging.current = true;
+        startX.current = e.clientX;
+    };
+
+    const handleMouseMove = (e) => {
+        if (!isDragging.current) return;
+        const diff = startX.current - e.clientX;
+        if (Math.abs(diff) > 50) {
+            transitionRef.current = true;
+            setCurrentIndex((prev) => prev + (diff > 0 ? 1 : -1));
+            isDragging.current = false;
+        }
+    };
+
+    const handleMouseUp = () => {
+        isDragging.current = false;
+    };
+
     return (
         <div id='teachers' className="text-center relative">
             <h1 className="text-[#EC0000] font-bold text-3xl sm:text-6xl xl:text-[80px] tracking-normal font-[Aquire]">
                 O‘qituvchilarimiz:
             </h1>
-            <div className="overflow-hidden mt-8">
+            <div 
+                className="overflow-hidden mt-8" 
+                onMouseDown={handleMouseDown} 
+                onMouseMove={handleMouseMove} 
+                onMouseUp={handleMouseUp} 
+                onMouseLeave={handleMouseUp}>
                 <div className="flex" style={{
                     transform: `translateX(-${(currentIndex * (100 / slidesToShow))}%)`,
                     transition: transitionRef.current ? "transform 0.5s ease-in-out" : "none"

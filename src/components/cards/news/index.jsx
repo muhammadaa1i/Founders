@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 
-import news1 from "/src/assets/news1.png";
-import news2 from "/src/assets/news2.png";
-import news3 from "/src/assets/news3.png";
-import news4 from "/src/assets/news4.png";
-import kid from "/src/assets/kid.png";
+import news1 from "/src/assets/news1.avif";
+import news2 from "/src/assets/news2.avif";
+import news3 from "/src/assets/news3.avif";
+import news4 from "/src/assets/news4.avif";
+import kid from "/src/assets/kid.avif";
 
 function News() {
     const imgs = [news1, news2, news3, news4, kid];
@@ -44,7 +44,7 @@ function News() {
                 <div ref={sliderRef} className="flex gap-6 w-full overflow-x-scroll no-scrollbar whitespace-nowrap scrollbar-hide" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
                     {clones.map((item, index) => (
                         <div key={index} className="min-w-[250px] 2xl:min-w-[300px] h-auto rounded-xl hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 p-4 flex items-center justify-center">
-                            <img src={item} alt={`News ${index + 1}`} className="w-[400px] h-[300px] rounded-[40px]" />
+                            <img src={item} alt={`News ${index + 1}`} className="w-[380px] h-[300px] rounded-[40px] lazyload" />
                         </div>
                     ))}
                 </div>
