@@ -83,12 +83,12 @@ function Teachers() {
     };
 
     return (
-        <div id='teachers' className="text-center relative">
+        <div id='teachers' className="text-center relative py-[20px]">
             <h1 className="text-[#EC0000] font-bold text-3xl sm:text-6xl xl:text-[80px] tracking-normal font-[Aquire]">
                 O‘qituvchilarimiz:
             </h1>
-            <div 
-                className="overflow-hidden mt-8"
+            <div
+                className="overflow-hidden mt-8 py-[30px]"
                 onTouchStart={(e) => handleStart(e.touches[0].clientX)}
                 onTouchMove={(e) => handleMove(e.touches[0].clientX)}
                 onTouchEnd={handleEnd}
