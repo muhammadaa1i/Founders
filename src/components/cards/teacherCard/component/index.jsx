@@ -5,7 +5,7 @@ function TeacherCard({ img, teacher, Experience, position, IELTS }) {
     const [isActive, setIsActive] = useState(false);
 
     const toggleActive = () => {
-      setIsActive((prev) => !prev);
+        setIsActive((prev) => !prev);
     };
 
     return (
