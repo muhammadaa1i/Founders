@@ -25,7 +25,6 @@ const teachersData = [
 function Teachers() {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [slidesToShow, setSlidesToShow] = useState(3);
-    const containerRef = useRef(null);
     const transitionRef = useRef(true);
     const startX = useRef(0);
     const isDragging = useRef(false);
@@ -64,14 +63,14 @@ function Teachers() {
         }
     }, [currentIndex]);
 
-    const handleMouseDown = (e) => {
+    const handleStart = (clientX) => {
         isDragging.current = true;
-        startX.current = e.clientX;
+        startX.current = clientX;
     };
 
-    const handleMouseMove = (e) => {
+    const handleMove = (clientX) => {
         if (!isDragging.current) return;
-        const diff = startX.current - e.clientX;
+        const diff = startX.current - clientX;
         if (Math.abs(diff) > 50) {
             transitionRef.current = true;
             setCurrentIndex((prev) => prev + (diff > 0 ? 1 : -1));
@@ -79,7 +78,7 @@ function Teachers() {
         }
     };
 
-    const handleMouseUp = () => {
+    const handleEnd = () => {
         isDragging.current = false;
     };
 
@@ -89,11 +88,14 @@ function Teachers() {
                 O‘qituvchilarimiz:
             </h1>
             <div 
-                className="overflow-hidden mt-8" 
-                onMouseDown={handleMouseDown} 
-                onMouseMove={handleMouseMove} 
-                onMouseUp={handleMouseUp} 
-                onMouseLeave={handleMouseUp}>
+                className="overflow-hidden mt-8"
+                onTouchStart={(e) => handleStart(e.touches[0].clientX)}
+                onTouchMove={(e) => handleMove(e.touches[0].clientX)}
+                onTouchEnd={handleEnd}
+                onMouseDown={(e) => handleStart(e.clientX)}
+                onMouseMove={(e) => handleMove(e.clientX)}
+                onMouseUp={handleEnd}
+                onMouseLeave={handleEnd}>
                 <div className="flex" style={{
                     transform: `translateX(-${(currentIndex * (100 / slidesToShow))}%)`,
                     transition: transitionRef.current ? "transform 0.5s ease-in-out" : "none"
