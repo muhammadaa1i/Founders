@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import mainPic from "/src/assets/mainpic.avif";
 import Aos from "aos";
 import { Link } from "react-router-dom";
+import Button from "../../button";
 
 function First() {
     useEffect(() => {
@@ -23,11 +24,13 @@ function First() {
                         <b>Founders School</b> shu vaqtgacha <b>2 000+</b> o‘quvchilarni hayotini o‘zgartirishga o‘z hissasini qo‘shgan!
                     </p>
                 </div>
-                <Link to="/registration">
-                    <button className="max-w-[227px] w-full px-[15px] h-auto text-white font-[Montserrat] bg-red-600 hover:bg-red-500 active:bg-red-700 transition-all duration-200 font-medium text-base max-md:m-auto max-md:mt-3 md:text-lg py-2 sm:py-3 rounded-lg xl:max-w-[320px] xl:text-2xl 2xl:max-w-[470px] 2xl:w-full 2xl:text-3xl">
-                        Birinchi darsga yozilish
-                    </button>
-                </Link>
+                <Button
+                    to="/registration"
+                    className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl"
+                >
+                    Birinchi darsga yozilish
+                </Button>
+
 
             </div>
             <div

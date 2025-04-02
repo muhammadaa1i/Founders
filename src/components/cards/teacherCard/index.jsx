@@ -20,7 +20,7 @@ const teachersData = [
     { img: Teacher6, teacher: "Karajanova Kamila", Experience: "2.5 years+", position: "ESL Teacher" },
     { img: Teacher7, teacher: "Abatbaeva Sarbina", Experience: "2.5 years+", IELTS: "7.0", position: "ESL Teacher" },
     { img: Teacher8, teacher: "Soatmurodova Dinora", Experience: "2.5 years+", IELTS: "7.5", position: "ESL Teacher" },
-    { img: Teacher9, teacher: "Yusupova Sarvinoz", IELTS: "7.5", Experience: "1.5 years+", position: "ESL Teacher" },
+    { img: Teacher9, teacher: "Zikrullayeva Sarvinoz", IELTS: "7.5", Experience: "1.5 years+", position: "ESL Teacher" },
 ];
 
 function Teachers() {
@@ -51,7 +51,7 @@ function Teachers() {
                 transitionRef.current = true;
                 setCurrentIndex((prev) => (prev + 1) % teachersData.length);
             }
-        }, 3000);
+        }, 300000);
         return () => clearInterval(interval);
     }, []);
 
@@ -126,9 +126,8 @@ function Teachers() {
                             return (
                                 <div
                                     key={index}
-                                    className={`flex-none px-2 py-4 transition-transform duration-300 ease-in-out ${
-                                        isActive ? "scale-110" : "scale-100"
-                                    }`}
+                                    className={`flex-none px-2 py-4 transition-transform duration-300 ease-in-out ${isActive ? "scale-110" : "scale-100"
+                                        }`}
                                     style={{ width: `${100 / slidesToShow}%` }}
                                 >
                                     <TeacherCard {...item} />

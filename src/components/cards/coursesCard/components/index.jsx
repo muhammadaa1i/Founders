@@ -1,5 +1,6 @@
 import Aos from "aos";
 import { useEffect } from "react";
+import Button from "../../../button";
 
 function CourseCard({
     title,
@@ -15,8 +16,8 @@ function CourseCard({
     cabinet,
     timeBold,
 }) {
-    const handleNavigate = () => {
-    };
+
+
     useEffect(() => {
         Aos.init({
             duration: 800,
@@ -27,7 +28,7 @@ function CourseCard({
     return (
         <div
             data-aos='zoom-in'
-            className="main-card flex flex-col gap-3 md:gap-7 mx-auto max-[500px]:mx-2 px-4 py-4 md:px-6 md:py-10 max-w-[400px] bg-white rounded-[15px] border-2 border-[#EC0000] transition-all duration-500 ease-in-out hover:scale-[1.05] hover:shadow-[0px_15px_25px_rgba(255,0,0,0.25),inset_0px_8px_15px_rgba(255,0,0,0.3)] text-left">
+            className="main-card flex flex-col gap-3 md:gap-7 mx-auto max-[500px]:mx-2 px-4 py-4 md:px-6 md:py-10 max-w-[400px] min-h-[500px] bg-white rounded-[15px] border-2 border-[#EC0000] transition-all duration-500 ease-in-out hover:scale-[1.05] hover:shadow-[0px_15px_25px_rgba(255,0,0,0.25),inset_0px_8px_15px_rgba(255,0,0,0.3)] text-left">
             <div className="flex items-center gap-4 mb-3">
                 <img
                     src={img}
@@ -41,7 +42,7 @@ function CourseCard({
 
             <div className="flex flex-col gap-4">
                 <div className="flex items-start gap-3">
-                    <i class="fa-regular fa-circle-check text-red-700 mt-3 text-xl md:text-2xl"></i>
+                    <i className="fa-regular fa-circle-check text-red-700 mt-3 text-xl md:text-2xl"></i>
                     <p className="montserrat_font_400 leading-6 text-[16px] md:text-xl">
                         <b className="text-[#222222]">{timeBold}</b>
                         {courseTime}
@@ -49,7 +50,7 @@ function CourseCard({
                 </div>
 
                 <div className="flex items-start gap-3">
-                    <i class="fa-regular fa-circle-check text-red-700 mt-3 text-xl md:text-2xl"></i>
+                    <i className="fa-regular fa-circle-check text-red-700 mt-3 text-xl md:text-2xl"></i>
                     <p className="montserrat_font_400 leading-6 text-[16px] md:text-xl">
                         <b className="text-[#222222] font-bold">{teacherBold}</b>
                         {teacher}
@@ -57,7 +58,7 @@ function CourseCard({
                 </div>
 
                 <div className="flex items-start gap-3">
-                    <i class="fa-regular fa-circle-check text-red-700 mt-3 text-xl md:text-2xl"></i>
+                    <i className="fa-regular fa-circle-check text-red-700 mt-3 text-xl md:text-2xl"></i>
                     <p className="montserrat_font_400 leading-6 text-[16px] md:text-xl">
                         <b className="text-[#222222] font-bold">{spanTitleBold}</b>
                         {spanTitle}
@@ -65,7 +66,7 @@ function CourseCard({
                 </div>
 
                 <div className="flex items-start gap-3">
-                    <i class="fa-regular fa-circle-check text-red-700 mt-3 text-xl md:text-2xl"></i>
+                    <i className="fa-regular fa-circle-check text-red-700 mt-3 text-xl md:text-2xl"></i>
                     <p className="montserrat_font_400 leading-6 text-[16px] md:text-xl">
                         <b className="text-[#222222] font-bold">{spanParagrfBold}</b>
                         {spanParagrf}
@@ -73,7 +74,7 @@ function CourseCard({
                 </div>
 
                 <div className="flex items-start gap-3">
-                    <i class="fa-regular fa-circle-check text-red-700 mt-3 text-xl md:text-2xl"></i>
+                    <i className="fa-regular fa-circle-check text-red-700 mt-3 text-xl md:text-2xl"></i>
                     <p className="montserrat_font_400 leading-6 text-[16px] md:text-xl">
                         <span className="text-[#222222] font-bold">{cabinetBold}</span>
                         {cabinet}
@@ -81,14 +82,12 @@ function CourseCard({
                 </div>
             </div>
 
-            <button
-                className="btn bg-[#EC0000]  text-white font-medium montserrat_font_500 text-[16px] md:text-xl mt-4 px-5 py-2 rounded-xl transition"
-                onClick={handleNavigate}
-            >
-                Birinchi darsga yozilish
-            </button>
+            <div className="mt-auto">
+                <Button to="/registration">Birinchi darsga yozilish</Button>
+            </div>
         </div>
     );
 }
 
 export default CourseCard;
+
