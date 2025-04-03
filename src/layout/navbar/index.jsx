@@ -45,7 +45,7 @@ function Navbar() {
     ];
 
     return (
-        <div className="fixed top-0 right-0 left-0 z-50 px-5 sm:px-[50px] bg-[#EC0000] py-4 shadow-md transition-all duration-300">
+        <div className="fixed top-0 right-0 left-0 z-50 px-5  sm:px-[50px] bg-[#EC0000] py-4 shadow-md transition-all duration-300">
             <div className="nav-in flex items-center justify-between">
                 <div data-aos="flip-down" className="lg:hidden flex items-center gap-3">
                     <button onClick={() => setIsOpen(true)}>
@@ -61,7 +61,7 @@ function Navbar() {
                     <ul data-aos="flip-down" className="flex items-center xl:text-xl gap-[30px] sm:gap-[20px]">
                         {menuItems.map((item, index) => (
                             <li key={index}>
-                                <button className="text-white uppercase font-[Aquire] ml-3 cursor-pointer" onClick={() => handleNavigation(item.to)}>
+                                <button className="text-white uppercase font-[Montserrat] weight:600 ml-3 cursor-pointer" onClick={() => handleNavigation(item.to)}>
                                     {item.name}
                                 </button>
                             </li>
@@ -71,7 +71,7 @@ function Navbar() {
 
                 <div data-aos="flip-down" className="login-btn flex items-center gap-3 ml-3 text-xl xl:text-2xl">
                     <Link to="/login">
-                        <Button title="Kirish" background="bg-white" textColor="text-[#EC0000]" />
+                        <Button title="Kirish" background="bg-white" textColor="text-[#EC0...]" />
                     </Link>
                 </div>
             </div>

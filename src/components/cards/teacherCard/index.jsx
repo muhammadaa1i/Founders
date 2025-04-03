@@ -97,7 +97,8 @@ function Teachers() {
 
     return (
         <div id='teachers' className="text-center relative py-[20px]">
-            <h1 className="text-[#EC0000] font-bold text-3xl sm:text-6xl xl:text-[80px] tracking-normal font-[Aquire]">
+            <h1 data-aos='fade-up'
+                className="py-[30px] font-[Montserrat] text-[#EC0000] font-bold text-3xl sm:text-6xl xl:text-[80px] leading-[100%] tracking-normal text-center">
                 O‘qituvchilarimiz:
             </h1>
             <div className="relative mt-8">
@@ -107,6 +108,8 @@ function Teachers() {
                     <ChevronLeft size={24} />
                 </button>
                 <div
+                    data-aos='fade-up'
+
                     className="overflow-hidden"
                     onTouchStart={(e) => handleStart(e.touches[0].clientX)}
                     onTouchMove={(e) => handleMove(e.touches[0].clientX)}
@@ -125,6 +128,8 @@ function Teachers() {
 
                             return (
                                 <div
+                                    data-aos='fade-up'
+
                                     key={index}
                                     className={`flex-none px-2 py-4 transition-transform duration-300 ease-in-out ${isActive ? "scale-110" : "scale-100"
                                         }`}

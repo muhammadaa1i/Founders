@@ -66,8 +66,8 @@ function Books() {
     return (
         <div id="books" className="books bg-gray-50 relative py-10">
             <h1
-                data-aos="fade-up"
-                className="text-[#EC0000] my-6 font-bold text-3xl sm:text-6xl xl:text-[80px] leading-[100%] tracking-normal font-[Aquire] text-center">
+               data-aos='fade-up'
+               className="py-[30px] font-[Montserrat] text-[#EC0000] font-bold text-3xl sm:text-6xl xl:text-[80px] leading-[100%] tracking-normal text-center">
                 Kitoblarimiz:
             </h1>
 

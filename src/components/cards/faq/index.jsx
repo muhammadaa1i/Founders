@@ -57,20 +57,20 @@ function FAQ() {
         <div id="faq" className="w-full  px-[30px] max-[450px]:px-2 mb-[100px] mt-8">
             <h2
                 data-aos='fade-up'
-                className="font-bold text-center text-3xl sm:text-6xl xl:text-[80px] font-[Aquire] text-[#EC0000]">FAQ</h2>
+                className="py-[30px] font-[Montserrat] text-[#EC0000] font-bold text-3xl sm:text-6xl xl:text-[80px] leading-[100%] tracking-normal text-center">FAQ</h2>
             <h3
                 data-aos='fade-up'
                 className="font-medium text-2xl md:text-4xl 2xl:text-5xl font-[Montserrat] text-center mb-8">Ko‘p beriladigan savollarga javob beramiz!</h3>
-          
 
-             <div
+
+            <div
                 data-aos="zoom-in"
                 className="px-[30px] py-[15px] border-2 border-[#EC0000] rounded-[20px] shadow-[0px_4px_20px_0px_rgba(0,0,0,0.35)]"
             >
                 {faqs.map((faq, index) => (
                     <div
                         key={index}
-                        className="border-b border-[red] mb-4 last:border-b-0" // ✅ This removes border from the last item
+                        className="border-b border-[red] mb-4 last:border-b-0"
                     >
                         <button
                             onClick={() => toggle(index)}
@@ -93,7 +93,7 @@ function FAQ() {
                         )}
                     </div>
                 ))}
-            </div> 
+            </div>
 
         </div>
     );
