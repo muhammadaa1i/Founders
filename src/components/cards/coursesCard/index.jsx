@@ -64,13 +64,13 @@ function Course() {
   }, []);
 
   return (
-    <div className="py-[20px]">
+    <div id="courses" className="py-[20px]">
       <h1
         data-aos='fade-up'
-        id="courses"
-        className="text-[#EC0000] my-[30px] font-bold text-3xl sm:text-6xl xl:text-[80px] leading-[100%] font-[Aquire] text-center">
+        className="py-[30px] font-[Montserrat] text-[#EC0000] font-bold text-3xl sm:text-6xl xl:text-[80px] leading-[100%] tracking-normal text-center">
         Kurslarimiz:</h1>
-      <div className="mb-10 px-[20px] flex lg:flex-row flex-col gap-6">
+      <div data-aos='fade-up'
+        className="mb-10 px-[20px] flex lg:flex-row flex-col gap-6">
         {courseFromData &&
           courseFromData.map((item) => <CourseCard key={item.title} {...item} />)}
       </div>
