@@ -17,7 +17,7 @@ function InfoCard() {
     }, []);
 
     return (
-        <section className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-[10px] px-[100px] py-[30px]    mb-[60px] max-[480px]:grid-cols-[repeat(auto-fit,minmax(130px,1fr))] max-[480px]:mb-[40px]">
+        <section className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-[10px] px-[100px] py-[30px] mb-[60px] max-[480px]:grid-cols-[repeat(auto-fit,minmax(130px,1fr))] max-[480px]:mb-[40px]">
             {collectionsData.map((item, index) => (
                 <div
                     key={index}

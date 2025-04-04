@@ -1,13 +1,15 @@
+import { useLocation } from "react-router-dom";
 import Footer from "./footer";
 import Navbar from "./navbar";
-function Layout(props) {
-  const { children } = props;
+
+function Layout({ children }) {
+  const location = useLocation();
 
   return (
-    <div className="main max-w-[1920px] w-full mx-auto ">
+    <div className="main max-w-[1920px] w-full mx-auto">
       <Navbar />
       {children}
-      <Footer />
+      {location.pathname !== "/registration" && <Footer />}
     </div>
   );
 }

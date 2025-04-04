@@ -20,7 +20,7 @@ const teachersData = [
     { img: Teacher6, teacher: "Karajanova Kamila", Experience: "2.5 years+", position: "ESL Teacher" },
     { img: Teacher7, teacher: "Abatbaeva Sarbina", Experience: "2.5 years+", IELTS: "7.0", position: "ESL Teacher" },
     { img: Teacher8, teacher: "Soatmurodova Dinora", Experience: "2.5 years+", IELTS: "7.5", position: "ESL Teacher" },
-    { img: Teacher9, teacher: "Yusupova Sarvinoz", IELTS: "7.5", Experience: "1.5 years+", position: "ESL Teacher" },
+    { img: Teacher9, teacher: "Zikrullayeva Sarvinoz", IELTS: "7.5", Experience: "1.5 years+", position: "ESL Teacher" },
 ];
 
 function Teachers() {
@@ -51,7 +51,7 @@ function Teachers() {
                 transitionRef.current = true;
                 setCurrentIndex((prev) => (prev + 1) % teachersData.length);
             }
-        }, 3000);
+        }, 300000);
         return () => clearInterval(interval);
     }, []);
 
@@ -96,13 +96,13 @@ function Teachers() {
     };
 
     return (
-        <div id='teachers' className="text-center relative py-[20px]">
+        <div id='teachers' className="text-center relative">
             <h1 className="text-[#EC0000] font-bold text-3xl sm:text-6xl xl:text-[80px] tracking-normal font-[Aquire]">
                 O‘qituvchilarimiz:
             </h1>
             <div className="relative mt-8">
                 <button
-                    className="absolute left-1 top-1/2 transform -translate-y-1/2 bg-red-600 text-white p-2 rounded-full z-10"
+                    className="absolute left-1 top-1/2 transform -translate-y-1/2 bg-red-600 text-white p-2 rounded-full z-10 max-[450px]:hidden"
                     onClick={goPrev}>
                     <ChevronLeft size={24} />
                 </button>
@@ -126,9 +126,8 @@ function Teachers() {
                             return (
                                 <div
                                     key={index}
-                                    className={`flex-none px-2 py-4 transition-transform duration-300 ease-in-out ${
-                                        isActive ? "scale-110" : "scale-100"
-                                    }`}
+                                    className={`flex-none px-3 transition-transform duration-300 ease-in-out ${isActive ? "min-[768px]:scale-110" : "min-[768px]:scale-100"
+                                        }`}
                                     style={{ width: `${100 / slidesToShow}%` }}
                                 >
                                     <TeacherCard {...item} />
@@ -138,7 +137,7 @@ function Teachers() {
                     </div>
                 </div>
                 <button
-                    className="absolute right-1 top-1/2 transform -translate-y-1/2 bg-red-600 text-white p-2 rounded-full z-10"
+                    className="absolute right-1 top-1/2 transform -translate-y-1/2 bg-red-600 text-white p-2 rounded-full z-10 max-[450px]:hidden"
                     onClick={goNext}>
                     <ChevronRight size={24} />
                 </button>

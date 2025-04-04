@@ -1,0 +1,51 @@
+#app { height: 100% }
+html,
+body {
+  position: relative;
+  height: 100%;
+}
+
+body {
+  background: #eee;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: #000;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  color: #000;
+  margin: 0;
+  padding: 0;
+}
+
+.swiper {
+  margin: 100px auto;
+  width: 320px;
+  height: 240px;
+}
+
+.swiper-slide {
+  flex-shrink: 0;
+  width: 230px; /* Match image max-w-[230px] */
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: none !important; /* Extra assurance no shadows appear */
+}
+
+.swiper-container {
+  width: 90%;
+  max-width: 340px;
+  height: 330px;
+  overflow: hidden;
+  position: relative;
+  cursor: grab;
+  padding: 0 20px;
+}

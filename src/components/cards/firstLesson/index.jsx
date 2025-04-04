@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
-import mainPic from "/src/assets/mainpic.avif";
 import Aos from "aos";
+import Button from "../../button";
+import Swiperslide from "./swiperslide/index";
 
 function First() {
     useEffect(() => {
@@ -10,7 +11,7 @@ function First() {
         Aos.refresh();
     }, []);
     return (
-        <section className="ielts flex flex-col-reverse md:flex-row md:mx-12 mt-24 md:mt-32 gap-14 xl:mt-44">
+        <section className="ielts flex flex-col-reverse md:flex-row md:mx-12 mt-24 md:mt-32 gap-3 xl:mt-44">
             <div
                 data-aos='fade-up'
                 className="ielts-in w-full flex flex-col justify-evenly md:items-start text-center md:text-left max-md:px-4">
@@ -22,15 +23,15 @@ function First() {
                         <b>Founders School</b> shu vaqtgacha <b>2 000+</b> o‘quvchilarni hayotini o‘zgartirishga o‘z hissasini qo‘shgan!
                     </p>
                 </div>
-                <button className="max-w-[227px] w-full h-auto text-white font-[Montserrat] bg-red-600 hover:bg-red-500 active:bg-red-700 transition-all duration-200 font-medium text-base max-md:m-auto max-md:mt-3 md:text-lg py-2 sm:py-3 rounded-lg xl:max-w-[320px] xl:text-2xl 2xl:max-w-[470px] 2xl:w-full 2xl:text-3xl">
+                <Button
+                    to="/registration"
+                    className="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl"
+                >
                     Birinchi darsga yozilish
-                </button>
+                </Button>
             </div>
-            <div
-                data-aos='fade-up'
-                className="rounded-[30px] m-auto sm:rounded-[40px] md:rounded-[50px] w-[90%] sm:w-[80%] md:max-w-[700px] xl:w-full h-auto flex justify-center">
-                <img src={mainPic} alt="image_main" className="w-[60%] max-h-[700px] h-full md:w-[100%] xl:w-[835px] rounded-[30px] sm:rounded-[40px] md:rounded-[50px] lazyload" />
-            </div>
+
+            <Swiperslide />
         </section>
     );
 }
