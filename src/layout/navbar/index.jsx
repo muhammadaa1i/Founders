@@ -47,7 +47,7 @@ function Navbar() {
     return (
         <div className="fixed top-0 right-0 left-0 z-50 px-5  sm:px-[50px] bg-[#EC0000] py-4 shadow-md transition-all duration-300">
             <div className="nav-in flex items-center justify-between">
-                <div data-aos="flip-down" className="lg:hidden flex items-center gap-3">
+                <div data-aos="flip-down" className="lg:hidden block items-center gap-3">
                     <button onClick={() => setIsOpen(true)}>
                         <img src={BarLogo} alt="Menu Icon" className="w-[28px] h-[30px] sm:w-[45px] sm:h-[40px] lazyload" />
                     </button>

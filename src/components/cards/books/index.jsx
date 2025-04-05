@@ -23,7 +23,7 @@ function CustomPrevArrow(props) {
     return (
         <button
             onClick={onClick}
-            className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-red-600 text-white w-10 h-10 flex items-center justify-center rounded-full shadow-lg z-10 hover:bg-red-700 transition">
+            className="absolute left-2 top-[55%] max-md:hidden transform -translate-y-1/2 bg-red-600 text-white w-10 h-10 flex items-center justify-center rounded-full shadow-lg z-10 hover:bg-red-700 transition">
             <ChevronLeft size={24} />
         </button>
     );
@@ -33,7 +33,7 @@ function CustomNextArrow(props) {
     return (
         <button
             onClick={onClick}
-            className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-red-600 text-white w-10 h-10 flex items-center justify-center rounded-full shadow-lg z-10 hover:bg-red-700 transition">
+            className="absolute right-2 top-[55%] max-md:hidden transform -translate-y-1/2 bg-red-600 text-white w-10 h-10 flex items-center justify-center rounded-full shadow-lg z-10 hover:bg-red-700 transition">
             <ChevronRight size={24} />
         </button>
     );
@@ -64,7 +64,7 @@ function Books() {
     }, []);
 
     return (
-        <div id="books" className="books bg-gray-50 relative py-10">
+        <div id="books" className="books bg-gray-50 relative">
             <h1
                data-aos='fade-up'
                className="py-[30px] font-[Montserrat] text-[#EC0000] font-bold text-3xl sm:text-6xl xl:text-[80px] leading-[100%] tracking-normal text-center">
@@ -79,9 +79,9 @@ function Books() {
                                 {category.title}
                             </h2>
 
-                            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 place-items-center">
+                            <div className="grid grid-cols-4 gap-6 max-[450px]:grid-cols-2 place-items-center">
                                 {category.books.map((book, i) => (
-                                    <div key={i} className=" flex justify-center w-[180px] h-[180px] sm:w-[300px] sm:h-[300px] xl:w-[400px] xl:h-[400px] 2xl:w-[500px] 2xl:h-[500px] ">
+                                    <div key={i} className=" flex justify-center w-[200px] h-[200px] sm:w-[300px] sm:h-[300px] xl:w-[400px] xl:h-[400px] 2xl:w-[500px] 2xl:h-[500px] ">
                                         <img
                                             src={book}
                                             alt={`${category.title} Book ${i + 1}`}
