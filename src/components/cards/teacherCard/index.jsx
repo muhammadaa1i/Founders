@@ -10,93 +10,110 @@ import Teacher7 from "/src/assets/tech7.avif";
 import Teacher8 from "/src/assets/tech8.avif";
 import Teacher9 from "/src/assets/tech9.avif";
 import TeacherCard from "./component/index";
-import { useEffect, useRef } from "react";
+import { useRef, useState } from "react";
+
+// ✅ slick css importlari
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const teachersData = [
-  { img: Teacher1, teacher: "Iskhakova Leyla", Experience: "4 years+", IELTS: "7.0", position: "ESL Teacher | IELTS Instructor" },
-  { img: Teacher2, teacher: "Kambarova Omina", Experience: "2 years+", position: "ESL Teacher" },
-  { img: Teacher3, teacher: "Yusupov Bunyodbek", Experience: "1 years+", IELTS: "7.5", position: "ESL Teacher" },
-  { img: Teacher4, teacher: "Abdumalikova Parizoda", Experience: "7 years+", position: "ESL Teacher" },
-  { img: Teacher5, teacher: "Asadova Zarina", Experience: "15 years+", position: "Senior ESL Teacher" },
-  { img: Teacher6, teacher: "Karajanova Kamila", Experience: "2.5 years+", position: "ESL Teacher" },
-  { img: Teacher7, teacher: "Abatbaeva Sarbina", Experience: "2.5 years+", IELTS: "7.0", position: "ESL Teacher" },
-  { img: Teacher8, teacher: "Soatmurodova Dinora", Experience: "2.5 years+", IELTS: "7.5", position: "ESL Teacher" },
-  { img: Teacher9, teacher: "Zikrullayeva Sarvinoz", IELTS: "7.5", Experience: "1.5 years+", position: "ESL Teacher" },
+    { img: Teacher1, teacher: "Iskhakova Leyla", experience: "4 years+", IELTS: "7.0", position: "ESL Teacher | IELTS Instructor" },
+    { img: Teacher2, teacher: "Kambarova Omina", experience: "2 years+", position: "ESL Teacher" },
+    { img: Teacher3, teacher: "Yusupov Bunyodbek", experience: "1 years+", IELTS: "7.5", position: "ESL Teacher" },
+    { img: Teacher4, teacher: "Abdumalikova Parizoda", experience: "7 years+", position: "ESL Teacher" },
+    { img: Teacher5, teacher: "Asadova Zarina", experience: "15 years+", position: "Senior ESL Teacher" },
+    { img: Teacher6, teacher: "Karajanova Kamila", experience: "2.5 years+", position: "ESL Teacher" },
+    { img: Teacher7, teacher: "Abatbaeva Sarbina", experience: "2.5 years+", IELTS: "7.0", position: "ESL Teacher" },
+    { img: Teacher8, teacher: "Soatmurodova Dinora", experience: "2.5 years+", IELTS: "7.5", position: "ESL Teacher" },
+    { img: Teacher9, teacher: "Zikrullayeva Sarvinoz", IELTS: "7.5", experience: "1.5 years+", position: "ESL Teacher" },
 ];
 
-// Custom arrow components
 const PrevArrow = ({ onClick }) => (
-  <button
-    onClick={onClick}
-    className="absolute left-1 top-1/2 transform -translate-y-1/2 bg-red-600 text-white p-2 rounded-full z-10 max-[450px]:hidden"
-  >
-    <ChevronLeft size={24} />
-  </button>
+    <button
+        onClick={onClick}
+        className="absolute left-1 top-1/2 transform -translate-y-1/2 bg-red-600 text-white p-2 rounded-full z-10 max-[450px]:hidden"
+    >
+        <ChevronLeft size={24} />
+    </button>
 );
 
 const NextArrow = ({ onClick }) => (
-  <button
-    onClick={onClick}
-    className="absolute right-1 top-1/2 transform -translate-y-1/2 bg-red-600 text-white p-2 rounded-full z-10 max-[450px]:hidden"
-  >
-    <ChevronRight size={24} />
-  </button>
+    <button
+        onClick={onClick}
+        className="absolute right-1 top-1/2 transform -translate-y-1/2 bg-red-600 text-white p-2 rounded-full z-10 max-[450px]:hidden"
+    >
+        <ChevronRight size={24} />
+    </button>
 );
 
 function Teachers() {
-  const sliderRef = useRef(null);
+    const sliderRef = useRef(null);
+    const [currentSlide, setCurrentSlide] = useState(0);
 
-  const settings = {
-    dots: false,
-    infinite: true,
-    speed: 500,
-    autoplay: true, 
-    autoplaySpeed: 2500, 
-    arrows: true,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    prevArrow: <PrevArrow />,
-    nextArrow: <NextArrow />,
-    responsive: [
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 2,
+    const settings = {
+        dots: false,
+        infinite: true,
+        speed: 500,
+        autoplay: true,
+        autoplaySpeed: 2500,
+        arrows: true,
+        slidesToShow: 3,
+        slidesToScroll: 1,
+        centerMode: true,
+        centerPadding: "0px",
+        beforeChange: (oldIndex, newIndex) => {
+            setCurrentSlide(newIndex);
         },
-      },
-      {
-        breakpoint: 640,
-        settings: {
-          slidesToShow: 1,
-        },
-      },
-    ],
-  };
+        prevArrow: <PrevArrow />,
+        nextArrow: <NextArrow />,
+        responsive: [
+            {
+                breakpoint: 1024,
+                settings: {
+                    slidesToShow: 2,
+                    centerMode: true,
+                },
+            },
+            {
+                breakpoint: 640,
+                settings: {
+                    slidesToShow: 1,
+                    centerMode: true,
+                },
+            },
+        ],
+    };
 
-  return (
-    <div id="teachers" className="text-center relative py-[20px]">
-      <h1
-        data-aos="fade-up"
-        className="py-[30px] font-[Montserrat] text-[#EC0000] font-bold text-3xl sm:text-6xl xl:text-[80px] leading-[100%] tracking-normal text-center"
-      >
-        O‘qituvchilarimiz:
-      </h1>
-
-      <div className="relative mt-8">
-        <Slider ref={sliderRef} {...settings}>
-          {teachersData.map((item, index) => (
-            <div
-              key={index}
-              className="flex-none px-3 transition-transform duration-300 ease-in-out"
-              data-aos="fade-up"
+    return (
+        <div id="teachers" className="text-center relative py-[20px]">
+            <h1
+                data-aos="fade-up"
+                className="py-[30px] font-[Montserrat] text-[#EC0000] font-bold text-3xl sm:text-6xl xl:text-[80px] leading-[100%] tracking-normal text-center"
             >
-              <TeacherCard {...item} />
+                O‘qituvchilarimiz:
+            </h1>
+
+            <div className="relative mt-8 px-4">
+                <Slider ref={sliderRef} {...settings}>
+                    {teachersData.map((item, index) => {
+                        const isMiddle =
+                            (index === currentSlide % teachersData.length) ||
+                            (index === (currentSlide + teachersData.length) % teachersData.length);
+
+                        return (
+                            <div
+                                key={index}
+                                className="px-3 transition-transform duration-300 ease-in-out teacher-slide"
+                                data-aos="fade-up"
+                            >
+                                <TeacherCard {...item} isMiddle={isMiddle} />
+                            </div>
+                        );
+                    })}
+                </Slider>
             </div>
-          ))}
-        </Slider>
-      </div>
-    </div>
-  );
+        </div >
+    );
 }
 
 export default Teachers;
