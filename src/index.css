@@ -80,3 +80,9 @@
 .slick-dots{
     display: none!important;
 }
+
+@media (min-width: 1720px) {
+    .ielts-text{
+        font-size: 80px;
+    }   
+}

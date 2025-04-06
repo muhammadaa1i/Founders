@@ -6,6 +6,8 @@ import BarLogo from "../../assets/logof2.avif";
 import Button from "../../components/button";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { useTranslation } from "react-i18next";
+import LanguageSelector from "./languageselector";
 
 function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
@@ -35,50 +37,105 @@ function Navbar() {
         setIsOpen(false);
     };
 
-    const menuItems = [
-        { name: "Biz haqimizda", to: "about" },
-        { name: "O‘qituvchilarimiz", to: "teachers" },
-        { name: "Kurslarimiz", to: "courses" },
-        { name: "Kitoblarimiz", to: "books" },
-        { name: "FAQ", to: "faq" },
-        { name: "Kontakt", to: "contact" },
-    ];
-
+    const { t, i18n } = useTranslation()
+    const ChangeLng = (selectedLanguage) => {
+        i18n.changeLanguage(selectedLanguage)
+        localStorage.setItem('i18nextLng', selectedLanguage)
+    }
     return (
-        <div className="fixed top-0 right-0 left-0 z-50 px-5  sm:px-[50px] bg-[#EC0000] py-4 shadow-md transition-all duration-300">
+        <div className="fixed top-0 right-0 left-0 z-50 px-5 sm:px-[50px] bg-[#EC0000] py-4 shadow-md transition-all duration-300">
             <div className="nav-in flex items-center justify-between">
                 <div data-aos="flip-down" className="lg:hidden block items-center gap-3">
                     <button onClick={() => setIsOpen(true)}>
-                        <img src={BarLogo} alt="Menu Icon" className="w-[28px] h-[30px] sm:w-[45px] sm:h-[40px] lazyload" />
+                        <img
+                            src={BarLogo}
+                            alt="Menu Icon"
+                            className="w-[28px] h-[30px] sm:w-[45px] sm:h-[40px] lazyload"
+                        />
                     </button>
                 </div>
 
                 <Link to="/" className="hidden 2xl:flex">
-                    <img data-aos="flip-down" src={Logo} alt="Logo" className="w-[180px] h-auto lazyload" />
+                    <img
+                        data-aos="flip-down"
+                        src={Logo}
+                        alt="Logo"
+                        className="w-[180px] h-auto lazyload"
+                    />
                 </Link>
 
                 <div className="hidden lg:flex flex-1 justify-center">
                     <ul data-aos="flip-down" className="flex items-center xl:text-xl gap-[30px] sm:gap-[20px]">
-                        {menuItems.map((item, index) => (
-                            <li key={index}>
-                                <button className="text-white uppercase font-[Montserrat] weight:600 ml-3 cursor-pointer" onClick={() => handleNavigation(item.to)}>
-                                    {item.name}
-                                </button>
-                            </li>
-                        ))}
+                        <li>
+                            <button
+                                className="text-white uppercase font-[Montserrat] font-semibold ml-3 cursor-pointer"
+                                onClick={() => handleNavigation("about")}
+                            >
+                                {t("Biz haqimizda")}
+                            </button>
+                        </li>
+                        <li>
+                            <button
+                                className="text-white uppercase font-[Montserrat] font-semibold ml-3 cursor-pointer"
+                                onClick={() => handleNavigation("teachers")}
+                            >
+                                {t("O‘qituvchilarimiz")}
+                            </button>
+                        </li>
+                        <li>
+                            <button
+                                className="text-white uppercase font-[Montserrat] font-semibold ml-3 cursor-pointer"
+                                onClick={() => handleNavigation("courses")}
+                            >
+                                {t("Kurslarimiz")}
+                            </button>
+                        </li>
+                        <li>
+                            <button
+                                className="text-white uppercase font-[Montserrat] font-semibold ml-3 cursor-pointer"
+                                onClick={() => handleNavigation("books")}
+                            >
+                                {t("Kitoblarimiz")}
+                            </button>
+                        </li>
+                        <li>
+                            <button
+                                className="text-white uppercase font-[Montserrat] font-semibold ml-3 cursor-pointer"
+                                onClick={() => handleNavigation("faq")}
+                            >
+                                {t("FAQ")}
+                            </button>
+                        </li>
+                        <li>
+                            <button
+                                className="text-white uppercase font-[Montserrat] font-semibold ml-3 cursor-pointer"
+                                onClick={() => handleNavigation("contact")}
+                            >
+                                {t("Kontakt")}
+                            </button>
+                        </li>
                     </ul>
                 </div>
 
                 <div data-aos="flip-down" className="login-btn flex items-center gap-3 ml-3 text-xl xl:text-2xl">
-                    <Link to="/login">
-                        <Button title="Kirish" background="bg-white" textColor="text-[#EC0...]" />
+                    <LanguageSelector />
+                    <Link
+                        to="/registration"
+                        className="text-[24px] text-red-700 cursor-pointer font-[Montserrat] bg-white border-2 border-none py-[5px] px-[30px] rounded-lg"
+                    >
+                        {t("Kirish")}
                     </Link>
                 </div>
             </div>
 
-            {isOpen && <div className="fixed inset-0 bg-gray-500 opacity-70 z-40" onClick={() => setIsOpen(false)}></div>}
+            {isOpen && (
+                <div className="fixed inset-0 bg-gray-500 opacity-70 z-40" onClick={() => setIsOpen(false)}></div>
+            )}
 
-            <div className={`mobile-menu flex flex-col justify-between items-start pr-6 lg:hidden fixed top-0 left-0 h-full font-[Aquire] w-[70%] min-[500px]:w-[60%] bg-white text-black shadow-lg transition-transform duration-300 ease-in-out z-50 ${isOpen ? "translate-x-0" : "-translate-x-full"}`}>
+            <div
+                className={`mobile-menu flex flex-col justify-between items-start pr-6 lg:hidden fixed top-0 left-0 h-full font-[Aquire] w-[70%] min-[500px]:w-[60%] bg-white text-black shadow-lg transition-transform duration-300 ease-in-out z-50 ${isOpen ? "translate-x-0" : "-translate-x-full"
+                    }`}
+            >
                 <div className="py-6 px-5 ml-[85%]">
                     <button onClick={() => setIsOpen(false)} className="text-black text-2xl">
                         <i className="fa-solid fa-x"></i>
@@ -86,17 +143,58 @@ function Navbar() {
                 </div>
 
                 <ul className="flex flex-col gap-6 px-6 text-[18px] min-[500px]:text-2xl">
-                    {menuItems.map((item, index) => (
-                        <li key={index}>
-                            <button className="uppercase font-semibold hover:underline cursor-pointer" onClick={() => handleNavigation(item.to)}>
-                                {item.name}
-                            </button>
-                        </li>
-                    ))}
+                    <li>
+                        <button
+                            className="uppercase font-semibold hover:underline cursor-pointer"
+                            onClick={() => handleNavigation("about")}
+                        >
+                            {t("Biz haqimizda")}
+                        </button>
+                    </li>
+                    <li>
+                        <button
+                            className="uppercase font-semibold hover:underline cursor-pointer"
+                            onClick={() => handleNavigation("teachers")}
+                        >
+                            {t("O‘qituvchilarimiz")}
+                        </button>
+                    </li>
+                    <li>
+                        <button
+                            className="uppercase font-semibold hover:underline cursor-pointer"
+                            onClick={() => handleNavigation("courses")}
+                        >
+                            {t("Kurslarimiz")}
+                        </button>
+                    </li>
+                    <li>
+                        <button
+                            className="uppercase font-semibold hover:underline cursor-pointer"
+                            onClick={() => handleNavigation("books")}
+                        >
+                            {t("Kitoblarimiz")}
+                        </button>
+                    </li>
+                    <li>
+                        <button
+                            className="uppercase font-semibold hover:underline cursor-pointer"
+                            onClick={() => handleNavigation("faq")}
+                        >
+                            {t("FAQ")}
+                        </button>
+                    </li>
+                    <li>
+                        <button
+                            className="uppercase font-semibold hover:underline cursor-pointer"
+                            onClick={() => handleNavigation("contact")}
+                        >
+                            {t("Kontakt")}
+                        </button>
+                    </li>
                 </ul>
 
                 <h1 className="textGrow font-[Andasia Personal Use] font-normal text-[26px] px-10 leading-[100%] tracking-normal">
-                    We grow together!
+                    {t("Biz bilan bog‘lanish:")}
                 </h1>
             </div>
         </div>

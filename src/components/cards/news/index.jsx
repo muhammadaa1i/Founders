@@ -3,6 +3,7 @@ import news1 from "/src/assets/news1.avif";
 import news2 from "/src/assets/news2.avif";
 import news3 from "/src/assets/news3.avif";
 import news4 from "/src/assets/news4.avif";
+import { useTranslation } from "react-i18next";
 
 function News() {
     const imgs = [news1, news2, news3, news4];
@@ -31,14 +32,18 @@ function News() {
         startScrolling();
         return () => clearInterval(scrollInterval);
     }, [clones]);
-
+    const { t, i18n } = useTranslation()
+    const ChangeLng = (selectedLanguage) => {
+        i18n.changeLanguage(selectedLanguage)
+        localStorage.setItem('i18nextLng', selectedLanguage)
+    }
     return (
         <div className="news px-4 sm:px-6 bg-gray-50 flex flex-col items-center overflow-hidden">
 
             <h1
                 data-aos='fade-up'
                 className="py-[30px] font-[Montserrat] text-[#EC0000] font-bold text-3xl sm:text-6xl xl:text-[80px] leading-[100%] tracking-normal text-center">
-                Qaynoq yangiliklar:
+                {t("Qaynoq yangiliklar:")}
             </h1>
             <div className="w-full overflow-hidden relative">
                 <div

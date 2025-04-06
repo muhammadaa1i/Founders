@@ -13,18 +13,8 @@ import TeacherCard from "./component/index";
 import { useEffect, useRef, useState } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { useTranslation } from "react-i18next";
 
-const teachersData = [
-    { img: Teacher1, teacher: "Iskhakova Leyla", experience: "4 years+", IELTS: "7.0", position: "ESL Teacher | IELTS Instructor" },
-    { img: Teacher2, teacher: "Kambarova Omina", experience: "2 years+", position: "ESL Teacher" },
-    { img: Teacher3, teacher: "Yusupov Bunyodbek", experience: "1 years+", IELTS: "7.5", position: "ESL Teacher" },
-    { img: Teacher4, teacher: "Abdumalikova Parizoda", experience: "7 years+", position: "ESL Teacher" },
-    { img: Teacher5, teacher: "Asadova Zarina", experience: "15 years+", position: "Senior ESL Teacher" },
-    { img: Teacher6, teacher: "Karajanova Kamila", experience: "2.5 years+", position: "ESL Teacher" },
-    { img: Teacher7, teacher: "Abatbaeva Sarbina", experience: "2.5 years+", IELTS: "7.0", position: "ESL Teacher" },
-    { img: Teacher8, teacher: "Soatmurodova Dinora", experience: "2.5 years+", IELTS: "7.5", position: "ESL Teacher" },
-    { img: Teacher9, teacher: "Zikrullayeva Sarvinoz", IELTS: "7.5", experience: "1.5 years+", position: "ESL Teacher" },
-];
 
 const PrevArrow = ({ onClick }) => (
     <button
@@ -87,6 +77,23 @@ function Teachers() {
             },
         ],
     };
+    const { t, i18n } = useTranslation()
+    const ChangeLng = (selectedLanguage) => {
+        i18n.changeLanguage(selectedLanguage)
+        localStorage.setItem('i18nextLng', selectedLanguage)
+    }
+
+    const teachersData = [
+        { img: Teacher1, teacher: t("Iskhakova Leyla"), experience: t("4 years+"), IELTS: "7.0", position: t("ESL Teacher | IELTS Instructor") },
+        { img: Teacher2, teacher: t("Kambarova Omina"), experience: t("2 years+"), position: t("ESL Teacher") },
+        { img: Teacher3, teacher: t("Yusupov Bunyodbek"), experience: t("1 years+"), IELTS: "7.5", position: t("ESL Teacher") },
+        { img: Teacher4, teacher: t("Abdumalikova Parizoda"), experience: t("7 years+"), position: t("ESL Teacher") },
+        { img: Teacher5, teacher: t("Asadova Zarina"), experience: t("15 years+"), position: t("Senior ESL Teacher") },
+        { img: Teacher6, teacher: t("Karajanova Kamila"), experience: t("2.5 years+"), position: t("ESL Teacher") },
+        { img: Teacher7, teacher: t("Abatbaeva Sarbina"), experience: t("2.5 years+"), IELTS: "7.0", position: t("ESL Teacher") },
+        { img: Teacher8, teacher: t("Soatmurodova Dinora"), experience: t("2.5 years+"), IELTS: "7.5", position: t("ESL Teacher") },
+        { img: Teacher9, teacher: t("Zikrullayeva Sarvinoz"), IELTS: "7.5", experience: t("1.5 years+"), position: t("ESL Teacher") },
+    ];
 
     return (
         <div id="teachers" className="text-center relative py-[20px]">
@@ -94,7 +101,7 @@ function Teachers() {
                 data-aos="fade-up"
                 className="py-[30px] font-[Montserrat] text-[#EC0000] font-bold text-3xl sm:text-6xl xl:text-[80px] leading-[100%] tracking-normal text-center"
             >
-                O‘qituvchilarimiz:
+                {t("O‘qituvchilarimiz")}:
             </h1>
 
             <div className="relative mt-8 px-4">
