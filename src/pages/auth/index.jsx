@@ -113,8 +113,8 @@ export default function RegistrationForm() {
             <div className="w-full mt-6">
                 <p className="mb-4 font-semibold text-[#616161] text-lg">{t("Darajangizni tanlang")}:</p>
                 <div className="w-full flex flex-col sm:flex-row justify-between gap-4">
-                    <button className="w-full px-6 py-3 bg-[#EC0000] text-white rounded-lg hover:bg-red-600">{t("Kids")}</button>
-                    <button className="w-full px-6 py-3 bg-[#EC0000] text-white rounded-lg hover:bg-red-600">{t("General")}</button>
+                    <a href='/kids' className="w-full px-6 py-3 bg-[#EC0000] text-center text-white rounded-lg hover:bg-red-600">{t("Kids")}</a>
+                    <a href="/general" className="w-full px-6 py-3 text-center bg-[#EC0000] text-white rounded-lg hover:bg-red-600">{t("Kids")}</a>
                 </div>
             </div>
         </div>

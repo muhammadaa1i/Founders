@@ -4,6 +4,7 @@ import news2 from "/src/assets/news2.avif";
 import news3 from "/src/assets/news3.avif";
 import news4 from "/src/assets/news4.avif";
 import { useTranslation } from "react-i18next";
+
 function News() {
     const imgs = [news1, news2, news3, news4];
     const sliderRef = useRef(null);
@@ -39,12 +40,14 @@ function News() {
     return (
         <div className="news px-4 sm:px-6 bg-gray-50 flex flex-col items-center overflow-hidden">
 
-            <h1 data-aos='fade-up'
+            <h1
+                data-aos='fade-up'
                 className="py-[30px] font-[Montserrat] text-[#EC0000] font-bold text-3xl sm:text-6xl xl:text-[80px] leading-[100%] tracking-normal text-center">
                 {t("Qaynoq yangiliklar:")}
             </h1>
             <div className="w-full overflow-hidden relative">
                 <div
+                    data-aos='fade-up'
                     ref={sliderRef}
                     className="flex py-[20px] gap-4 sm:gap-6 w-full overflow-x-auto no-scrollbar whitespace-nowrap scrollbar-hide"
                     style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}

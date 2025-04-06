@@ -9,6 +9,10 @@ import ielts4 from '../../../../assets/ielts4.avif';
 import ielts5 from '../../../../assets/ielts5.avif';
 import ielts6 from '../../../../assets/ielts6.avif';
 import ielts7 from '../../../../assets/ielts7.avif';
+import ielts8 from '../../../../assets/ielts8.avif';
+import ielts9 from '../../../../assets/ielts9.avif';
+import ielts10 from '../../../../assets/ielts10.avif';
+import ielts11 from '../../../../assets/ielts11.avif';
 import Aos from 'aos';
 import 'aos/dist/aos.css';
 
@@ -23,7 +27,7 @@ const Swiperslide = () => {
 
   return (
     <div
-      data-aos="zoom-in"
+      data-aos="fade-up"
       className="w-[90%] max-w-[340px] h-[330px] overflow-visible relative cursor-grab px-5 mx-auto md:max-w-[350px] md:h-[400px] lg:max-w-[450px] lg:h-[500px] min-[1100px]:max-w-[500px] min-[1100px]:h-[550px] xl:max-w-[550px] xl:h-[600px] 2xl:max-w-[750px] 2xl:h-[700px] min-[1750px]:max-w-[830px] min-[1750px]:h-[800px]"
     >
       <Swiper

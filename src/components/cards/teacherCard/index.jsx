@@ -10,9 +10,7 @@ import Teacher7 from "/src/assets/tech7.avif";
 import Teacher8 from "/src/assets/tech8.avif";
 import Teacher9 from "/src/assets/tech9.avif";
 import TeacherCard from "./component/index";
-import { useRef, useState } from "react";
-
-// ✅ slick css importlari
+import { useEffect, useRef, useState } from "react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useTranslation } from "react-i18next";
@@ -39,6 +37,12 @@ const NextArrow = ({ onClick }) => (
 function Teachers() {
     const sliderRef = useRef(null);
     const [currentSlide, setCurrentSlide] = useState(0);
+
+    useEffect(() => {
+        if (sliderRef.current) {
+            sliderRef.current.slickPlay(); // Force autoplay to start
+        }
+    }, []);
 
     const settings = {
         dots: false,
