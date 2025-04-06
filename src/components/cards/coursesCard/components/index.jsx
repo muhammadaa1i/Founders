@@ -1,6 +1,7 @@
 import Aos from "aos";
 import { useEffect } from "react";
 import Button from "../../../button";
+import { useTranslation } from "react-i18next";
 
 function CourseCard({
     title,
@@ -17,7 +18,11 @@ function CourseCard({
     timeBold,
 }) {
 
-
+    const { t, i18n } = useTranslation()
+    const ChangeLng = (selectedLanguage) => {
+        i18n.changeLanguage(selectedLanguage)
+        localStorage.setItem('i18nextLng', selectedLanguage)
+    }
     useEffect(() => {
         Aos.init({
             duration: 800,
@@ -83,7 +88,7 @@ function CourseCard({
             </div>
 
             <div className="mt-auto">
-                <Button to="/registration">Birinchi darsga yozilish</Button>
+                <Button className="text-white" to="/registration">{t("Birinchi darsga yozilish")}</Button>
             </div>
         </div>
     );

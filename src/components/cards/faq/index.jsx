@@ -1,45 +1,46 @@
 import Aos from "aos";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
-const faqs = [
-    {
-        question: "Ingliz tilini noldan qancha muddatda o‘rganish mumkin?",
-        answer:
-            "Bu o‘quvchining darajasi va mashg‘ulotga ajratadigan vaqti, shuningdek, individual qobiliyatiga bog‘liq bo‘ladi. Odatda, kundalik shug‘ullanish bilan 6-12 oy ichida sezilarli natijalarga erishish mumkin.",
-    },
-    {
-        question: "Darslar qanday formatda o‘tiladi?",
-        answer:
-            "Kurslar oflayn va onlayn formatda bo‘lishi mumkin. Darslarda gapirish, yozish, tinglab tushunish va grammatikani o‘rganish bo‘yicha mashg‘ulotlar olib boriladi.",
-    },
-    {
-        question: "O'quv markazda kimlar dars beradi?",
-        answer:
-            "O‘qituvchilar tajribali va maxsus sertifikatga ega mutaxassislardir. Ularning IELTS sertifikatidan tashqari xalqaro TESOL/TEFL sertifikatlari ham mavjud.",
-    },
-    {
-        question: "Darslarga qanday yozilish mumkin?",
-        answer:
-            "Markazga kelib ro‘yxatdan o‘tish yoki onlayn tarzda anketa to‘ldirish orqali kursga yozilish mumkin.",
-    },
-    {
-        question: "Darslar nechta kishilik guruhlarda o‘tiladi?",
-        answer:
-            "Odatda, guruhda 6-12 kishi bo‘ladi. Bundan tashqari, individual darslar ham mavjud.",
-    },
-    {
-        question: "Boshlang‘ich darajadan boshlab o‘qiy olamanmi?",
-        answer:
-            "Ha, kurslar barcha darajalar uchun moslashtirilgan va boshlang‘ich darajadan o‘qishni boshlashingiz mumkin.",
-    },
-    {
-        question: "Necha yoshdan kurslarga yozilsa bo'ladi?",
-        answer:
-            "Kurslarimizga 7 yoshdan boshlab yozilsa bo'ladi va bizda yosh kategoriyasi chegaralanmagan.",
-    },
-];
 
 function FAQ() {
+    const { t, i18n } = useTranslation()
+    const ChangeLng = (selectedLanguage) => {
+        i18n.changeLanguage(selectedLanguage)
+        localStorage.setItem('i18nextLng', selectedLanguage)
+    }
+
+    const faqs = [
+        {
+            question: t("faq.question1"),
+            answer: t("faq.answer1"),
+        },
+        {
+            question: t("faq.question2"),
+            answer: t("faq.answer2"),
+        },
+        {
+            question: t("faq.question3"),
+            answer: t("faq.answer3"),
+        },
+        {
+            question: t("faq.question4"),
+            answer: t("faq.answer4"),
+        },
+        {
+            question: t("faq.question5"),
+            answer: t("faq.answer5"),
+        },
+        {
+            question: t("faq.question6"),
+            answer: t("faq.answer6"),
+        },
+        {
+            question: t("faq.question7"),
+            answer: t("faq.answer7"),
+        },
+    ];
+
     const [openIndex, setOpenIndex] = useState(null);
 
     const toggle = (index) => {
@@ -57,10 +58,10 @@ function FAQ() {
         <div id="faq" className="w-full  px-[30px] max-[450px]:px-2 mb-[100px] mt-8">
             <h2
                 data-aos='fade-up'
-                className="py-[30px] font-[Montserrat] text-[#EC0000] font-bold text-3xl sm:text-6xl xl:text-[80px] leading-[100%] tracking-normal text-center">FAQ</h2>
+                className="py-[30px] font-[Montserrat] text-[#EC0000] font-bold text-3xl sm:text-6xl xl:text-[80px] leading-[100%] tracking-normal text-center">{t("FAQ")}</h2>
             <h3
                 data-aos='fade-up'
-                className="font-medium text-2xl md:text-4xl 2xl:text-5xl font-[Montserrat] text-center mb-8">Ko‘p beriladigan savollarga javob beramiz!</h3>
+                className="font-medium text-2xl md:text-4xl 2xl:text-5xl font-[Montserrat] text-center mb-8">{t("Ko‘p beriladigan savollarga javob beramiz!")}</h3>
 
 
             <div
