@@ -1,14 +1,15 @@
 import Aos from "aos";
 import { useEffect } from "react";
-
-const collectionsData = [
-    { num: "3+", title: "Yillik tajriba" },
-    { num: "2 000+", title: "Mamnun o‘quvchilar" },
-    { num: "50+", title: "Ijobiy IELTS natijalari" },
-    { num: "100+", title: "Hodimlar soni" },
-];
+import { useTranslation } from "react-i18next";
 
 function InfoCard() {
+    const { t, i18n } = useTranslation();
+
+    const ChangeLng = (e) => {
+        const selectedLanguage = e.target.value;
+        i18n.changeLanguage(selectedLanguage);
+    };
+
     useEffect(() => {
         Aos.init({
             duration: 800,
@@ -16,22 +17,28 @@ function InfoCard() {
         Aos.refresh();
     }, []);
 
+    const collectionsData = [
+        { num: "3+", title: t("Yillik tajriba") },
+        { num: "2 000+", title: t("Mamnun o‘quvchilar") },
+        { num: "50+", title: t("Ijobiy IELTS natijalari") },
+        { num: "100+", title: t("Hodimlar soni") },
+    ];
+
     return (
-        <section className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-[10px] px-[100px] py-[30px] mb-[60px] max-[480px]:grid-cols-[repeat(auto-fit,minmax(130px,1fr))] max-[480px]:mb-[40px]">
+        <section className="grid grid-cols-2 gap-6 px-8 py-6 mb-16 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 max-sm:px-4 max-sm:py-4 max-sm:gap-4">
             {collectionsData.map((item, index) => (
                 <div
                     key={index}
-                    data-aos='zoom-in'
-                    className="font-[Montserrat] relative z-0 w-full py-[30px] pl-[30px] rounded-[25px] bg-no-repeat bg-right bg-contain max-[480px]:py-[16px] max-[480px]:pl-[16px] max-[480px]:rounded-[10px] bg-[#FFB2B2]"
+                    data-aos="zoom-in"
+                    className="relative z-0 w-full py-8 px-6 rounded-3xl bg-no-repeat bg-right bg-contain max-sm:py-4 max-sm:px-4 max-sm:rounded-xl bg-[#FFB2B2]"
                     style={{ backgroundImage: "url('/src/assets/star.png')" }}
                 >
-                    <p className="font-bold text-[50px] text-[#EC0000] max-[480px]:text-[28px] max-[480px]:leading-[34px]">
+                    <p className="font-bold text-5xl text-[#EC0000] max-sm:text-xl max-sm:leading-7">
                         {item.num}
                     </p>
-                    <h4 className="font-[400] font-[Montserrat] text-[24px] text-[#000000] max-[480px]:text-[12px] max-[480px]:leading-[14px]">
+                    <h4 className="font-medium text-xl text-[#000000] max-sm:text-sm max-sm:leading-5">
                         {item.title}
                     </h4>
-
                 </div>
             ))}
         </section>

@@ -4,7 +4,6 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Aos from "aos";
-
 import generalBook1 from "/src/assets/generalBook1.avif";
 import generalBook2 from "/src/assets/generalBook2.avif";
 import generalBook3 from "/src/assets/generalBook3.avif";
@@ -17,6 +16,7 @@ import IeltsBook1 from "/src/assets/IeltsBook1.avif";
 import IeltsBook2 from "/src/assets/IeltsBook2.avif";
 import IeltsBook3 from "/src/assets/IeltsBook3.avif";
 import IeltsBook4 from "/src/assets/IeltsBook4.avif";
+import { useTranslation } from "react-i18next";
 
 function CustomPrevArrow(props) {
     const { onClick } = props;
@@ -39,11 +39,7 @@ function CustomNextArrow(props) {
     );
 }
 function Books() {
-    const bookCategories = [
-        { title: "General English", books: [generalBook1, generalBook2, generalBook3, generalBook4] },
-        { title: "IELTS", books: [IeltsBook1, IeltsBook2, IeltsBook3, IeltsBook4] },
-        { title: "Kids English", books: [levelBook1, levelBook2, levelBook3, levelBook4] },
-    ];
+
 
     const settings = {
         dots: true,
@@ -63,12 +59,23 @@ function Books() {
         Aos.init({ duration: 800 });
     }, []);
 
+    const { t, i18n } = useTranslation()
+    const ChangeLng = (selectedLanguage) => {
+        i18n.changeLanguage(selectedLanguage)
+        localStorage.setItem('i18nextLng', selectedLanguage)
+    }
+    const bookCategories = [
+        { title: t("General English"), books: [generalBook1, generalBook2, generalBook3, generalBook4] },
+        { title: t("IELTS"), books: [IeltsBook1, IeltsBook2, IeltsBook3, IeltsBook4] },
+        { title: t("Kids English"), books: [levelBook1, levelBook2, levelBook3, levelBook4] },
+    ];
     return (
         <div id="books" className="books bg-gray-50 relative">
             <h1
-               data-aos='fade-up'
-               className="py-[30px] font-[Montserrat] text-[#EC0000] font-bold text-3xl sm:text-6xl xl:text-[80px] leading-[100%] tracking-normal text-center">
-                Kitoblarimiz:
+                data-aos='fade-up'
+                className="py-[30px] font-[Montserrat] text-[#EC0000] font-bold text-3xl sm:text-6xl xl:text-[80px] leading-[100%] tracking-normal text-center">
+
+                {t("Kitoblarimiz")}:
             </h1>
 
             <div className="relative ">
