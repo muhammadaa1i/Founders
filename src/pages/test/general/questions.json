@@ -31,7 +31,7 @@
   },
   {
     "question": "You ______ eat all that cake! It isn’t good for you.",
-    "options": ["don’t", "maynot", "shouldn’t", "will not"],
+    "options": ["don’t", "may not", "shouldn’t", "will not"],
     "answer": "shouldn’t"
   },
   {

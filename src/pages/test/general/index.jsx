@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import questions from "./questions.json";
+import { useNavigate } from "react-router-dom";
 
 const General = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [score, setScore] = useState(0);
   const [showResult, setShowResult] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
+  const navigate = useNavigate();
 
   // Load state from localStorage on mount
   useEffect(() => {
@@ -84,6 +86,15 @@ const General = () => {
             >
               Retry
             </button> */}
+            <button
+              onClick={() => {
+                localStorage.clear(); // Clear the localStorage
+                navigate("/"); // Navigate to the main page
+              }}
+              className="max-w-[200px] w-full m-auto mt-6 bg-red-500 text-white py-2 px-6 rounded-lg hover:bg-red-600 transition duration-300"
+            >
+              Back to Main Page
+            </button>
           </div>
         ) : (
           <div className="w-full">
@@ -97,11 +108,10 @@ const General = () => {
                   key={index}
                   onClick={() => handleAnswer(option)}
                   disabled={selectedOption !== null}
-                  className={`block w-full py-3 rounded-xl text-lg font-medium transition-all shadow-md ${
-                    selectedOption === option
-                      ? "bg-red-500 text-white"
-                      : "bg-gray-100 text-gray-800"
-                  }`}
+                  className={`block w-full py-3 rounded-xl text-lg font-medium transition-all shadow-md ${selectedOption === option
+                    ? "bg-red-500 text-white"
+                    : "bg-gray-100 text-gray-800"
+                    }`}
                 >
                   {option}
                 </button>
