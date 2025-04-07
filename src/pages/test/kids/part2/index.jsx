@@ -62,10 +62,10 @@ const Part2 = ({ onComplete, onPrevious, currentQuestion, setCurrentQuestion, an
     <>
       <button
         onClick={handlePrevious}
-        className={`text-xl flex flex-row items-center border-2 p-1 gap-2 font-medium rounded-lg mt-[-20px] outline-none ml-1 hover:bg-gray-100`}
+        className={`text-xl flex flex-row items-center border-2 p-1 max-[550px]:px-2 gap-2 font-medium rounded-lg mt-[-20px] outline-none ml-1 hover:bg-gray-100`}
       >
         <i className="fa-solid fa-chevron-left text-xl mt-1"></i>
-        <p className='max-[400px]:hidden'>Previous</p>
+        <p className='max-[550px]:hidden'>Previous</p>
       </button>
 
       <h2 className="text-[#EC0000] font-medium text-2xl xl:text-3xl mt-2">Part 2</h2>
