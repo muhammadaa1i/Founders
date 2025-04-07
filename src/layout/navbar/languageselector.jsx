@@ -22,6 +22,7 @@ const LanguageSelector = () => {
     setIsOpen(false);
   };
 
+
   return (
     <div className="relative w-14 inline-block">
       <button
@@ -52,6 +53,7 @@ const LanguageSelector = () => {
               />
             </button>
           ))}
+
         </div>
       )}
     </div>
