@@ -87,7 +87,7 @@ const General = () => {
           </div>
         ) : (
           <div className="w-full">
-            <h2 className="text-2xl md:text-3xl font-semibold mb-6 text-gray-900 pl-4">
+            <h2 className="text-lg sm:text-xl md:text-2xl 2xl:text-3xl font-semibold mb-6 text-gray-900 pl-4">
               <span>{currentQuestion + 1}.</span> {questions[currentQuestion].question}
             </h2>
 
