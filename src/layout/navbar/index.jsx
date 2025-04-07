@@ -43,14 +43,15 @@ function Navbar() {
         localStorage.setItem('i18nextLng', selectedLanguage)
     }
     return (
-        <div className="fixed top-0 right-0 left-0 z-50 px-5 sm:px-[50px] bg-[#EC0000] py-4 shadow-md transition-all duration-300">
+        <div className="fixed top-0 right-0 left-0 z-50 px-5 sm:px-[50px] lg:px-[15px] bg-[#EC0000] py-4 shadow-md transition-all duration-300">
             <div className="nav-in flex items-center justify-between">
                 <div data-aos="flip-down" className="lg:hidden block items-center gap-3">
                     <button onClick={() => setIsOpen(true)}>
                         <img
+                            loading="lazy"
                             src={BarLogo}
                             alt="Menu Icon"
-                            className="w-[28px] h-[30px] sm:w-[45px] sm:h-[40px] lazyload"
+                            className="w-[28px] h-[30px] sm:w-[45px] sm:h-[40px]"
                         />
                     </button>
                 </div>
@@ -117,7 +118,7 @@ function Navbar() {
                     </ul>
                 </div>
 
-                <div data-aos="flip-down" className="login-btn flex items-center gap-3 ml-3 text-xl xl:text-2xl">
+                <div data-aos="flip-down" className="login-btn flex items-center w-[200px] gap-3 ml-3 text-xl xl:text-2xl">
                     <LanguageSelector />
                     <Link
                         to="/registration"

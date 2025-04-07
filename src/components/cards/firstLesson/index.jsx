@@ -34,7 +34,7 @@ function First() {
                 </div>
                 <Button
                     to="/registration"
-                    className="text-[14px] text-white sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl"
+                    className="text-[14px] text-white sm:text-xl md:text-2xl lg:text2xl 2xl:text-3xl"
                 >
                     {t("Birinchi darsga yozilish")}
                 </Button>
