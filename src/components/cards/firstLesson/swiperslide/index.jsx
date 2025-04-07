@@ -28,7 +28,7 @@ const Swiperslide = () => {
   return (
     <div
       data-aos="fade-up"
-      className="w-[90%] max-w-[340px] h-[330px] overflow-visible relative cursor-grab px-5 mx-auto md:max-w-[350px] md:h-[400px] lg:max-w-[450px] lg:h-[500px] min-[1100px]:max-w-[500px] min-[1100px]:h-[550px] xl:max-w-[550px] xl:h-[600px] 2xl:max-w-[750px] 2xl:h-[700px] min-[1750px]:max-w-[830px] min-[1750px]:h-[800px]"
+      className="w-[90%] max-w-[340px] h-[330px] overflow-visible relative cursor-grab px-5 mx-auto md:max-w-[350px] md:h-[400px] lg:max-w-[450px] lg:h-[500px] min-[1100px]:max-w-[500px] min-[1100px]:h-[550px] xl:max-w-[550px] xl:h-[500px] 2xl:max-w-[750px] 2xl:h-[700px] min-[1750px]:max-w-[830px] min-[1750px]:h-[800px]"
     >
       <Swiper
         grabCursor={true}
@@ -56,7 +56,7 @@ const Swiperslide = () => {
             src={ielts5}
             alt="ielts score 8.5"
             loading="lazy"
-            className="swiper-image max-w-[280px] w-full max-h-[330px] h-full m-auto rounded-4xl lg:max-w-[450px] lg:max-h-[500px] min-[1100px]:max-w-[500px] min-[1100px]:max-h-[550px] xl:max-w-[550px] xl:max-h-[600px] 2xl:max-w-[750px] 2xl:max-h-[700px] min-[1750px]:max-w-[830px] min-[1750px]:max-h-[800px] object-cover block"
+            className="swiper-image max-w-[280px] w-full max-h-[330px] h-full m-auto rounded-4xl lg:max-w-[450px] lg:max-h-[500px] min-[1100px]:max-w-[500px] min-[1100px]:max-h-[550px] xl:max-w-[550px] xl:max-h-[500px] 2xl:max-w-[750px] 2xl:max-h-[700px] min-[1750px]:max-w-[830px] min-[1750px]:max-h-[800px] object-cover block"
           />
         </SwiperSlide>
         <SwiperSlide className="flex-shrink-0 w-full h-full flex items-center justify-center rounded-[18px] overflow-hidden shadow-none">
@@ -64,7 +64,7 @@ const Swiperslide = () => {
             src={ielts2}
             alt="ielts score 8"
             loading="lazy"
-            className="swiper-image max-w-[280px] w-full max-h-[330px] h-full m-auto rounded-4xl lg:max-w-[450px] lg:max-h-[500px] min-[1100px]:max-w-[500px] min-[1100px]:max-h-[550px] xl:max-w-[550px] xl:max-h-[600px] 2xl:max-w-[750px] 2xl:max-h-[700px] min-[1750px]:max-w-[830px] min-[1750px]:max-h-[800px] object-cover block"
+            className="swiper-image max-w-[280px] w-full max-h-[330px] h-full m-auto rounded-4xl lg:max-w-[450px] lg:max-h-[500px] min-[1100px]:max-w-[500px] min-[1100px]:max-h-[550px] xl:max-w-[550px] xl:max-h-[500px] 2xl:max-w-[750px] 2xl:max-h-[700px] min-[1750px]:max-w-[830px] min-[1750px]:max-h-[800px] object-cover block"
           />
         </SwiperSlide>
         <SwiperSlide className="flex-shrink-0 w-full h-full flex items-center justify-center rounded-[18px] overflow-hidden shadow-none">
@@ -72,7 +72,7 @@ const Swiperslide = () => {
             src={ielts4}
             alt="ielts score 8"
             loading="lazy"
-            className="swiper-image max-w-[280px] w-full max-h-[330px] h-full m-auto rounded-4xl lg:max-w-[450px] lg:max-h-[500px] min-[1100px]:max-w-[500px] min-[1100px]:max-h-[550px] xl:max-w-[550px] xl:max-h-[600px] 2xl:max-w-[750px] 2xl:max-h-[700px] min-[1750px]:max-w-[830px] min-[1750px]:max-h-[800px] object-cover block"
+            className="swiper-image max-w-[280px] w-full max-h-[330px] h-full m-auto rounded-4xl lg:max-w-[450px] lg:max-h-[500px] min-[1100px]:max-w-[500px] min-[1100px]:max-h-[550px] xl:max-w-[550px] xl:max-h-[500px] 2xl:max-w-[750px] 2xl:max-h-[700px] min-[1750px]:max-w-[830px] min-[1750px]:max-h-[800px] object-cover block"
           />
         </SwiperSlide>
         <SwiperSlide className="flex-shrink-0 w-full h-full flex items-center justify-center rounded-[18px] overflow-hidden shadow-none">
@@ -80,7 +80,7 @@ const Swiperslide = () => {
             src={ielts7}
             alt="ielts score 8"
             loading="lazy"
-            className="swiper-image max-w-[280px] w-full max-h-[330px] h-full m-auto rounded-4xl lg:max-w-[450px] lg:max-h-[500px] min-[1100px]:max-w-[500px] min-[1100px]:max-h-[550px] xl:max-w-[550px] xl:max-h-[600px] 2xl:max-w-[750px] 2xl:max-h-[700px] min-[1750px]:max-w-[830px] min-[1750px]:max-h-[800px] object-cover block"
+            className="swiper-image max-w-[280px] w-full max-h-[330px] h-full m-auto rounded-4xl lg:max-w-[450px] lg:max-h-[500px] min-[1100px]:max-w-[500px] min-[1100px]:max-h-[550px] xl:max-w-[550px] xl:max-h-[500px] 2xl:max-w-[750px] 2xl:max-h-[700px] min-[1750px]:max-w-[830px] min-[1750px]:max-h-[800px] object-cover block"
           />
         </SwiperSlide>
         <SwiperSlide className="flex-shrink-0 w-full h-full flex items-center justify-center rounded-[18px] overflow-hidden shadow-none">
@@ -88,7 +88,7 @@ const Swiperslide = () => {
             src={ielts6}
             alt="ielts score 8"
             loading="lazy"
-            className="swiper-image max-w-[280px] w-full max-h-[330px] h-full m-auto rounded-4xl lg:max-w-[450px] lg:max-h-[500px] min-[1100px]:max-w-[500px] min-[1100px]:max-h-[550px] xl:max-w-[550px] xl:max-h-[600px] 2xl:max-w-[750px] 2xl:max-h-[700px] min-[1750px]:max-w-[830px] min-[1750px]:max-h-[800px] object-cover block"
+            className="swiper-image max-w-[280px] w-full max-h-[330px] h-full m-auto rounded-4xl lg:max-w-[450px] lg:max-h-[500px] min-[1100px]:max-w-[500px] min-[1100px]:max-h-[550px] xl:max-w-[550px] xl:max-h-[500px] 2xl:max-w-[750px] 2xl:max-h-[700px] min-[1750px]:max-w-[830px] min-[1750px]:max-h-[800px] object-cover block"
           />
         </SwiperSlide>
         <SwiperSlide className="flex-shrink-0 w-full h-full flex items-center justify-center rounded-[18px] overflow-hidden shadow-none">
@@ -96,7 +96,7 @@ const Swiperslide = () => {
             src={ielts3}
             alt="ielts score 7.5"
             loading="lazy"
-            className="swiper-image max-w-[280px] w-full max-h-[330px] h-full m-auto rounded-4xl lg:max-w-[450px] lg:max-h-[500px] min-[1100px]:max-w-[500px] min-[1100px]:max-h-[550px] xl:max-w-[550px] xl:max-h-[600px] 2xl:max-w-[750px] 2xl:max-h-[700px] min-[1750px]:max-w-[830px] min-[1750px]:max-h-[800px] object-cover block"
+            className="swiper-image max-w-[280px] w-full max-h-[330px] h-full m-auto rounded-4xl lg:max-w-[450px] lg:max-h-[500px] min-[1100px]:max-w-[500px] min-[1100px]:max-h-[550px] xl:max-w-[550px] xl:max-h-[500px] 2xl:max-w-[750px] 2xl:max-h-[700px] min-[1750px]:max-w-[830px] min-[1750px]:max-h-[800px] object-cover block"
           />
         </SwiperSlide>
       </Swiper>

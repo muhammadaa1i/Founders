@@ -73,7 +73,7 @@ function Course() {
     <div id="courses" className="py-[20px]">
       <h1
         data-aos='fade-up'
-        className="py-[30px] font-[Montserrat] text-[#EC0000] font-bold text-3xl sm:text-6xl xl:text-[80px] leading-[100%] tracking-normal text-center">
+        className="py-[30px] font-[Montserrat] text-[#EC0000] font-bold text-3xl sm:text-4xl xl:text-[50px] leading-[100%] tracking-normal text-center">
         {t("Kurslarimiz")}:</h1>
       <div data-aos='fade-up'
         className="mb-10 px-[20px] flex lg:flex-row flex-col gap-6">

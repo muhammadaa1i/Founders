@@ -99,7 +99,7 @@ function Teachers() {
         <div id="teachers" className="text-center relative py-[20px]">
             <h1
                 data-aos="fade-up"
-                className="py-[30px] font-[Montserrat] text-[#EC0000] font-bold text-3xl sm:text-6xl xl:text-[80px] leading-[100%] tracking-normal text-center"
+                className="py-[10px] font-[Montserrat] text-[#EC0000] font-bold text-3xl sm:text-4xl xl:text-[50px] leading-[100%] tracking-normal text-center"
             >
                 {t("O‘qituvchilarimiz")}:
             </h1>
