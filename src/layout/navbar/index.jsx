@@ -30,7 +30,9 @@ function Navbar() {
         });
       }, 300);
     }
+
   }, [location.hash]);
+
 
   const handleNavigation = (section) => {
     if (isHomePage) {
@@ -62,6 +64,7 @@ function Navbar() {
           </button>
         </div>
 
+
         <Link to="/" className="hidden xl:flex">
           <img
             data-aos="flip-down"
@@ -70,6 +73,7 @@ function Navbar() {
             className="w-[180px] h-auto lazyload"
           />
         </Link>
+
 
         <div className="hidden lg:flex flex-1 justify-center">
           <ul
