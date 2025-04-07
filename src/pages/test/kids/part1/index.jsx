@@ -92,10 +92,10 @@ const Part1 = ({ onComplete, onPrevious, currentQuestion, setCurrentQuestion }) 
                 <button
                     onClick={handlePrevious}
                     disabled={currentTest === 1}
-                    className={`text-xl flex flex-row border-2 p-1 items-center gap-2 font-medium rounded-lg outline-none mt-[-20px] ml-1 ${currentTest === 1 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-100'}`}
+                    className={`text-xl flex flex-row border-2 p-1 max-[550px]:px-2 items-center gap-2 font-medium rounded-lg outline-none mt-[-20px] ml-1 ${currentTest === 1 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-100'}`}
                 >
                     <i className="fa-solid fa-chevron-left text-xl mt-1"></i>
-                    <p className="max-[400px]:hidden">Previous</p>
+                    <p className="max-[550px]:hidden">Previous</p>
                 </button>
                 <h2 className="text-[#EC0000] max-[400px]:ml-12 font-medium text-2xl xl:text-3xl mt-2">Part 1</h2>
                 <div className="w-[80px]"></div>

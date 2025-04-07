@@ -72,7 +72,7 @@ const Part3 = ({ onComplete, onPrevious, currentQuestion, setCurrentQuestion, an
             setAnswer(answers[currentTest - 14] || '');
             setError('');
         } else if (currentTest === 13) {
-            onPrevious('part2', 12); // Navigate back to Part 2, question 12
+            onPrevious('part2', 12);
         }
     };
 
@@ -81,13 +81,13 @@ const Part3 = ({ onComplete, onPrevious, currentQuestion, setCurrentQuestion, an
             <div className="flex justify-between items-center">
                 <button
                     onClick={handlePrevious}
-                    className={`text-xl flex flex-row border-2 p-1 items-center gap-2 font-medium rounded-lg mt-[-20px] outline-none ml-1 hover:bg-gray-100`}
+                    className={`text-xl flex flex-row border-2 p-1 max-[550px]:px-2 items-center gap-2 font-medium rounded-lg mt-[-20px] outline-none ml-1 hover:bg-gray-100`}
                 >
                     <i className="fa-solid fa-chevron-left text-xl mt-1"></i>
-                    <p className='max-[400px]:hidden'>Previous</p>
+                    <p className='max-[550px]:hidden'>Previous</p>
                 </button>
                 <h2 className="text-[#EC0000] font-medium text-2xl xl:text-3xl mt-2">Part 3</h2>
-                <div className="w-[80px]"></div> {/* Spacer for alignment */}
+                <div className="w-[80px]"></div>
             </div>
             <h3 className="text-center font-medium text-xl">Read the text, answer the questions:</h3>
 
@@ -108,7 +108,7 @@ const Part3 = ({ onComplete, onPrevious, currentQuestion, setCurrentQuestion, an
                         type="text"
                         value={answer}
                         onChange={handleInputChange}
-                        className="w-[70%] m-auto border-b-2 border-black outline-none text-2xl font-normal text-center"
+                        className="w-[80%] m-auto border-b-2 mt-4 border-black outline-none text-2xl font-normal text-center"
                     />
                     {error && (
                         <p className="text-red-600 text-lg mt-2">{error}</p>
@@ -128,7 +128,7 @@ const Part3 = ({ onComplete, onPrevious, currentQuestion, setCurrentQuestion, an
                         type="text"
                         value={answer}
                         onChange={handleInputChange}
-                        className="w-[70%] m-auto border-b-2 border-black outline-none text-2xl font-normal text-center"
+                        className="w-[90%] m-auto border-b-2 mt-4 border-black outline-none text-2xl font-normal text-center"
                     />
                     {error && (
                         <p className="text-red-600 text-lg mt-2">{error}</p>
@@ -138,9 +138,9 @@ const Part3 = ({ onComplete, onPrevious, currentQuestion, setCurrentQuestion, an
 
             {/* Test 15 */}
             {currentTest === 15 && (
-                <div className="test-item mt-8 mb-16 w-[270px] m-auto">
+                <div className="test-item text-wrap mt-8 mb-16 max-w-[500px] w-fit m-auto">
                     <p className="text-2xl font-medium text-start">{currentTest}.</p>
-                    <p className="text-2xl font-medium mt-[-32px] ml-4 text-center">{questions[2]}</p>
+                    <p className="text-2xl font-medium mt-[-32px] ml-8 text-center">{questions[2]}</p>
                     <input
                         required
                         minLength={1}
@@ -148,7 +148,7 @@ const Part3 = ({ onComplete, onPrevious, currentQuestion, setCurrentQuestion, an
                         type="text"
                         value={answer}
                         onChange={handleInputChange}
-                        className="w-[70%] m-auto border-b-2 border-black outline-none text-2xl font-normal text-center"
+                        className="w-[80%] m-auto border-b-2 mt-4 border-black outline-none text-2xl font-normal text-center"
                     />
                     {error && (
                         <p className="text-red-600 text-lg mt-2">{error}</p>
@@ -158,7 +158,7 @@ const Part3 = ({ onComplete, onPrevious, currentQuestion, setCurrentQuestion, an
 
             {/* Test 16 */}
             {currentTest === 16 && (
-                <div className="test-item mt-8 mb-16 w-[270px] m-auto">
+                <div className="test-item mt-8 mb-16 max-w-[320px] w-fit text-wrap m-auto">
                     <p className="text-2xl font-medium text-start">{currentTest}.</p>
                     <p className="text-2xl font-medium mt-[-32px] ml-7 text-center">{questions[3]}</p>
                     <input
@@ -168,7 +168,7 @@ const Part3 = ({ onComplete, onPrevious, currentQuestion, setCurrentQuestion, an
                         type="text"
                         value={answer}
                         onChange={handleInputChange}
-                        className="w-[70%] m-auto border-b-2 border-black outline-none text-2xl font-normal text-center"
+                        className="w-[90%] m-auto border-b-2 mt-4 border-black outline-none text-2xl font-normal text-center"
                     />
                     {error && (
                         <p className="text-red-600 text-lg mt-2">{error}</p>
@@ -178,7 +178,7 @@ const Part3 = ({ onComplete, onPrevious, currentQuestion, setCurrentQuestion, an
 
             {/* Test 17 */}
             {currentTest === 17 && (
-                <div className="test-item mt-8 mb-16 w-[270px] m-auto">
+                <div className="test-item mt-8 mb-16 max-w-[320px] w-fit text-wrap m-auto">
                     <p className="text-2xl font-medium text-start">{currentTest}.</p>
                     <p className="text-2xl font-medium mt-[-32px] ml-[18px] text-center">{questions[4]}</p>
                     <input
@@ -188,7 +188,7 @@ const Part3 = ({ onComplete, onPrevious, currentQuestion, setCurrentQuestion, an
                         type="text"
                         value={answer}
                         onChange={handleInputChange}
-                        className="w-[70%] m-auto border-b-2 border-black outline-none text-2xl font-normal text-center"
+                        className="w-[90%] m-auto border-b-2 mt-4 border-black outline-none text-2xl font-normal text-center"
                     />
                     {error && (
                         <p className="text-red-600 text-lg mt-2">{error}</p>
@@ -198,7 +198,7 @@ const Part3 = ({ onComplete, onPrevious, currentQuestion, setCurrentQuestion, an
 
             {/* Test 18 */}
             {currentTest === 18 && (
-                <div className="test-item mt-8 mb-16 w-[270px] m-auto">
+                <div className="test-item mt-8 mb-16 max-w-[340px] w-fit text-wrap m-auto">
                     <p className="text-2xl font-medium text-start">{currentTest}.</p>
                     <p className="text-2xl font-medium mt-[-32px] ml-4 text-center">{questions[5]}</p>
                     <input
@@ -208,7 +208,7 @@ const Part3 = ({ onComplete, onPrevious, currentQuestion, setCurrentQuestion, an
                         type="text"
                         value={answer}
                         onChange={handleInputChange}
-                        className="w-[70%] m-auto border-b-2 border-black outline-none text-2xl font-normal text-center"
+                        className="w-[90%] m-auto border-b-2 mt-4 border-black outline-none text-2xl font-normal text-center"
                     />
                     {error && (
                         <p className="text-red-600 text-lg mt-2">{error}</p>
@@ -218,7 +218,7 @@ const Part3 = ({ onComplete, onPrevious, currentQuestion, setCurrentQuestion, an
 
             {/* Test 19 */}
             {currentTest === 19 && (
-                <div className="test-item mt-8 mb-16 w-[270px] m-auto">
+                <div className="test-item mt-8 mb-16 max-w-[420px] w-fit text-wrap m-auto">
                     <p className="text-2xl font-medium text-start">{currentTest}.</p>
                     <p className="text-2xl font-medium mt-[-32px] ml-6 text-center">{questions[6]}</p>
                     <input
@@ -228,7 +228,7 @@ const Part3 = ({ onComplete, onPrevious, currentQuestion, setCurrentQuestion, an
                         type="text"
                         value={answer}
                         onChange={handleInputChange}
-                        className="w-[70%] m-auto border-b-2 border-black outline-none text-2xl font-normal text-center"
+                        className="w-[90%] m-auto border-b-2 mt-4 border-black outline-none text-2xl font-normal text-center"
                     />
                     {error && (
                         <p className="text-red-600 text-lg mt-2">{error}</p>
@@ -238,7 +238,7 @@ const Part3 = ({ onComplete, onPrevious, currentQuestion, setCurrentQuestion, an
 
             {/* Test 20 */}
             {currentTest === 20 && (
-                <div className="test-item mt-8 mb-16 w-[270px] m-auto">
+                <div className="test-item mt-8 mb-16 max-w-[330px] w-fit text-wrap m-auto">
                     <p className="text-2xl font-medium text-start">{currentTest}.</p>
                     <p className="text-2xl font-medium mt-[-32px] ml-4 text-center">{questions[7]}</p>
                     <input
@@ -248,7 +248,7 @@ const Part3 = ({ onComplete, onPrevious, currentQuestion, setCurrentQuestion, an
                         type="text"
                         value={answer}
                         onChange={handleInputChange}
-                        className="w-[70%] m-auto border-b-2 border-black outline-none text-2xl font-normal text-center"
+                        className="w-[90%] m-auto border-b-2 mt-4 border-black outline-none text-2xl font-normal text-center"
                     />
                     {error && (
                         <p className="text-red-600 text-lg mt-2">{error}</p>
@@ -258,7 +258,7 @@ const Part3 = ({ onComplete, onPrevious, currentQuestion, setCurrentQuestion, an
 
             {/* Test 21 */}
             {currentTest === 21 && (
-                <div className="test-item mt-8 mb-16 w-[270px] m-auto">
+                <div className="test-item mt-8 mb-16 max-w-[480px] w-fit text-wrap m-auto">
                     <p className="text-2xl font-medium text-start">{currentTest}.</p>
                     <p className="text-2xl font-medium mt-[-32px] ml-7 text-center">{questions[8]}</p>
                     <input
@@ -268,7 +268,7 @@ const Part3 = ({ onComplete, onPrevious, currentQuestion, setCurrentQuestion, an
                         type="text"
                         value={answer}
                         onChange={handleInputChange}
-                        className="w-[70%] m-auto border-b-2 border-black outline-none text-2xl font-normal text-center"
+                        className="w-[90%] m-auto border-b-2 mt-4 border-black outline-none text-2xl font-normal text-center"
                     />
                     {error && (
                         <p className="text-red-600 text-lg mt-2">{error}</p>
@@ -278,7 +278,7 @@ const Part3 = ({ onComplete, onPrevious, currentQuestion, setCurrentQuestion, an
 
             {/* Test 22 */}
             {currentTest === 22 && (
-                <div className="test-item mt-8 mb-16 w-[270px] m-auto">
+                <div className="test-item mt-8 mb-16 max-w-[320px] w-fit text-wrap m-auto">
                     <p className="text-2xl font-medium text-start">{currentTest}.</p>
                     <p className="text-2xl font-medium mt-[-32px] ml-5 text-center">{questions[9]}</p>
                     <input
@@ -288,7 +288,7 @@ const Part3 = ({ onComplete, onPrevious, currentQuestion, setCurrentQuestion, an
                         type="text"
                         value={answer}
                         onChange={handleInputChange}
-                        className="w-[70%] m-auto border-b-2 border-black outline-none text-2xl font-normal text-center"
+                        className="w-[90%] m-auto border-b-2 mt-4 border-black outline-none text-2xl font-normal text-center"
                     />
                     {error && (
                         <p className="text-red-600 text-lg mt-2">{error}</p>
@@ -298,7 +298,7 @@ const Part3 = ({ onComplete, onPrevious, currentQuestion, setCurrentQuestion, an
 
             {/* Test 23 */}
             {currentTest === 23 && (
-                <div className="test-item mt-8 mb-16 w-[270px] m-auto">
+                <div className="test-item mt-8 mb-16 max-w-[330px] w-fit m-auto">
                     <p className="text-2xl font-medium text-start">{currentTest}.</p>
                     <p className="text-2xl font-medium mt-[-32px] ml-9 text-center">{questions[10]}</p>
                     <input
@@ -308,7 +308,7 @@ const Part3 = ({ onComplete, onPrevious, currentQuestion, setCurrentQuestion, an
                         type="text"
                         value={answer}
                         onChange={handleInputChange}
-                        className="w-[70%] m-auto border-b-2 border-black outline-none text-2xl font-normal text-center"
+                        className="w-[90%] m-auto border-b-2 mt-4 border-black outline-none text-2xl font-normal text-center"
                     />
                     {error && (
                         <p className="text-red-600 text-lg mt-2">{error}</p>
@@ -318,7 +318,7 @@ const Part3 = ({ onComplete, onPrevious, currentQuestion, setCurrentQuestion, an
 
             {/* Test 24 */}
             {currentTest === 24 && (
-                <div className="test-item mt-8 mb-16 w-[270px] m-auto">
+                <div className="test-item mt-8 mb-16 max-w-[450px] w-fit text-wrap m-auto">
                     <p className="text-2xl font-medium text-start">{currentTest}.</p>
                     <p className="text-2xl font-medium mt-[-32px] ml-6 text-center">{questions[11]}</p>
                     <input
@@ -328,7 +328,7 @@ const Part3 = ({ onComplete, onPrevious, currentQuestion, setCurrentQuestion, an
                         type="text"
                         value={answer}
                         onChange={handleInputChange}
-                        className="w-[70%] m-auto border-b-2 border-black outline-none text-2xl font-normal text-center"
+                        className="w-[90%] m-auto border-b-2 mt-4 border-black outline-none text-2xl font-normal text-center"
                     />
                     {error && (
                         <p className="text-red-600 text-lg mt-2">{error}</p>
@@ -338,9 +338,9 @@ const Part3 = ({ onComplete, onPrevious, currentQuestion, setCurrentQuestion, an
 
             {/* Test 25 */}
             {currentTest === 25 && (
-                <div className="test-item mt-8 mb-16 w-[270px] m-auto">
+                <div className="test-item mt-8 mb-16 max-w-[450px] w-full m-auto">
                     <p className="text-2xl font-medium text-start">{currentTest}.</p>
-                    <p className="text-2xl font-medium mt-[-32px] ml-5 text-center">{questions[12]}</p>
+                    <p className="text-2xl font-medium mt-[-32px] ml-7 text-center">{questions[12]}</p>
                     <input
                         required
                         minLength={1}
@@ -348,7 +348,7 @@ const Part3 = ({ onComplete, onPrevious, currentQuestion, setCurrentQuestion, an
                         type="text"
                         value={answer}
                         onChange={handleInputChange}
-                        className="w-[70%] m-auto border-b-2 border-black outline-none text-2xl font-normal text-center"
+                        className="w-[90%] m-auto border-b-2 mt-4 border-black outline-none text-2xl font-normal text-center"
                     />
                     {error && (
                         <p className="text-red-600 text-lg mt-2">{error}</p>
@@ -358,7 +358,7 @@ const Part3 = ({ onComplete, onPrevious, currentQuestion, setCurrentQuestion, an
 
             {/* Test 26 */}
             {currentTest === 26 && (
-                <div className="test-item mt-8 mb-16 w-[270px] m-auto">
+                <div className="test-item mt-8 mb-16 max-w-[500px] w-full m-auto">
                     <p className="text-2xl font-medium text-start">{currentTest}.</p>
                     <p className="text-2xl font-medium mt-[-32px] ml-8 text-center">{questions[13]}</p>
                     <input
@@ -368,7 +368,7 @@ const Part3 = ({ onComplete, onPrevious, currentQuestion, setCurrentQuestion, an
                         type="text"
                         value={answer}
                         onChange={handleInputChange}
-                        className="w-[70%] m-auto border-b-2 border-black outline-none text-2xl font-normal text-center"
+                        className="w-[90%] m-auto border-b-2 mt-4 border-black outline-none text-2xl font-normal text-center"
                     />
                     {error && (
                         <p className="text-red-600 text-lg mt-2">{error}</p>
@@ -378,7 +378,7 @@ const Part3 = ({ onComplete, onPrevious, currentQuestion, setCurrentQuestion, an
 
             {/* Test 27 */}
             {currentTest === 27 && (
-                <div className="test-item mt-8 mb-16 w-[270px] m-auto">
+                <div className="test-item mt-8 mb-16 max-w-[350px] w-fit text-wrap m-auto">
                     <p className="text-2xl font-medium text-start">{currentTest}.</p>
                     <p className="text-2xl font-medium mt-[-32px] ml-8 text-center">{questions[14]}</p>
                     <input
@@ -388,7 +388,7 @@ const Part3 = ({ onComplete, onPrevious, currentQuestion, setCurrentQuestion, an
                         type="text"
                         value={answer}
                         onChange={handleInputChange}
-                        className="w-[70%] m-auto border-b-2 border-black outline-none text-2xl font-normal text-center"
+                        className="w-[90%] m-auto border-b-2 mt-4 border-black outline-none text-2xl font-normal text-center"
                     />
                     {error && (
                         <p className="text-red-600 text-lg mt-2">{error}</p>
