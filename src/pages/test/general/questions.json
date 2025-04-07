@@ -1,0 +1,272 @@
+[
+  {
+    "question": " ____ you interested in sport?",
+    "options": ["be", "am", "is", "are"],
+    "answer": "are"
+  },
+  {
+    "question": "My ______ is a writer and his books are very popular.",
+    "options": ["aunt", "uncle", "sister", "mother"],
+    "answer": "uncle"
+  },
+  {
+    "question": "Paul is very ______. He’s very good at art.",
+    "options": ["honest", "friendly", "polite", "creative"],
+    "answer": "creative"
+  },
+  {
+    "question": "We live in the city centre and our house ______ have a big garden.",
+    "options": ["doesn’t", "isn’t", "aren’t", "don’t"],
+    "answer": "doesn’t"
+  },
+  {
+    "question": "I ______ arrive at school before nine o’clock.",
+    "options": ["has to", "have to", "doesn’t have to", "haven’t"],
+    "answer": "have to"
+  },
+  {
+    "question": "The beach was very crowded ______ Monday.",
+    "options": ["in", "on", "at", "to"],
+    "answer": "on"
+  },
+  {
+    "question": "You ______ eat all that cake! It isn’t good for you.",
+    "options": ["don’t", "maynot", "shouldn’t", "will not"],
+    "answer": "shouldn’t"
+  },
+  {
+    "question": "Cathy ______ a game on her computer at the moment.",
+    "options": ["plays", "is playing", "to play", "play"],
+    "answer": "is playing"
+  },
+  {
+    "question": "There ______ a lot of people outside the school. What’s the problem?",
+    "options": ["are", "is", "be", "am"],
+    "answer": "are"
+  },
+  {
+    "question": "______ you like to come out with us tonight?",
+    "options": ["do", "would", "are", "will"],
+    "answer": "would"
+  },
+  {
+    "question": "How ______ time have we got to do this exercise?",
+    "options": ["long", "many", "much", "quick"],
+    "answer": "much"
+  },
+  {
+    "question": "Turn ______ and you’ll see the museum on the left.",
+    "options": ["on the right", "rightly", "by the right", "right"],
+    "answer": "right"
+  },
+  {
+    "question": "Don’t forget to get ______ the bus at station road.",
+    "options": ["out", "off", "over", "down"],
+    "answer": "off"
+  },
+  {
+    "question": "Tom got the ______ marks in the class for his homework.",
+    "options": ["worse", "worst", "baddest", "most bad"],
+    "answer": "worst"
+  },
+  {
+    "question": "There wasn’t ______ milk for breakfast this morning so I had toast.",
+    "options": ["a", "some", "the", "any"],
+    "answer": "any"
+  },
+  {
+    "question": "My sister ______ speak French when she was only six years old.",
+    "options": ["was", "should", "could", "had"],
+    "answer": "could"
+  },
+  {
+    "question": "Did you ______ shopping after school yesterday?",
+    "options": ["went", "good", "going", "go"],
+    "answer": "go"
+  },
+  {
+    "question": "I ______ five emails before school today.",
+    "options": ["sent", "sended", "did send", "was send"],
+    "answer": "sent"
+  },
+  {
+    "question": "Our teacher speaks English to us ______ so that we can understand her.",
+    "options": ["slow", "slower", "more slow", "slowly"],
+    "answer": "slowly"
+  },
+  {
+    "question": "Quick – get the food inside! It ______ any moment.",
+    "options": ["rains", "is raining", "is going to rain", "can rain"],
+    "answer": "is going to rain"
+  },
+  {
+    "question": "I ______ the new Batman film yet. Is it any good?",
+    "options": ["haven’t seen", "didn’t see", "don’t see", "am not seen"],
+    "answer": "haven’t seen"
+  },
+  {
+    "question": "I hope you ______ a good time at the moment in Greece! Phone soon.",
+    "options": ["are having", "have", "have had", "had"],
+    "answer": "are having"
+  },
+  {
+    "question": "I wanted to see Harry. How long ago ______?",
+    "options": ["he left", "has he left", "did he leave", "could he leave"],
+    "answer": "did he leave"
+  },
+  {
+    "question": "Do students have to stand ______ when the teacher arrives?",
+    "options": ["on", "at", "in", "up"],
+    "answer": "up"
+  },
+  {
+    "question": "Which train ___ for when I saw you on the platform on Sunday?",
+    "options": [
+      "did you wait",
+      "were you waiting",
+      "have you waited",
+      "are you waiting"
+    ],
+    "answer": "were you waiting"
+  },
+  {
+    "question": "You ___ hurry as we’ve still got twenty minutes before the film starts.",
+    "options": ["mustn’t", "can’t", "may not", "needn’t"],
+    "answer": "needn’t"
+  },
+  {
+    "question": "That car is ___ dangerous to drive.",
+    "options": ["too", "enough", "not enough", "the worst"],
+    "answer": "too"
+  },
+  {
+    "question": "I ___ you in the café at about 4.30 and we can discuss our plans then, OK?",
+    "options": ["’ll see", "am going to see", "am seeing", "see"],
+    "answer": "’ll see"
+  },
+  {
+    "question": "My father has been a pilot ___ twenty years and he still loves his job.",
+    "options": ["since", "for", "until", "by"],
+    "answer": "for"
+  },
+  {
+    "question": "I really enjoy ___ new languages and I’d like to learn Italian soon.",
+    "options": ["to learn", "learning", "learn", "learned"],
+    "answer": "learning"
+  },
+  {
+    "question": "If we ___ in the countryside, we’d have much better views than we do now.",
+    "options": ["lived", "were live", "would live", "live"],
+    "answer": "lived"
+  },
+  {
+    "question": "I wish Joe ___ to Hawaii on holiday. They’re talking about an eruption there on the news.",
+    "options": ["doesn’t go", "didn’t go", "hasn’t gone", "hadn’t gone"],
+    "answer": "hadn’t gone"
+  },
+  {
+    "question": "Could I possibly ___ some money for the bus fare home? I’ve lost my bag.",
+    "options": ["lend", "owe", "borrow", "need"],
+    "answer": "borrow"
+  },
+  {
+    "question": "Sam asked me if I ___ a lift home after the concert.",
+    "options": ["had wanted", "wanted", "would want", "want"],
+    "answer": "wanted"
+  },
+  {
+    "question": "People say that an avalanche ___ by loud noises in the area but I don’t know if that’s true.",
+    "options": ["causes", "has caused", "is causing", "is caused"],
+    "answer": "is caused"
+  },
+  {
+    "question": "Look at the news! Three cars ___ in a bad accident on the motorway at Dartford.",
+    "options": [
+      "are involving",
+      "involve",
+      "have involved",
+      "have been involved"
+    ],
+    "answer": "have been involved"
+  },
+  {
+    "question": "I ___ for arriving so late but I was caught up in a traffic jam in the town centre.",
+    "options": ["sorry", "regret", "apologize", "afraid"],
+    "answer": "apologize"
+  },
+  {
+    "question": "Look out for a petrol station because I think we’re going to run ___ of petrol soon.",
+    "options": ["down", "out", "off", "through"],
+    "answer": "out"
+  },
+  {
+    "question": "It was great to see you at the party. I didn’t realize how long ___ since we last met.",
+    "options": ["it had been", "it was been", "it was being", "it is been"],
+    "answer": "it had been"
+  },
+  {
+    "question": "The girls ___ to each other since the film started.",
+    "options": ["talked", "were talking", "are talking", "have been talking"],
+    "answer": "have been talking"
+  },
+  {
+    "question": "By the time I hand in this project, I ___ on it for three weeks!",
+    "options": [
+      "’ll be working",
+      "’ll have been working",
+      "have worked",
+      "’ll work"
+    ],
+    "answer": "’ll have been working"
+  },
+  {
+    "question": "Jonah’s just fallen down the steps outside and there’s ___ everywhere.",
+    "options": ["bone", "blood", "skin", "cut"],
+    "answer": "blood"
+  },
+  {
+    "question": "I really wish people ___ dump litter in front of our house. We have to clear it up every day.",
+    "options": ["won’t", "wouldn’t", "haven’t", "don’t"],
+    "answer": "wouldn’t"
+  },
+  {
+    "question": "You should be very proud ___ what you’ve achieved over the last year.",
+    "options": ["of", "on", "to", "for"],
+    "answer": "of"
+  },
+  {
+    "question": "___ people know this but our school is being inspected today.",
+    "options": ["little", "any", "none", "few"],
+    "answer": "few"
+  },
+  {
+    "question": "That’s the office ___ my dad works.",
+    "options": ["who", "where", "that", "which"],
+    "answer": "where"
+  },
+  {
+    "question": "The studio lights went out, while the footballer ___.",
+    "options": [
+      "had been interviewed",
+      "was interviewed",
+      "was being interviewed",
+      "was interviewing"
+    ],
+    "answer": "was being interviewed"
+  },
+  {
+    "question": "Last Tuesday the company told Ruth that they’d emailed her the job details the ___ day.",
+    "options": ["last", "before", "previous", "earlier"],
+    "answer": "previous"
+  },
+  {
+    "question": "I must remember ___ Ed to talk notes for me while I’m away next week.",
+    "options": ["ask", "to ask", "asking", "for asking"],
+    "answer": "to ask"
+  },
+  {
+    "question": "If I’d gone to the sales yesterday, I ___ one of those cheap bags before they sold out.",
+    "options": ["could have bought", "had bought", "would buy", "bought"],
+    "answer": "could have bought"
+  }
+]
