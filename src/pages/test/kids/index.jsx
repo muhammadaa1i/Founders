@@ -118,27 +118,28 @@ export default function KidsEnglishTask() {
   const [score, setScore] = useState(0);
   const [answers, setAnswers] = useState([]);
   const [showFinalScore, setShowFinalScore] = useState(false);
+  const [totalCorrect, setTotalCorrect] = useState(0);
 
-  // Har bir bosqichga o'tishda `answers` massivini qayta yaratish
   const initializeAnswers = () => {
-    if (step === 1) return Array(images.length).fill("");
-    if (step === 2) return Array(words.length).fill("");
-    if (step === 3) return Array(questions.length).fill("");
-    if (step === 4) return Array(sentences.length).fill("");
-    if (step === 5) return Array(shortAnswers.length).fill("");
-    if (step === 6) return Array(putWordsQuestions.length).fill("");
+    const savedAnswers = JSON.parse(localStorage.getItem(`step${step}Answers`)) || [];
+    if (step === 1) return savedAnswers.length ? savedAnswers : Array(images.length).fill("");
+    if (step === 2) return savedAnswers.length ? savedAnswers : Array(words.length).fill("");
+    if (step === 3) return savedAnswers.length ? savedAnswers : Array(questions.length).fill("");
+    if (step === 4) return savedAnswers.length ? savedAnswers : Array(sentences.length).fill("");
+    if (step === 5) return savedAnswers.length ? savedAnswers : Array(shortAnswers.length).fill("");
+    if (step === 6) return savedAnswers.length ? savedAnswers : Array(putWordsQuestions.length).fill("");
     return [];
   };
 
-  // Bosqich o'zgarganda `answers` massivini yangilash
   useEffect(() => {
-    setAnswers(initializeAnswers());
+    setAnswers(initializeAnswers(step));
   }, [step]);
 
   const handleAnswerChange = (index, value) => {
     const newAnswers = [...answers];
     newAnswers[index] = value || "";
     setAnswers(newAnswers);
+    localStorage.setItem(`step${step}Answers`, JSON.stringify(newAnswers));
   };
 
   const checkAnswers = () => {
@@ -148,6 +149,7 @@ export default function KidsEnglishTask() {
     }
 
     let newScore = score;
+    let correctCount = 0;
     answers.forEach((answer, index) => {
       if (
         step === 1 &&
@@ -183,14 +185,30 @@ export default function KidsEnglishTask() {
         newScore++;
       }
     });
+    newScore += correctCount;
     setScore(newScore);
 
-    // Keyingi bosqichga o'tish
     if (step < 6) {
-      setStep(step + 1);
-      setAnswers(initializeAnswers()); // Yangi bosqich uchun `answers` massivini qayta yaratish
+      setStep(prevStep => prevStep + 1); // Update step
+      setAnswers(initializeAnswers(step + 1)); // Preload next step answers
     } else {
-      setShowFinalScore(true); // Test yakunlandi, umumiy ballni ko'rsatish
+      setTotalCorrect(newScore);
+      setShowFinalScore(true);
+    }
+  };
+
+  const goToNextStep = () => {
+    checkAnswers();
+    if (step < 6) {
+      setStep(prevStep => prevStep + 1);
+      setAnswers(initializeAnswers(step + 1));
+    }
+  };
+
+  const goToPreviousStep = () => {
+    if (step > 1) {
+      setStep(prevStep => prevStep - 1);
+      setAnswers(initializeAnswers(step - 1));
     }
   };
 
@@ -203,6 +221,8 @@ export default function KidsEnglishTask() {
     6: "Put the words",
   };
 
+  const totalQuestions = images.length + words.length + questions.length + sentences.length + shortAnswers.length + putWordsQuestions.length;
+
   return (
     <div className="p-6 max-w-lg mt-20 mx-auto bg-white shadow-lg rounded-lg">
       {showFinalScore ? (
@@ -211,15 +231,21 @@ export default function KidsEnglishTask() {
             Test Completed!
           </p>
           <p className="text-lg text-gray-700">
-            Your final score is:{" "}
-            <span className="font-bold text-3xl text-red-600">{score}</span>
+            Your result: {" "}
+            <span className="font-bold text-3xl text-red-600">
+              {totalCorrect}/{totalQuestions}
+            </span>
           </p>
           <button
             onClick={() => {
               setStep(1);
               setScore(0);
+              setTotalCorrect(0);
               setShowFinalScore(false);
               setAnswers(initializeAnswers());
+              for (let i = 1; i <= 6; i++) {
+                localStorage.removeItem(`step${i}Answers`);
+              }
             }}
             className="mt-6 bg-red-500 text-white py-2 px-6 rounded-lg hover:bg-red-600 transition duration-300"
           >
@@ -231,7 +257,9 @@ export default function KidsEnglishTask() {
           <p className="text-xl font-bold text-center text-gray-800">
             {stepTitles[step]}
           </p>
-          <h2 className="text-[#EC0000] font-semibold text-center text-xl mb-6">Part 1</h2>
+          <h2 className="text-[#EC0000] font-semibold text-center text-xl mb-6">
+            Part {step}
+          </h2>
 
           {step === 1 && (
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -256,7 +284,7 @@ export default function KidsEnglishTask() {
               ))}
             </div>
           )}
-          {/* 
+
           {step === 2 && (
             <div className="space-y-4">
               {words.map((item, index) => (
@@ -271,8 +299,7 @@ export default function KidsEnglishTask() {
                     type="text"
                     value={answers[index]}
                     onChange={(e) => handleAnswerChange(index, e.target.value)}
-                    className="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
-                    placeholder="Enter translation"
+                    className="w-[60%] m-auto border-b-2 border-black outline-none text-[16px] text-center"
                   />
                 </div>
               ))}
@@ -302,8 +329,7 @@ export default function KidsEnglishTask() {
                       onChange={(e) =>
                         handleAnswerChange(index, e.target.value)
                       }
-                      className="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
-                      placeholder="Enter answer"
+                      className="w-[80%] m-auto border-b-2 border-black outline-none text-[16px] text-center"
                     />
                   </div>
                 ))}
@@ -325,8 +351,7 @@ export default function KidsEnglishTask() {
                     type="text"
                     value={answers[index]}
                     onChange={(e) => handleAnswerChange(index, e.target.value)}
-                    className="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
-                    placeholder="Rearrange the sentence"
+                    className="w-[80%] m-auto border-b-2 border-black outline-none text-[16px] text-center"
                   />
                 </div>
               ))}
@@ -347,8 +372,7 @@ export default function KidsEnglishTask() {
                     type="text"
                     value={answers[index]}
                     onChange={(e) => handleAnswerChange(index, e.target.value)}
-                    className="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
-                    placeholder="Enter answer"
+                    className="w-[80%] m-auto border-b-2 border-black outline-none text-[16px] text-center"
                   />
                 </div>
               ))}
@@ -388,17 +412,33 @@ export default function KidsEnglishTask() {
                 </div>
               </div>
             </div>
-          )} */}
+          )}
 
-          <button
-            onClick={checkAnswers}
-            className="mt-6 w-full bg-red-500 text-white py-3 px-6 rounded-lg hover:bg-red-600 transition duration-300"
-          >
-            {step < 6 ? "Next" : "Finish"}
-          </button>
-          <p className="mt-4 text-lg font-bold text-center text-gray-700">
-            Score: {score}
-          </p>
+          <div className="mt-6 flex justify-between gap-4">
+            <button
+              onClick={goToPreviousStep}
+              disabled={step === 1}
+              className={`w-full bg-[#1d1a1a] text-white py-3 px-6 rounded-lg hover:bg-[#383333] transition duration-300 ${step === 1 ? 'opacity-50 cursor-not-allowed' : ''
+                }`}
+            >
+              Previous
+            </button>
+            {step < 6 ? (
+              <button
+                onClick={goToNextStep}
+                className="w-full bg-red-500 text-white py-3 px-6 rounded-lg hover:bg-red-600 transition duration-300"
+              >
+                Next
+              </button>
+            ) : (
+              <button
+                onClick={finishTest}
+                className="w-full bg-blue-500 text-white py-3 px-6 rounded-lg hover:bg-blue-600 transition duration-300"
+              >
+                Finish
+              </button>
+            )}
+          </div>
         </>
       )}
     </div>
