@@ -1,0 +1,112 @@
+{
+    "images": [
+      { "src": "../../src/assets/kids1.png", "answer": "car" },
+      { "src": "../../src/assets/kids2.png", "answer": "swimming" },
+      { "src": "../../src/assets/kids3.png", "answer": "suitcase" },
+      { "src": "../../src/assets/kids4.png", "answer": "newspaper" },
+      { "src": "../../src/assets/kids5.png", "answer": "anchor" },
+      { "src": "../../src/assets/kids6.png", "answer": "elbow" }
+    ],
+    "words": [
+      { "word": "Sit", "translation": ["o'tirish", "o'tirmoq", "сидеть"] },
+      { "word": "Cups", "translation": ["stakanlar", "стаканы"] },
+      { "word": "Drop", "translation": ["tushirish", "tushirmoq", "ронять"] },
+      { "word": "Meat", "translation": ["go'sht", "мясо"] },
+      { "word": "Audience", "translation": ["tomoshabinlar", "tomoshabin", "аудитория"] },
+      { "word": "Steam", "translation": ["bug'", "bug'lanish", "bug'lanmoq", "пар"] }
+    ],
+    "text": "I am Molly. I’m fourteen. My hobbies are swimming, cooking and skiing. I have got a dog and a cat. We have five family members in our family including me. My mother is a model. She is 180 cm tall. My father is a pilot. He had to arrive from America yesterday, but his flight was canceled and he went to Turkey. My brother is an artist. He can draw well. My sister is a cute girl. She is playing now. I’m older than my sister, so I don’t like playing dolls. I have a lot of dreams. I have never been abroad. I would like to go to Egypt, Japan and China. I’m going to learn Japanese next year.",
+    "questions": [
+      "What’s her name?",
+      "How old is she?",
+      "What is her sister doing at the moment?",
+      "What does her father do?",
+      "What’s her future plan?",
+      "What’s her mother’s job?",
+      "What did her father do yesterday?",
+      "Does she have any pets?",
+      "Which countries does she want to visit?",
+      "How tall is her mother?",
+      "What can her brother do?",
+      "Which countries has Molly been to?",
+      "Who is younger? Molly or her sister?",
+      "How many people are there in her family?",
+      "What does Molly like doing?"
+    ],
+    "correctAnswers": [
+      "Molly",
+      ["Fourteen", "14"],
+      "Playing",
+      "Pilot",
+      ["Learn Japanese", "Study Japanese"],
+      "Model",
+      "Went to Turkey",
+      ["Yes, she has a dog and a cat", "Yes, she has pets"],
+      ["Egypt, Japan, China", "China, Japan, Egypt", "Japan, Egypt, China", "Japan, China, Egypt", "Egypt,Japan,China", "China,Japan,Egypt", "Japan,Egypt,China", "Japan,China,Egypt", "Egypt Japan China", "China Japan Egypt", "Japan Egypt China", "Japan China Egypt"],
+      ["180 cm", "180cm" ,"180 centimeters", "180", "One hundred eighty", "One hundred eighty centimeters"],
+      "Draw well",
+      "She has never been abroad",
+      "Her sister is younger",
+      ["Five", "5"],
+      ["Swimming, cooking, skiing", "Cooking, skiing, swimming", "Skiing, swimming, cooking", "Swimming, skiing, cooking", "Skiing, cooking, swimming", "Cooking, swimming, skiing", "Swimming,cooking,skiing", "Cooking,skiing,swimming", "Skiing,swimming,cooking", "Swimming,skiing,cooking", "Skiing,cooking,swimming", "Cooking,swimming,skiing", "Swimming cooking skiing", "Cooking skiing swimming", "Skiing swimming cooking", "Swimming skiing cooking", "Skiing cooking swimming", "Cooking swimming skiing"]
+    ],
+    "sentences": [
+      "loudly/singing/she/is",
+      "bananas/I/like",
+      "does/do/evening/he/what/in/the?",
+      "always/milk/my sister/drinks",
+      "did/listen/not/to/I/music",
+      "is/he/play/to/football?/going",
+      "my/sister/something/reading/interesting/was",
+      "will/in/car/the/I/not/put/it",
+      "used to/my brother/play/the guitar",
+      "he/bought/a/just/flower/has",
+      "will/built/next/year/be/the/house"
+    ],
+    "sentencesAnswers": [
+      "She is singing loudly",
+      "I like bananas",
+      "What does he do in the evening?",
+      "My sister always drinks milk",
+      "I did not listen to music",
+      "Is he going to play football?",
+      "My sister was reading something interesting",
+      "I will not put it in the car",
+      "My brother used to play the guitar",
+      "He has just bought a flower",
+      "The house will be built next year"
+    ],
+    "shortAnswers": [
+      { "question": "Can you fly?", "correct": "No, I can't" },
+      { "question": "Do you like bananas?", "correct": "Yes, I do" },
+      { "question": "Is there a book on the table?", "correct": "Yes, there is" },
+      { "question": "Was it sunny?", "correct": "Yes, it was" },
+      { "question": "Has he brushed her hair?", "correct": "Yes, he has" },
+      { "question": "Did you do your homework?", "correct": "Yes, I did" }
+    ],
+    "wordsTask": [
+      "whisper",
+      "suspicious",
+      "slowly",
+      "never",
+      "amazing",
+      "apron"
+    ],
+    "putWordsQuestions": [
+      "He is running _____________ .",
+      "This book is ____________. I like it.",
+      "He used to __________ while his little brother was sleeping.",
+      "A maid was wearing a white _______________ .",
+      "He _______ drinks coffee. He hates it.",
+      "That man is very __________. I haven’t seen him before."
+    ],
+    "putWordsAnswers": [
+      "slowly",
+      "amazing",
+      "whisper",
+      "apron",
+      "never",
+      "suspicious"
+    ]
+  }
+  
