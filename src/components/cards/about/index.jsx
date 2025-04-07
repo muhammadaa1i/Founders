@@ -19,7 +19,7 @@ function About() {
         <div id="about">
             <h1
                 data-aos='fade-up'
-                className="py-[30px] font-[Montserrat] text-[#EC0000] font-bold text-3xl sm:text-6xl xl:text-[80px] leading-[100%] tracking-normal text-center">
+                className="py-[10px] font-[Montserrat] text-[#EC0000] font-bold text-3xl sm:text-4xl xl:text-[50px] leading-[100%] tracking-normal text-center">
                 {t("Biz haqimizda")}:
             </h1>
             <div
@@ -32,7 +32,7 @@ function About() {
                     className="w-[90vw] h-[40vh] min-[450px]:h-[50vh] sm:h-[60vh] md:h-[80vh] rounded-xl shadow-xl"
                 ></iframe>
             </div>
-            <div className="space-y-6 px-[50px] pt-6 pb-10 text-xl md:text-2xl xl:text-3xl 2xl:text-4xl ">
+            <div className="space-y-6 px-[50px] pt-6 pb-10 text-xl md:text-xl xl:text-2xl 2xl:text-3xl ">
                 <p
                     data-aos='zoom-in'
                     className="font-[Montserrat] text-[#222222] font-normal leading-[120%] text-center">

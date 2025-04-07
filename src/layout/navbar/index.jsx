@@ -30,7 +30,7 @@ function Navbar() {
         });
       }, 300);
     }
-  }, [location]);
+  }, [location.hash]);
 
   const handleNavigation = (section) => {
     if (isHomePage) {
@@ -62,7 +62,7 @@ function Navbar() {
           </button>
         </div>
 
-        <Link to="/" className="hidden 2xl:flex">
+        <Link to="/" className="hidden xl:flex">
           <img
             data-aos="flip-down"
             src={Logo}
@@ -78,7 +78,7 @@ function Navbar() {
           >
             <li>
               <button
-                className="text-white uppercase font-[Montserrat] font-semibold ml-3 cursor-pointer"
+                className="text-white uppercase font-[Montserrat] font-medium ml-3 cursor-pointer"
                 onClick={() => handleNavigation("about")}
               >
                 {t("Biz haqimizda")}
@@ -86,7 +86,7 @@ function Navbar() {
             </li>
             <li>
               <button
-                className="text-white uppercase font-[Montserrat] font-semibold ml-3 cursor-pointer"
+                className="text-white uppercase font-[Montserrat] font-medium ml-3 cursor-pointer"
                 onClick={() => handleNavigation("teachers")}
               >
                 {t("O‘qituvchilarimiz")}
@@ -94,7 +94,7 @@ function Navbar() {
             </li>
             <li>
               <button
-                className="text-white uppercase font-[Montserrat] font-semibold ml-3 cursor-pointer"
+                className="text-white uppercase font-[Montserrat] font-medium ml-3 cursor-pointer"
                 onClick={() => handleNavigation("courses")}
               >
                 {t("Kurslarimiz")}
@@ -102,7 +102,7 @@ function Navbar() {
             </li>
             <li>
               <button
-                className="text-white uppercase font-[Montserrat] font-semibold ml-3 cursor-pointer"
+                className="text-white uppercase font-[Montserrat] font-medium ml-3 cursor-pointer"
                 onClick={() => handleNavigation("books")}
               >
                 {t("Kitoblarimiz")}
@@ -110,7 +110,7 @@ function Navbar() {
             </li>
             <li>
               <button
-                className="text-white uppercase font-[Montserrat] font-semibold ml-3 cursor-pointer"
+                className="text-white uppercase font-[Montserrat] font-medium ml-3 cursor-pointer"
                 onClick={() => handleNavigation("faq")}
               >
                 {t("FAQ")}
@@ -118,7 +118,7 @@ function Navbar() {
             </li>
             <li>
               <button
-                className="text-white uppercase font-[Montserrat] font-semibold ml-3 cursor-pointer"
+                className="text-white uppercase font-[Montserrat] font-medium ml-3 cursor-pointer"
                 onClick={() => handleNavigation("contact")}
               >
                 {t("Kontakt")}
@@ -134,7 +134,7 @@ function Navbar() {
           <LanguageSelector />
           <Link
             to="/registration"
-            className=" text-red-700 cursor-pointer font-[Montserrat] bg-white border-2 border-none py-[5px] px-[40px] rounded-lg"
+            className=" text-red-700 font-medium cursor-pointer font-[Montserrat] bg-white border-2 border-none py-[5px] px-[40px] rounded-lg"
           >
             {t("Kirish")}
           </Link>

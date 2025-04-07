@@ -55,13 +55,13 @@ function FAQ() {
     }, []);
 
     return (
-        <div id="faq" className="w-full  px-[30px] max-[450px]:px-2 mb-[100px] mt-8">
+        <div id="faq" className="w-full  px-[40px] xl:px-[100px] md:px-[80px] sm:px-[60px] max-[450px]:px-2 mb-[100px] mt-8">
             <h2
                 data-aos='fade-up'
-                className="py-[30px] font-[Montserrat] text-[#EC0000] font-bold text-3xl sm:text-6xl xl:text-[80px] leading-[100%] tracking-normal text-center">{t("FAQ")}</h2>
+                className="py-[30px] font-[Montserrat] text-[#EC0000] font-bold text-3xl sm:text-4xl xl:text-[50px] leading-[100%] tracking-normal text-center">{t("FAQ")}</h2>
             <h3
                 data-aos='fade-up'
-                className="font-medium text-2xl md:text-4xl 2xl:text-5xl font-[Montserrat] text-center mb-8">{t("Ko‘p beriladigan savollarga javob beramiz!")}</h3>
+                className="font-medium text-2xl md:text-3xl 2xl:text-4xl font-[Montserrat] text-center mb-8">{t("Ko‘p beriladigan savollarga javob beramiz!")}</h3>
 
 
             <div
@@ -77,10 +77,10 @@ function FAQ() {
                             onClick={() => toggle(index)}
                             className="w-full text-left py-4 flex justify-between items-center focus:outline-none"
                         >
-                            <span className="text-[24px] leading-[100%] tracking-[0%] font-[500] font-[Montserrat]">
+                            <span className="text-[22px]  tracking-[0%] font-[500] leading-8 font-[Montserrat]">
                                 {faq.question}
                             </span>
-                            <span className="text-[16px] sm:text-xl xl:text-2xl">
+                            <span className="text-[16px] sm:text-xl xl:text-2xl ">
                                 <i
                                     className={`fa-solid ${openIndex === index ? "fa-chevron-up" : "fa-chevron-down"
                                         } bg-red-600 text-amber-50 p-[5px] rounded-full`}
@@ -88,7 +88,7 @@ function FAQ() {
                             </span>
                         </button>
                         {openIndex === index && (
-                            <p className="pb-4 text-[#4B5563] font-[Montserrat] font-[400] text-[16px] leading-[100%] tracking-[0%]">
+                            <p className="pb-4 text-[#4B5563] font-[Montserrat] font-[400] text-[16px] leading-6 tracking-[0%]">
                                 {faq.answer}
                             </p>
                         )}

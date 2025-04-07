@@ -84,9 +84,9 @@ const Part4 = ({ onComplete, onPrevious, currentQuestion, setCurrentQuestion, an
 
             {currentTest >= 28 && currentTest <= 38 && (
                 <div className="test-item mt-4 mb-16 m-auto">
-                    <span className='flex flex-row max-w-[450px] text-wrap m-auto'>
+                    <span className='flex flex-row max-w-[450px] w-fit m-auto'>
                         <p className="text-2xl font-medium">{currentTest}.</p>
-                        <p className="text-2xl font-medium ml-4 ">
+                        <p className="text-2xl font-medium ml-4">
                             {questions[currentTest - 28]}
                         </p>
                     </span>
