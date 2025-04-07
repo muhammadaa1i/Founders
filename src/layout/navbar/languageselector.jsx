@@ -25,9 +25,9 @@ const LanguageSelector = () => {
         <div className="relative inline-block">
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="flex items-center gap-2  p-2 rounded-md"
+                className="flex items-center gap-2 w-8 h-8  rounded-md"
             >
-                <img src={currentLang.flag} alt={currentLang.code} className="w-8 h-8" />
+                <img src={currentLang.flag} alt={currentLang.code} className="w-full h-full" />
             </button>
 
             {isOpen && (
