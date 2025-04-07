@@ -21,7 +21,7 @@ function Footer() {
         <footer id="contact" className="bg-[#EC0000] text-white text-center py-10 xl:px-[110px] rounded-tl-[10px] rounded-tr-[10px]">
             <h1
                 data-aos='zoom-in'
-                className="textGrow font-[Andasia Personal Use] font-normal text-4xl sm:text-6xl xl:text-[128px] text-center">
+                className="textGrow font-[Andasia Personal Use] font-normal text-3xl sm:text-5xl xl:text-[78px] text-center">
                We grow together!
             </h1>
 
@@ -55,7 +55,7 @@ function Footer() {
                     <a href="tel: +998 71 205-53-33 ">+998 71 205-53-33</a>
                 </div>
 
-                <div id="contact" className="flex flex-col gap-3 text-[26px]">
+                <div id="contact" className="flex flex-col gap-3 text-[26px] font-[Montserrat]">
                     <p>{t("Ijtimoiy tarmoqlarimiz:")}</p>
                     <div className="flex gap-3 justify-center items-center">
                         <a target="_blank" rel="noopener noreferrer" href="https://t.me/founders_school_uz"><i className="fa-brands fa-telegram"></i></a>
