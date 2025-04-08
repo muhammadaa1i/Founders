@@ -20,8 +20,8 @@ function InfoCard() {
     const collectionsData = [
         { num: "3+", title: t("Yillik tajriba") },
         { num: "2 000+", title: t("Mamnun o‘quvchilar") },
-        { num: "50+", title: t("Ijobiy IELTS natijalari") },
-        { num: "100+", title: t("Hodimlar soni") },
+        { num: "200+", title: t("Ijobiy IELTS natijalari") },
+        { num: "40+", title: t("Hodimlar soni") },
     ];
 
     return (
@@ -30,13 +30,13 @@ function InfoCard() {
                 <div
                     key={index}
                     data-aos="zoom-in"
-                    className="relative z-0 w-full py-8 px-6 rounded-3xl bg-no-repeat bg-right bg-contain max-sm:py-4 max-sm:px-4 max-sm:rounded-xl bg-[#FFB2B2]"
+                    className="relative z-0 w-full py-12 px-6 rounded-3xl bg-no-repeat bg-right bg-contain max-sm:py-4 max-sm:px-4 max-sm:rounded-xl bg-[#ffcfcf]"
                     style={{ backgroundImage: "url('/src/assets/star.png')" }}
                 >
-                    <p className="font-bold text-5xl text-[#EC0000] max-sm:text-xl max-sm:leading-7">
+                    <p className="font-bold text-6xl text-[#EC0000] max-sm:text-xl max-sm:leading-7">
                         {item.num}
                     </p>
-                    <h4 className="font-medium text-xl text-[#000000] max-sm:text-sm max-sm:leading-5">
+                    <h4 className="font-normal text-2xl  text-[#000000] max-sm:text-sm max-sm:leading-5">
                         {item.title}
                     </h4>
                 </div>
