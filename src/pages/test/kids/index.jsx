@@ -1,6 +1,12 @@
 import { useState, useEffect, React } from "react";
 import { useNavigate } from "react-router-dom";
-import data from "../../../../public/servers/kids.json"; // Import your data JSON
+import data from "../../../../public/servers/kids.json";
+import kids1 from '../../../assets/kids1.png'
+import kids2 from '../../../assets/kids2.png'
+import kids3 from '../../../assets/kids3.png'
+import kids4 from '../../../assets/kids4.png'
+import kids5 from '../../../assets/kids5.png'
+import kids6 from '../../../assets/kids6.png'
 
 export default function KidsEnglishTask() {
   const [step, setStep] = useState(() => {
@@ -17,6 +23,7 @@ export default function KidsEnglishTask() {
   const [totalCorrect, setTotalCorrect] = useState(0);
   const [error, setError] = useState(false);
   const navigate = useNavigate();
+  const kidsimages = [kids1, kids2, kids3, kids4, kids5, kids6]
 
   const initializeAnswers = () => {
     if (!data) return [];
@@ -248,13 +255,13 @@ export default function KidsEnglishTask() {
           {/* Step 1: Render images */}
           {step === 1 && (
             <div className="space-y-4">
-              {data.images.map((image, index) => (
+              {kidsimages.map((images, index) => (
                 <div key={index} className="bg-gray-50 p-4 rounded-lg shadow-sm">
                   <p className="font-semibold text-gray-700 mb-2">
                     {index + 1}. What is this?
                   </p>
                   <img
-                    src={image.src}
+                    src={images}
                     loading='lazy'
                     alt={`Question ${index + 1}`}
                     className="w-24 h-24 mb-3 object-contain"

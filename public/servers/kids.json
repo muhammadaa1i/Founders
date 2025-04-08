@@ -1,11 +1,11 @@
 {
     "images": [
-      { "src": "../../src/assets/kids1.png", "answer": "car" },
-      { "src": "../../src/assets/kids2.png", "answer": "swimming" },
-      { "src": "../../src/assets/kids3.png", "answer": "suitcase" },
-      { "src": "../../src/assets/kids4.png", "answer": "newspaper" },
-      { "src": "../../src/assets/kids5.png", "answer": "anchor" },
-      { "src": "../../src/assets/kids6.png", "answer": "elbow" }
+      { "answer": "car" },
+      {  "answer": "swimming" },
+      {  "answer": "suitcase" },
+      {  "answer": "newspaper" },
+      { "answer": "anchor" },
+      {  "answer": "elbow" }
     ],
     "words": [
       { "word": "Sit", "translation": ["o'tirish", "o'tirmoq", "сидеть"] },

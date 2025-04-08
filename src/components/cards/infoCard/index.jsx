@@ -1,6 +1,7 @@
 import Aos from "aos";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import star from '../../../assets/star.png'
 
 function InfoCard() {
     const { t, i18n } = useTranslation();
@@ -31,7 +32,7 @@ function InfoCard() {
                     key={index}
                     data-aos="zoom-in"
                     className="relative z-0 w-full py-12 px-6 rounded-3xl bg-no-repeat bg-right bg-contain max-sm:py-4 max-sm:px-4 max-sm:rounded-xl bg-[#ffcfcf]"
-                    style={{ backgroundImage: "url('/src/assets/star.png')" }}
+                    style={{ backgroundImage: `url(${star})` }}
                 >
                     <p className="font-bold text-6xl text-[#EC0000] max-sm:text-xl max-sm:leading-7">
                         {item.num}
