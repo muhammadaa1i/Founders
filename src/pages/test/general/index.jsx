@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import questions from "./questions.json";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const General = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -62,7 +63,11 @@ const General = () => {
     if (score <= 45) return "Upper-Intermediate";
     return "Advanced";
   };
-
+  const { t, i18n } = useTranslation();
+  const ChangeLng = (selectedLanguage) => {
+    i18n.changeLanguage(selectedLanguage);
+    localStorage.setItem("i18nextLng", selectedLanguage);
+  };
   return (
     <div className="kids-main pt-28 pb-12 ">
       <div
@@ -72,13 +77,13 @@ const General = () => {
         {showResult ? (
           <div className="flex flex-col items-center justify-center">
             <h2 className="font-monserat font-medium text-3xl text-gray-800 mb-4">
-              Your score:
+              {t("Your score")}:
             </h2>
             <p className="font-monserat font-semibold text-2xl text-center mb-2">
               {score} / {questions.length}
             </p>
             <p className="font-monserat text-xl font-semibold text-gray-700 mb-6">
-              Your level: <span className="font-semibold text-red-600">{getLevel(score)}</span>
+              {t("Your level")}: <span className="font-semibold text-red-600">{getLevel(score)}</span>
             </p>
             {/* <button
               onClick={restartQuiz}
@@ -86,14 +91,16 @@ const General = () => {
             >
               Retry
             </button> */}
+
+            <p className=" font-monserat text-xl font-semibold text-gray-700 mb-6 px-8">{t("Kelajangizni o'zgartiruvchi testni muvaffaqiyatli ishlaganingizdan juda xurzandmiz! Sizni hayotingizni tubdan o'zgartiruvchi qo'ng'irog'imizni kuting!")}</p>
             <button
               onClick={() => {
                 localStorage.clear(); // Clear the localStorage
                 navigate("/"); // Navigate to the main page
               }}
-              className="max-w-[200px] w-full m-auto mt-6 bg-red-500 text-white py-2 px-6 rounded-lg hover:bg-red-600 transition duration-300"
+              className="w-auto m-auto mt-6 bg-red-500 text-white py-2 px-6 rounded-lg hover:bg-red-600 transition duration-300"
             >
-              Back to Main Page
+              {t("Back to Main Page")}
             </button>
           </div>
         ) : (

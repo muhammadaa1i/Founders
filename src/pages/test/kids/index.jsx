@@ -45,7 +45,7 @@ export default function KidsEnglishTask() {
       localStorage.setItem('totalCorrect', totalCorrect);
     }
   }, [step, score, totalCorrect]);
-  
+
 
   const handleAnswerChange = (index, value) => {
     const newAnswers = [...answers];
@@ -178,7 +178,7 @@ export default function KidsEnglishTask() {
     if (checkAnswers()) {
       setTotalCorrect(score);
       setShowFinalScore(true);
-      localStorage.setItem('testCompleted', 'true'); // ✅ test yakunlanganini saqlaymiz
+      localStorage.setItem('testCompleted', 'true');
     }
   };
 
@@ -255,8 +255,9 @@ export default function KidsEnglishTask() {
                   </p>
                   <img
                     src={image.src}
+                    loading='lazy'
                     alt={`Question ${index + 1}`}
-                    className="w-24 h-24 mb-3 object-contain mx-auto"
+                    className="w-24 h-24 mb-3 object-contain"
                   />
                   <input
                     type="text"
