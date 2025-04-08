@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import questions from "./questions.json";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import axios from "axios"; // telegram uchun kerak
 
 const General = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -9,8 +10,57 @@ const General = () => {
   const [showResult, setShowResult] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
 
-  // Load state from localStorage on mount
+  // Telegramga yuborish uchun getLevel funktsiyasi
+  const getLevel = (score) => {
+    if (score <= 12) return "Beginner";
+    if (score <= 23) return "Elementary";
+    if (score <= 32) return "Pre-Intermediate";
+    if (score <= 39) return "Intermediate";
+    if (score <= 45) return "Upper-Intermediate";
+    return "Advanced";
+  };
+
+  const sendFinalResult = (finalScore) => {
+    const registrationData = JSON.parse(localStorage.getItem("registrationData"));
+    const token = "7753612890:AAGI_u4Slr5ABK1IX2T4asGh01BBvayCSYw";
+    const chat_id = -1002585473961;
+    const url = `https://api.telegram.org/bot${token}/sendMessage`;
+
+    if (!registrationData) return;
+
+    const totalQuestions = questions.length;
+
+    const messageContent = `
+📝 Ro‘yxatdan o‘tish:
+👤 Ismi: ${registrationData.name}
+📞 Telefon: ${registrationData.phone}
+📢 Qayerdan eshitdi: ${registrationData.heard}
+❓ Muammo: ${registrationData.problem}
+📍 Viloyat: ${registrationData.region}
+🏙 Tuman: ${registrationData.district}
+
+📊 General test yakuni:
+✅ To'g'ri javoblar: ${finalScore}/${totalQuestions}
+🎯 Daraja: ${getLevel(finalScore)}
+`;
+
+    axios.post(url, {
+      chat_id,
+      text: messageContent,
+    }).then(() => {
+      console.log("Telegramga yuborildi");
+    }).catch((err) => {
+      console.error("Telegramga yuborishda xatolik:", err);
+    });
+  };
+
+  const ChangeLng = (selectedLanguage) => {
+    i18n.changeLanguage(selectedLanguage);
+    localStorage.setItem("i18nextLng", selectedLanguage);
+  };
+
   useEffect(() => {
     const savedState = JSON.parse(localStorage.getItem("quizState"));
     if (savedState) {
@@ -20,13 +70,18 @@ const General = () => {
     }
   }, []);
 
-  // Save state to localStorage whenever it changes
   useEffect(() => {
     localStorage.setItem(
       "quizState",
       JSON.stringify({ currentQuestion, score, showResult })
     );
   }, [currentQuestion, score, showResult]);
+
+  useEffect(() => {
+    if (showResult) {
+      sendFinalResult(score);
+    }
+  }, [showResult]); // showResult true bo‘lganda yuboradi
 
   const handleAnswer = (option) => {
     if (!option) return;
@@ -47,27 +102,6 @@ const General = () => {
     }, 500);
   };
 
-  // const restartQuiz = () => {
-  //   setCurrentQuestion(0);
-  //   setScore(0);
-  //   setShowResult(false);
-  //   setSelectedOption(null);
-  //   localStorage.removeItem("quizState");
-  // };
-
-  const getLevel = (score) => {
-    if (score <= 12) return "Beginner";
-    if (score <= 23) return "Elementary";
-    if (score <= 32) return "Pre-Intermediate";
-    if (score <= 39) return "Intermediate";
-    if (score <= 45) return "Upper-Intermediate";
-    return "Advanced";
-  };
-  const { t, i18n } = useTranslation();
-  const ChangeLng = (selectedLanguage) => {
-    i18n.changeLanguage(selectedLanguage);
-    localStorage.setItem("i18nextLng", selectedLanguage);
-  };
   return (
     <div className="kids-main pt-28 pb-12 ">
       <div
@@ -85,18 +119,12 @@ const General = () => {
             <p className="font-monserat text-xl font-semibold text-gray-700 mb-6">
               {t("Your level")}: <span className="font-semibold text-red-600">{getLevel(score)}</span>
             </p>
-            {/* <button
-              onClick={restartQuiz}
-              className="bg-red-500 text-white px-6 py-3 rounded-full text-lg font-semibold shadow-lg"
-            >
-              Retry
-            </button> */}
 
             <p className=" font-monserat text-xl font-semibold text-gray-700 mb-6 px-8">{t("Kelajangizni o'zgartiruvchi testni muvaffaqiyatli ishlaganingizdan juda xurzandmiz! Sizni hayotingizni tubdan o'zgartiruvchi qo'ng'irog'imizni kuting!")}</p>
             <button
               onClick={() => {
-                localStorage.clear(); // Clear the localStorage
-                navigate("/"); // Navigate to the main page
+                localStorage.clear(); 
+                navigate("/"); 
               }}
               className="w-auto m-auto mt-6 bg-red-500 text-white py-2 px-6 rounded-lg hover:bg-red-600 transition duration-300"
             >
