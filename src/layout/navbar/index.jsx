@@ -3,7 +3,6 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Link as ScrollLink, scroller } from "react-scroll";
 import Logo from "../../assets/logof.avif";
 import BarLogo from "../../assets/logof2.avif";
-// import Button from "../../components/button";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import { useTranslation } from "react-i18next";
@@ -49,7 +48,7 @@ function Navbar() {
     localStorage.setItem("i18nextLng", selectedLanguage);
   };
   return (
-    <div className="fixed top-0 right-0 left-0 z-50 px-5 sm:px-[50px] bg-[#EC0000] py-4 shadow-md transition-all duration-300">
+    <div className="fixed top-0 right-0 left-0 z-50 px-5 sm:px-[50px] lg:px-[20px] bg-[#EC0000] py-4 shadow-md transition-all duration-300">
       <div className="nav-in flex items-center justify-between">
         <div
           data-aos="flip-down"
