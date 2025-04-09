@@ -81,7 +81,7 @@
       { "question": "Do you like bananas?", "correct": "Yes, I do" },
       { "question": "Is there a book on the table?", "correct": "Yes, there is" },
       { "question": "Was it sunny?", "correct": "Yes, it was" },
-      { "question": "Has he brushed her hair?", "correct": "Yes, he has" },
+      { "question": "Has he brushed his hair?", "correct": "Yes, he has" },
       { "question": "Did you do your homework?", "correct": "Yes, I did" }
     ],
     "wordsTask": [

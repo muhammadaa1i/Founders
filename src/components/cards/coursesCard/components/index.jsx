@@ -47,7 +47,7 @@ function CourseCard({
 
             <div className="flex flex-col gap-4">
                 <div className="flex items-start gap-3">
-                    <i className="fa-regular fa-circle-check text-red-700 mt-3 text-xl md:text-2xl"></i>
+                    <i className="fa-regular fa-circle-check text-red-700 mt-1 text-xl md:text-2xl"></i>
                     <p className="montserrat_font_400 leading-6 text-[16px] md:text-xl">
                         <b className="text-[#222222]">{timeBold}</b>
                         {courseTime}
@@ -55,7 +55,7 @@ function CourseCard({
                 </div>
 
                 <div className="flex items-start gap-3">
-                    <i className="fa-regular fa-circle-check text-red-700 mt-3 text-xl md:text-2xl"></i>
+                    <i className="fa-regular fa-circle-check text-red-700 mt-1 text-xl md:text-2xl"></i>
                     <p className="montserrat_font_400 leading-6 text-[16px] md:text-xl">
                         <b className="text-[#222222] font-bold">{teacherBold}</b>
                         {teacher}
@@ -63,7 +63,7 @@ function CourseCard({
                 </div>
 
                 <div className="flex items-start gap-3">
-                    <i className="fa-regular fa-circle-check text-red-700 mt-3 text-xl md:text-2xl"></i>
+                    <i className="fa-regular fa-circle-check text-red-700 mt-1 text-xl md:text-2xl"></i>
                     <p className="montserrat_font_400 leading-6 text-[16px] md:text-xl">
                         <b className="text-[#222222] font-bold">{spanTitleBold}</b>
                         {spanTitle}
@@ -71,7 +71,7 @@ function CourseCard({
                 </div>
 
                 <div className="flex items-start gap-3">
-                    <i className="fa-regular fa-circle-check text-red-700 mt-3 text-xl md:text-2xl"></i>
+                    <i className="fa-regular fa-circle-check text-red-700 mt-1 text-xl md:text-2xl"></i>
                     <p className="montserrat_font_400 leading-6 text-[16px] md:text-xl">
                         <b className="text-[#222222] font-bold">{spanParagrfBold}</b>
                         {spanParagrf}
@@ -79,7 +79,7 @@ function CourseCard({
                 </div>
 
                 <div className="flex items-start gap-3">
-                    <i className="fa-regular fa-circle-check text-red-700 mt-3 text-xl md:text-2xl"></i>
+                    <i className="fa-regular fa-circle-check text-red-700 mt-1 text-xl md:text-2xl"></i>
                     <p className="montserrat_font_400 leading-6 text-[16px] md:text-xl">
                         <span className="text-[#222222] font-bold">{cabinetBold}</span>
                         {cabinet}

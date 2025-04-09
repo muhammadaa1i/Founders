@@ -109,95 +109,50 @@ export default function KidsEnglishTask() {
   };
 
   const checkAnswers = () => {
-    if (answers.every((answer) => (answer?.trim?.() || "") === "")) {
-      setError(true);
-      return false;
+    // Check if any input field is left empty
+    if (answers.some((answer) => (answer?.trim?.() ) === "")) {
+      // setError(true); 
+      
+      toast.warning("Iltimos, barcha javoblarni to'ldiring!", {
+        position: "top-center",
+        autoClose: 3000,
+      });
+      window.scrollTo(0, 0); // Sahifa yuqoriga siljiydi
+      return false; // Prevent proceeding
     }
-
+  
+    // Proceed with checking correctness of answers
     let correctCount = 0;
     const wrongAnswers = [];
-
+  
     answers.forEach((answer, index) => {
-      const trimmedAnswer = (answer?.trim?.().toLowerCase()) || "";
+      const trimmedAnswer = (answer?.trim?.().toLowerCase()) ;
       let isCorrect = false;
-
-      if (
-        step === 1 &&
-        data.images[index]?.answer &&
-        (Array.isArray(data.images[index].answer)
-          ? data.images[index].answer.some((ans) => ans.toLowerCase() === trimmedAnswer)
-          : data.images[index].answer.toLowerCase() === trimmedAnswer)
-      ) {
-        isCorrect = true;
-      } else if (
-        step === 2 &&
-        data.words[index]?.translation &&
-        (Array.isArray(data.words[index].translation)
-          ? data.words[index].translation.some((ans) => ans.toLowerCase() === trimmedAnswer)
-          : data.words[index].translation.toLowerCase() === trimmedAnswer)
-      ) {
-        isCorrect = true;
-      } else if (step === 3) {
-        const correctAnswer = data.correctAnswers[index];
-        if (Array.isArray(correctAnswer)) {
-          if (correctAnswer.some((ans) => ans.toLowerCase() === trimmedAnswer)) {
-            isCorrect = true;
-          }
-        } else {
-          if (correctAnswer?.toLowerCase() === trimmedAnswer) {
-            isCorrect = true;
-          }
-        }
-      } else if (step === 4) {
-        const correctAnswer = data.sentencesAnswers[index];
-        if (Array.isArray(correctAnswer)) {
-          if (correctAnswer.some((ans) => ans.toLowerCase() === trimmedAnswer)) {
-            isCorrect = true;
-          }
-        } else {
-          if (correctAnswer?.toLowerCase() === trimmedAnswer) {
-            isCorrect = true;
-          }
-        }
-      } else if (
-        step === 5 &&
-        data.shortAnswers[index]?.correct &&
-        (Array.isArray(data.shortAnswers[index].correct)
-          ? data.shortAnswers[index].correct.some((ans) => ans.toLowerCase() === trimmedAnswer)
-          : data.shortAnswers[index].correct.toLowerCase() === trimmedAnswer)
-      ) {
-        isCorrect = true;
-      } else if (
-        step === 6) {
-        const correctAnswer = data.putWordsAnswers[index];
-        if (Array.isArray(correctAnswer)) {
-          if (correctAnswer.some((ans) => ans.toLowerCase() === trimmedAnswer)) {
-            isCorrect = true;
-          }
-        } else {
-          if (correctAnswer?.toLowerCase() === trimmedAnswer) {
-            isCorrect = true;
-          }
-        }
+      
+  
+      const correctAnswer = getCorrectAnswerByStep(step, index);
+      if (Array.isArray(correctAnswer)) {
+        isCorrect = correctAnswer.some((ans) => ans.toLowerCase() === trimmedAnswer);
+      } else {
+        isCorrect = correctAnswer?.toLowerCase() === trimmedAnswer;
       }
-
+  
       if (isCorrect) {
         correctCount++;
       } else {
         wrongAnswers.push({
           questionIndex: index,
           userAnswer: trimmedAnswer,
-          correctAnswer: getCorrectAnswerByStep(step, index),
+          correctAnswer: correctAnswer,
         });
       }
     });
-
+  
     setScore((prevScore) => prevScore + correctCount);
-
     const existingWrongAnswers = JSON.parse(localStorage.getItem("wrongAnswers")) || [];
     const updatedWrongAnswers = [...existingWrongAnswers, ...wrongAnswers];
     localStorage.setItem("wrongAnswers", JSON.stringify(updatedWrongAnswers));
-
+  
     return true;
   };
 
@@ -214,13 +169,20 @@ export default function KidsEnglishTask() {
     }
   };
 
-  const finishTest = () => {
+  const finishTest = () => {   
+
     if (checkAnswers()) {
       setTotalCorrect(score);
       setShowFinalScore(true);
       localStorage.setItem("testCompleted", "true");
       localStorage.setItem("score", score);
-      sendFinalResult(score); // ✅ use the actual score
+      
+      sendFinalResult(score);
+      setTimeout(() => {
+        localStorage.removeItem("testCompleted");
+        localStorage.removeItem("score");
+      }, 1000);
+      
     }
   };
 
@@ -299,13 +261,13 @@ export default function KidsEnglishTask() {
                 {getLevel(totalCorrect)}
               </span>
             </p>
-            <p className=" font-monserat   text-lg font-semibold text-gray-700 mb-6 my-10 px-8">{t("Kelajangizni o'zgartiruvchi testni muvaffaqiyatli ishlaganingizdan juda xurzandmiz! Sizni hayotingizni tubdan o'zgartiruvchi qo'ng'irog'imizni kuting!")}</p>
+            <p className=" font-monserat   text-lg font-semibold text-gray-700 mb-6 my-10 px-8">{t("Kelajagingizni o'zgartiruvchi testni muvaffaqiyatli ishlaganingizdan juda xurzandmiz! Hayotingizni tubdan o'zgartiruvchi qo'ng'irog'imizni kuting😊")}</p>
             <button
               onClick={() => {
                 localStorage.clear();
                 navigate("/");
               }}
-             className="w-auto m-auto mt-6 bg-red-500 text-white py-2 px-6 rounded-lg hover:bg-red-600 transition duration-300"
+              className="w-auto m-auto mt-6 bg-red-500 text-white py-2 px-6 rounded-lg hover:bg-red-600 transition duration-300"
             >
               {t("Back to Main Page")}
             </button>
@@ -406,7 +368,7 @@ export default function KidsEnglishTask() {
               {data.sentences.map((sentence, index) => (
                 <div key={index} className="bg-gray-50 p-4 rounded-lg shadow-sm">
                   <p className="font-semibold text-gray-700 mb-2">
-                    {index + 17}. {sentence}
+                    {index + 28}. {sentence}
                   </p>
                   <input
                     type="text"
@@ -425,7 +387,7 @@ export default function KidsEnglishTask() {
               {data.shortAnswers.map((item, index) => (
                 <div key={index} className="bg-gray-50 p-4 rounded-lg shadow-sm">
                   <p className="font-semibold text-gray-700 mb-2">
-                    {index + 28}. {item.question}
+                    {index + 39}. {item.question}
                   </p>
                   <input
                     type="text"
@@ -434,7 +396,6 @@ export default function KidsEnglishTask() {
                       handleAnswerChange(index, e.target.value)
                     }
                     className="w-[60%] m-auto border-b-2 border-black outline-none text-[16px] text-center"
-                    dir="ltr"
                   />
                 </div>
               ))}
@@ -450,7 +411,7 @@ export default function KidsEnglishTask() {
               {data.putWordsQuestions.map((question, index) => (
                 <div key={index} className="bg-gray-50 p-4 rounded-lg shadow-sm">
                   <p className="font-semibold text-gray-700 mb-2">
-                    {index + 34}. {question}
+                    {index + 45}. {question}
                   </p>
                   <input
                     type="text"
@@ -467,7 +428,24 @@ export default function KidsEnglishTask() {
             {step < 6 ? (
               <button
                 onClick={() => {
-                  if (answers.some((answer) => answer.trim() === "")) {
+                  let currentStepAnswers = [];
+
+                  if (step === 5) {
+                    // Step 5 uchun faqat shortAnswers
+                    currentStepAnswers = data.shortAnswers.map((_, index) => answers[index]?.trim());
+                  } else if (step === 6) {
+                    // Step 6 uchun putWordsQuestions (offset hisobga olinadi)
+                    const offset = data.shortAnswers.length;
+                    currentStepAnswers = data.putWordsQuestions.map((_, index) =>
+                      answers[offset + index]?.trim()
+                    );
+                  } else {
+                    // Boshqa partlar uchun butun answers tekshirilsin
+                    currentStepAnswers = answers.map((ans) => ans?.trim());
+                  }
+
+                  // Bo‘sh javob borligini tekshiramiz
+                  if (currentStepAnswers.some((answer) => !answer)) {
                     toast.warning(t("Iltimos, barcha javoblarni to'ldiring!"), {
                       position: "top-center",
                       autoClose: 3000,
@@ -475,6 +453,7 @@ export default function KidsEnglishTask() {
                     window.scrollTo(0, 0);
                     return;
                   }
+
                   goToNextStep();
                 }}
                 className="w-full bg-red-500 text-white py-3 px-6 rounded-lg hover:bg-red-600 transition duration-300"
