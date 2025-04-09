@@ -29,16 +29,16 @@ function First() {
                         className="ielts-text font-[Montserrat] text-[#EC0000] font-bold text-3xl sm:text-4xl lg:text-5xl xl:text-6xl xl:mt-8 min-[1720px]:text-[80px] leading-[100%] tracking-normal"
                     >
                         {t("Kafolatlangan")} <br />
-                        <span className="bg-[#EC0000] text-white px-2 inline-block rounded-md mb-2">IELTS</span> {t("yoki")} <br />
+                        <span className="bg-[#EC0000] p-1 text-white px-2 mt-3 inline-block rounded-md mb-2">IELTS</span> {t("yoki")} <br />
                         {isUzbek ? (
                             <>
-                                <span className="bg-[#EC0000] text-white px-2 inline-block rounded-md mt-2">{t("BEPUL")}</span> {t("o'qing!")}
+                                <span className="bg-[#EC0000] p-1 text-white px-2 inline-block rounded-md mt-2">{t("BEPUL")}</span> {t("o'qing!")}
 
                             </>
                         ) : (
                             <>
                                 {t("o'qing")}{" "}
-                                <span className="bg-[#EC0000] text-white px-2 inline-block rounded-md mt-2">{t("BEPUL!")}</span>
+                                <span className="bg-[#EC0000] p-1 text-white px-2 inline-block rounded-md mt-2">{t("BEPUL!")}</span>
                             </>
                         )}
                     </h1>
