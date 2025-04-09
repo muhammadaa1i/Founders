@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Link as ScrollLink, scroller } from "react-scroll";
 import Logo from "../../assets/logof.avif";
+
 import BarLogo from "../../assets/logof2.avif";
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -52,15 +53,22 @@ function Navbar() {
       <div className="nav-in flex items-center justify-between">
         <div
           data-aos="flip-down"
-          className="lg:hidden block items-center gap-3"
+          className="block items-center gap-3"
         >
-          <button onClick={() => setIsOpen(true)}>
+          <button
+            onClick={() => {
+              if (window.innerWidth < 1024) {
+                setIsOpen(true);
+              }
+            }}
+          >
             <img
               src={BarLogo}
               alt="Menu Icon"
-              className="w-[28px] h-[30px] sm:w-[45px] sm:h-[40px] lazyload"
+              className="max-w-[28px] xl:hidden h-[30px] sm:w-[45px] sm:h-[40px] lazyload"
             />
           </button>
+
         </div>
 
 
@@ -152,9 +160,8 @@ function Navbar() {
       )}
 
       <div
-        className={`mobile-menu flex flex-col  items-start pr-6 lg:hidden fixed top-0 left-0 h-full font-[Montserrat] w-[70%] min-[500px]:w-[60%] bg-white text-black shadow-lg transition-transform duration-300 ease-in-out z-50 ${
-          isOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
+        className={`mobile-menu flex flex-col  items-start pr-6 lg:hidden fixed top-0 left-0 h-full font-[Montserrat] w-[70%] min-[500px]:w-[60%] bg-white text-black shadow-lg transition-transform duration-300 ease-in-out z-50 ${isOpen ? "translate-x-0" : "-translate-x-full"
+          }`}
       >
         <div className="py-6 px-5 ml-[85%]">
           <button

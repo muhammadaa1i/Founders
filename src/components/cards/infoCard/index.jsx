@@ -26,15 +26,15 @@ function InfoCard() {
     ];
 
     return (
-        <section className="grid grid-cols-2 gap-6 px-8 py-6 mb-16 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 max-sm:px-4 max-sm:py-4 max-sm:gap-4">
+        <section className="grid grid-cols-2 gap-6 px-8 py-6 mb-16 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 max-sm:px-4 max-sm:py-4 max-sm:gap-4">
             {collectionsData.map((item, index) => (
                 <div
                     key={index}
                     data-aos="zoom-in"
-                    className="relative z-0 w-full py-12 px-6 rounded-3xl bg-no-repeat bg-right bg-contain max-sm:py-4 max-sm:px-4 max-sm:rounded-xl bg-[#ffcfcf]"
+                    className="relative z-0 w-full py-8 px-6 rounded-3xl bg-no-repeat bg-right bg-contain max-sm:py-4 max-sm:px-4 max-sm:rounded-xl bg-[#ffcfcf]"
                     style={{ backgroundImage: `url(${star})` }}
                 >
-                    <p className="font-bold text-6xl text-[#EC0000] max-sm:text-xl max-sm:leading-7">
+                    <p className="font-bold text-5xl text-[#EC0000] max-sm:text-xl max-sm:leading-7">
                         {item.num}
                     </p>
                     <h4 className="font-normal text-2xl  text-[#000000] max-sm:text-sm max-sm:leading-5">
