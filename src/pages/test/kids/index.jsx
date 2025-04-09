@@ -262,13 +262,20 @@ export default function KidsEnglishTask() {
   const totalQuestions = data ? (data.images.length + data.words.length + data.questions.length +
     data.sentences.length + data.shortAnswers.length + data.putWordsQuestions.length) : 0;
 
+<<<<<<< HEAD
+  if (!data) return <div>Loading...</div>; // Loading state
+ 
+=======
 
   if (!data) return <div>Loading...</div>;
+>>>>>>> a3a8893994bf1061bf825e5eaeb7ab834ecf2345
 
   return (
-    <div className="p-6 max-w-lg mt-20 mx-auto bg-white shadow-lg rounded-lg">
-      {showFinalScore ? (
-        <div className="text-center flex flex-col p-6">
+<div
+        className="flex flex-col mt-28 items-center justify-center w-[90%] max-w-5xl kids m-auto py-11 px-3 xl:px-10 min-[400px]:w-[80%] md:w-[70%] xl:w-[60%] h-auto rounded-2xl border-2 text-center border-[#EC0000]"
+        style={{ boxShadow: "15px 15px 40px 0px #FF00004D" }}
+      >      {showFinalScore ? (
+        <div className="text-center flex flex-col">
           <p className="text-2xl font-medium mb-4 text-gray-700">
             {t("Your score")}:
           </p>
@@ -281,14 +288,14 @@ export default function KidsEnglishTask() {
               {getLevel(totalCorrect)}
             </span>
           </p>
-          <p className=" font-monserat text-xl font-semibold text-gray-700 mb-6 px-8">{t("Kelajangizni o'zgartiruvchi testni muvaffaqiyatli ishlaganingizdan juda xurzandmiz! Sizni hayotingizni tubdan o'zgartiruvchi qo'ng'irog'imizni kuting!")}</p>
+          <p className=" font-monserat text-xl my-5 font-semibold text-gray-700 mb-6 px-8">{t("Kelajangizni o'zgartiruvchi testni muvaffaqiyatli ishlaganingizdan juda xurzandmiz! Sizni hayotingizni tubdan o'zgartiruvchi qo'ng'irog'imizni kuting!")}</p>
           <button
             onClick={() => {
               localStorage.clear();
               navigate("/");
             }}
-            className="max-w-[200px] w-full m-auto mt-6 bg-red-500 text-white py-2 px-6 rounded-lg hover:bg-red-600 transition duration-300"
-          >
+            className="w-auto m-auto mt-6 bg-red-500 text-white py-2 px-6 rounded-lg hover:bg-red-600 transition duration-300"
+            >
             {t("Back to Main Page")}
           </button>
         </div>

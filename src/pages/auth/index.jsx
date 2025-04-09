@@ -163,7 +163,7 @@ export default function RegistrationForm() {
                                 required
                                 id="district"
                                 className="w-full p-3 border border-gray-300 rounded-lg bg-[#FFB2B2] outline-none"
-                                onChange={handleDistrictChange} // Track district
+                                onChange={handleDistrictChange} 
                             >
                                 <option value="">{t("Tumaningizni tanlang")}</option>
                                 {regions[selectedRegion].map((district, index) => (

@@ -120,7 +120,7 @@ const General = () => {
               {t("Your level")}: <span className="font-semibold text-red-600">{getLevel(score)}</span>
             </p>
 
-            <p className=" font-monserat text-xl font-semibold text-gray-700 mb-6 px-8">{t("Kelajangizni o'zgartiruvchi testni muvaffaqiyatli ishlaganingizdan juda xurzandmiz! Sizni hayotingizni tubdan o'zgartiruvchi qo'ng'irog'imizni kuting!")}</p>
+            <p className=" font-monserat text-xl my-3 font-semibold text-gray-700 mb-6 px-8">{t("Kelajangizni o'zgartiruvchi testni muvaffaqiyatli ishlaganingizdan juda xurzandmiz! Sizni hayotingizni tubdan o'zgartiruvchi qo'ng'irog'imizni kuting!")}</p>
             <button
               onClick={() => {
                 localStorage.clear(); 
