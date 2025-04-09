@@ -49,7 +49,7 @@ function Navbar() {
     localStorage.setItem("i18nextLng", selectedLanguage);
   };
   return (
-    <div className="fixed top-0 right-0 left-0 z-50 px-5 sm:px-[50px] lg:px-[20px] bg-[#EC0000] py-4 shadow-md transition-all duration-300">
+    <div className="fixed top-0 right-0 left-0 z-50 px-5 sm:px-[50px] lg:px-[10px] bg-[#EC0000] py-4 shadow-md transition-all duration-300">
       <div className="nav-in flex items-center justify-between">
         <div
           data-aos="flip-down"
@@ -65,7 +65,7 @@ function Navbar() {
             <img
               src={BarLogo}
               alt="Menu Icon"
-              className="max-w-[28px] xl:hidden h-[30px] sm:w-[45px] sm:h-[40px] lazyload"
+              className="max-w-[35px] xl:hidden h-[30px] sm:w-[45px] sm:h-[40px] lazyload"
             />
           </button>
 
@@ -85,7 +85,7 @@ function Navbar() {
         <div className="hidden lg:flex flex-1 justify-center">
           <ul
             data-aos="flip-down"
-            className="flex items-center text-base   gap-[30px] sm:gap-[20px]"
+            className="flex items-center text-base gap-[30px] sm:gap-[20px]"
           >
             <li>
               <button
@@ -140,7 +140,7 @@ function Navbar() {
 
         <div
           data-aos="flip-down"
-          className="login-btn flex items-center gap-3 ml-3 text-[14px] xl:text-base"
+          className="login-btn flex items-center gap-0 ml-2 text-[14px] xl:text-base"
         >
           <LanguageSelector />
           <Link
