@@ -262,13 +262,8 @@ export default function KidsEnglishTask() {
   const totalQuestions = data ? (data.images.length + data.words.length + data.questions.length +
     data.sentences.length + data.shortAnswers.length + data.putWordsQuestions.length) : 0;
 
-<<<<<<< HEAD
-  if (!data) return <div>Loading...</div>; // Loading state
- 
-=======
 
   if (!data) return <div>Loading...</div>;
->>>>>>> a3a8893994bf1061bf825e5eaeb7ab834ecf2345
 
   return (
 <div
