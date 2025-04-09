@@ -6,6 +6,7 @@ import { EffectCreative, Autoplay } from 'swiper/modules';
 import Aos from 'aos';
 import 'aos/dist/aos.css';
 
+// Rasmlar massivga joylangan
 import ielts2 from '../../../../assets/ielts2.avif';
 import ielts3 from '../../../../assets/ielts3.avif';
 import ielts4 from '../../../../assets/ielts4.avif';
@@ -42,7 +43,7 @@ const Swiperslide = () => {
   return (
     <div
       data-aos="fade-up"
-      className="w-[96%] max-w-[340px] max-h-[370px] overflow-visible relative cursor-grab mx-auto flex justify-center md:max-w-[350px] md:h-[400px] lg:max-w-[450px] lg:h-[500px] min-[1100px]:max-w-[500px] min-[1100px]:h-[550px] xl:max-w-[550px] xl:h-[500px] 2xl:max-w-[750px] 2xl:h-[700px] min-[1750px]:max-w-[830px] min-[1750px]:h-[800px]"
+      className="w-[90%] max-w-[340px] h-[330px] overflow-visible relative cursor-grab px-5 mx-auto md:max-w-[350px] md:h-[400px] lg:max-w-[450px] lg:h-[500px] min-[1100px]:max-w-[500px] min-[1100px]:h-[550px] xl:max-w-[550px] xl:h-[500px] 2xl:max-w-[750px] 2xl:h-[700px] min-[1750px]:max-w-[830px] min-[1750px]:h-[800px]"
     >
       <Swiper
         grabCursor={true}
@@ -68,13 +69,13 @@ const Swiperslide = () => {
         {images.map((img, index) => (
           <SwiperSlide
             key={index}
-            className="relative p-[20px] flex-shrink-0 w-full h-full flex items-center justify-center rounded-[18px] overflow-hidden shadow-none"
+            className="flex-shrink-0 w-full h-full flex items-center justify-center rounded-[18px] overflow-hidden shadow-none"
           >
             <img
               src={img.src}
               alt={img.alt}
               loading="lazy"
-              className="swiper-image relative max-w-[280px] w-full max-h-[330px] h-full m-auto rounded-4xl xl:rounded-[45px] lg:max-w-[450px] lg:max-h-[500px] min-[1100px]:max-w-[500px] min-[1100px]:max-h-[550px] xl:max-w-[550px] xl:max-h-[500px] 2xl:max-w-[750px] 2xl:max-h-[700px] min-[1750px]:max-w-[830px] min-[1750px]:max-h-[800px] object-cover block"
+              className="swiper-image max-w-[280px] w-full max-h-[330px] h-full m-auto rounded-4xl lg:max-w-[450px] lg:max-h-[500px] min-[1100px]:max-w-[500px] min-[1100px]:max-h-[550px] xl:max-w-[550px] xl:max-h-[500px] 2xl:max-w-[750px] 2xl:max-h-[700px] min-[1750px]:max-w-[830px] min-[1750px]:max-h-[800px] object-cover block"
             />
           </SwiperSlide>
         ))}
