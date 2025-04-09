@@ -20,7 +20,7 @@ function First() {
         <section className="ielts flex flex-col-reverse 2xl:max-w-[1920px] md:flex-row md:mx-12 mt-24 xl:mt-32 md:mt-32 gap-3">
             <div
                 data-aos='fade-up'
-                className="ielts-in w-full flex flex-col gap-16 justify-center  md:items-start text-center md:text-left max-md:px-4 max-md:items-center">
+                className="ielts-in w-full flex flex-col gap-16 justify-center md:items-start text-center md:text-left max-md:px-4 max-md:items-center">
                 <div className="flex flex-col gap-6 xl:gap-8 lg:mt-[-50px] xl:mt-[-100px] leading-[700%]">
                     <h1 data-aos='fade-up'
                         className="ielts-text font-[Montserrat] text-[#EC0000] font-bold text-3xl sm:text-4xl lg:text-5xl xl:text-6xl xl:mt-8 min-[1720px]:text-[80px] leading-[100%] tracking-normal">

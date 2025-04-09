@@ -75,7 +75,7 @@ const Swiperslide = () => {
               src={img.src}
               alt={img.alt}
               loading="lazy"
-              className="swiper-image max-w-[280px] w-full max-h-[330px] h-full m-auto rounded-4xl xl:rounded-[45px] lg:max-w-[450px] lg:max-h-[500px] min-[1100px]:max-w-[500px] min-[1100px]:max-h-[550px] xl:max-w-[550px] xl:max-h-[500px] 2xl:max-w-[750px] 2xl:max-h-[700px] min-[1750px]:max-w-[830px] min-[1750px]:max-h-[800px] object-cover block"
+              className="swiper-image max-w-[280px] w-full max-h-[330px] h-full m-auto rounded-4xl lg:max-w-[450px] lg:max-h-[500px] min-[1100px]:max-w-[500px] min-[1100px]:max-h-[550px] xl:max-w-[550px] xl:max-h-[500px] 2xl:max-w-[750px] 2xl:max-h-[700px] min-[1750px]:max-w-[830px] min-[1750px]:max-h-[800px] object-cover block"
             />
           </SwiperSlide>
         ))}
