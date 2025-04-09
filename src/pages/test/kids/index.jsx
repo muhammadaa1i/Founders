@@ -7,8 +7,14 @@ import kids3 from '../../../assets/kids3.png'
 import kids4 from '../../../assets/kids4.png'
 import kids5 from '../../../assets/kids5.png'
 import kids6 from '../../../assets/kids6.png'
+import { useTranslation } from "react-i18next";
 
 export default function KidsEnglishTask() {
+  const { t, i18n } = useTranslation();
+  const ChangeLng = (selectedLanguage) => {
+    i18n.changeLanguage(selectedLanguage);
+    localStorage.setItem("i18nextLng", selectedLanguage);
+  };
   const [step, setStep] = useState(() => {
     const isTestCompleted = localStorage.getItem('testCompleted') === 'true';
     if (isTestCompleted) {
@@ -211,23 +217,24 @@ export default function KidsEnglishTask() {
     data.sentences.length + data.shortAnswers.length + data.putWordsQuestions.length) : 0;
 
   if (!data) return <div>Loading...</div>; // Loading state
-
+ 
   return (
     <div className="p-6 max-w-lg mt-20 mx-auto bg-white shadow-lg rounded-lg">
       {showFinalScore ? (
         <div className="text-center flex flex-col p-6">
           <p className="text-2xl font-medium mb-4 text-gray-700">
-            Your score:
+            {t("Your score")}:
           </p>
           <span className="font-medium text-2xl">
             {totalCorrect}/{totalQuestions}
           </span>
           <p className="text-lg font-semibold text-gray-700">
-            Your level: {" "}
+            {t("Your level")}: {" "}
             <span className="font-semibold text-2xl text-red-600">
               {getLevel(totalCorrect)}
             </span>
           </p>
+          <p className=" font-monserat text-xl font-semibold text-gray-700 mb-6 px-8">{t("Kelajangizni o'zgartiruvchi testni muvaffaqiyatli ishlaganingizdan juda xurzandmiz! Sizni hayotingizni tubdan o'zgartiruvchi qo'ng'irog'imizni kuting!")}</p>
           <button
             onClick={() => {
               localStorage.clear();
@@ -235,7 +242,7 @@ export default function KidsEnglishTask() {
             }}
             className="max-w-[200px] w-full m-auto mt-6 bg-red-500 text-white py-2 px-6 rounded-lg hover:bg-red-600 transition duration-300"
           >
-            Back to Main Page
+            {t("Back to Main Page")}
           </button>
         </div>
       ) : (

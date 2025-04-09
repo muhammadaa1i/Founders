@@ -85,12 +85,7 @@ const General = () => {
             <p className="font-monserat text-xl font-semibold text-gray-700 mb-6">
               {t("Your level")}: <span className="font-semibold text-red-600">{getLevel(score)}</span>
             </p>
-            {/* <button
-              onClick={restartQuiz}
-              className="bg-red-500 text-white px-6 py-3 rounded-full text-lg font-semibold shadow-lg"
-            >
-              Retry
-            </button> */}
+          
 
             <p className=" font-monserat text-xl font-semibold text-gray-700 mb-6 px-8">{t("Kelajangizni o'zgartiruvchi testni muvaffaqiyatli ishlaganingizdan juda xurzandmiz! Sizni hayotingizni tubdan o'zgartiruvchi qo'ng'irog'imizni kuting!")}</p>
             <button
