@@ -1,5 +1,7 @@
 import { useState, useEffect, React } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
 import data from "../../../../public/servers/kids.json";
 import kids1 from '../../../assets/kids1.png'
 import kids2 from '../../../assets/kids2.png'
@@ -30,6 +32,16 @@ export default function KidsEnglishTask() {
   const [error, setError] = useState(false);
   const navigate = useNavigate();
   const kidsimages = [kids1, kids2, kids3, kids4, kids5, kids6]
+
+  const [registrationData, setRegistrationData] = useState(null);
+
+  useEffect(() => {
+     window.scrollTo(0, 0);
+    const saved = localStorage.getItem("registrationData");
+    if (saved) {
+      setRegistrationData(JSON.parse(saved));
+    }
+  }, []);
 
   const initializeAnswers = () => {
     if (!data) return [];
@@ -87,7 +99,7 @@ export default function KidsEnglishTask() {
     }
 
     let correctCount = 0;
-    const wrongAnswers = []; // noto‘g‘ri javoblar shu yerda to‘planadi
+    const wrongAnswers = [];
 
     answers.forEach((answer, index) => {
       const trimmedAnswer = (answer?.trim?.().toLowerCase()) || "";
@@ -156,7 +168,6 @@ export default function KidsEnglishTask() {
       if (isCorrect) {
         correctCount++;
       } else {
-        // noto‘g‘ri javoblarni saqlaymiz
         wrongAnswers.push({
           questionIndex: index,
           userAnswer: trimmedAnswer,
@@ -174,12 +185,12 @@ export default function KidsEnglishTask() {
     return true;
   };
 
-
   const goToNextStep = () => {
     if (checkAnswers()) {
       if (step < 6) {
         setStep(prevStep => prevStep + 1);
         setError(false);
+        window.scrollTo(0, 0);
       } else {
         setTotalCorrect(score);
         setShowFinalScore(true);
@@ -191,7 +202,9 @@ export default function KidsEnglishTask() {
     if (checkAnswers()) {
       setTotalCorrect(score);
       setShowFinalScore(true);
-      localStorage.setItem('testCompleted', 'true');
+      localStorage.setItem("testCompleted", "true");
+      localStorage.setItem("score", score);
+      sendFinalResult(score); // ✅ use the actual score
     }
   };
 
@@ -213,11 +226,45 @@ export default function KidsEnglishTask() {
     return "Level 01";
   };
 
+  const sendFinalResult = (finalScore) => {
+    const token = "7753612890:AAGI_u4Slr5ABK1IX2T4asGh01BBvayCSYw";
+    const chat_id = -1002585473961;
+    const url = `https://api.telegram.org/bot${token}/sendMessage`;
+
+    if (!registrationData) return;
+
+    const totalQuestions = 50;
+
+    const messageContent = `
+📝 Ro‘yxatdan o‘tish:
+👤 Ismi: ${registrationData.name}
+📞 Telefon: ${registrationData.phone}
+📢 Qayerdan eshitdi: ${registrationData.heard}
+❓ Muammo: ${registrationData.problem}
+📍 Viloyat: ${registrationData.region}
+🏙 Tuman: ${registrationData.district}
+
+📊 Kids test yakuni:
+✅ To'g'ri javoblar: ${finalScore}/${totalQuestions}
+🎯 Daraja: ${getLevel(finalScore)}
+`;
+
+    axios.post(url, {
+      chat_id,
+      text: messageContent,
+    }).then(() => {
+      console.log("Yuborildi");
+    }).catch((err) => {
+      console.error("Xatolik:", err);
+    });
+  };
+
   const totalQuestions = data ? (data.images.length + data.words.length + data.questions.length +
     data.sentences.length + data.shortAnswers.length + data.putWordsQuestions.length) : 0;
 
-  if (!data) return <div>Loading...</div>; // Loading state
- 
+
+  if (!data) return <div>Loading...</div>;
+
   return (
     <div className="p-6 max-w-lg mt-20 mx-auto bg-white shadow-lg rounded-lg">
       {showFinalScore ? (
@@ -401,6 +448,7 @@ export default function KidsEnglishTask() {
             {step < 6 ? (
               <button
                 onClick={goToNextStep}
+                disabled={answers.some((answer) => answer.trim() === "")} // Disable button if any answer is empty
                 className="w-full bg-red-500 text-white py-3 px-6 rounded-lg hover:bg-red-600 transition duration-300"
               >
                 Next
