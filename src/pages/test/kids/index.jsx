@@ -1,6 +1,8 @@
 import { useState, useEffect, React } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Confetti from 'react-confetti';
+import { useWindowSize } from 'react-use';
 
 import data from "../../../../public/servers/kids.json";
 import kids1 from '../../../assets/kids1.png'
@@ -10,6 +12,8 @@ import kids4 from '../../../assets/kids4.png'
 import kids5 from '../../../assets/kids5.png'
 import kids6 from '../../../assets/kids6.png'
 import { useTranslation } from "react-i18next";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function KidsEnglishTask() {
   const { t, i18n } = useTranslation();
@@ -32,11 +36,13 @@ export default function KidsEnglishTask() {
   const [error, setError] = useState(false);
   const navigate = useNavigate();
   const kidsimages = [kids1, kids2, kids3, kids4, kids5, kids6]
+  const { width, height } = useWindowSize();
+  const [showConfetti, setShowConfetti] = useState(false);
 
   const [registrationData, setRegistrationData] = useState(null);
 
   useEffect(() => {
-     window.scrollTo(0, 0);
+    window.scrollTo(0, 0);
     const saved = localStorage.getItem("registrationData");
     if (saved) {
       setRegistrationData(JSON.parse(saved));
@@ -71,6 +77,16 @@ export default function KidsEnglishTask() {
     }
   }, [step, score, totalCorrect]);
 
+  useEffect(() => {
+    if (showFinalScore) {
+      const startTimer = setTimeout(() => {
+        setShowConfetti(true);
+        const stopTimer = setTimeout(() => setShowConfetti(false), 20000);
+        return () => clearTimeout(stopTimer);
+      }, 100); // wait 1 second before starting
+      return () => clearTimeout(startTimer);
+    }
+  }, [showFinalScore]);
 
   const handleAnswerChange = (index, value) => {
     const newAnswers = [...answers];
@@ -266,34 +282,35 @@ export default function KidsEnglishTask() {
   if (!data) return <div>Loading...</div>;
 
   return (
-<div
-        className="flex flex-col mt-28 items-center justify-center w-[90%] max-w-5xl kids m-auto py-11 px-3 xl:px-10 min-[400px]:w-[80%] md:w-[70%] xl:w-[60%] h-auto rounded-2xl border-2 text-center border-[#EC0000]"
-        style={{ boxShadow: "15px 15px 40px 0px #FF00004D" }}
-      >      {showFinalScore ? (
-        <div className="text-center flex flex-col">
-          <p className="text-2xl font-medium mb-4 text-gray-700">
-            {t("Your score")}:
-          </p>
-          <span className="font-medium text-2xl">
-            {totalCorrect}/{totalQuestions}
-          </span>
-          <p className="text-lg font-semibold text-gray-700">
-            {t("Your level")}: {" "}
-            <span className="font-semibold text-2xl text-red-600">
-              {getLevel(totalCorrect)}
+    <div className="p-6 w-[90%] m-auto  max-w-lg mt-28 mx-auto bg-white shadow-lg rounded-lg">
+      {showFinalScore ? (
+        <>
+          {showConfetti && <Confetti width={width} height={height} />}
+          <div className="text-center flex flex-col">
+            <p className="text-2xl font-medium mb-4 text-gray-700">
+              {t("Your score")}:
+            </p>
+            <span className="font-medium text-2xl">
+              {totalCorrect}/{totalQuestions}
             </span>
-          </p>
-          <p className=" font-monserat text-xl my-5 font-semibold text-gray-700 mb-6 px-8">{t("Kelajangizni o'zgartiruvchi testni muvaffaqiyatli ishlaganingizdan juda xurzandmiz! Sizni hayotingizni tubdan o'zgartiruvchi qo'ng'irog'imizni kuting!")}</p>
-          <button
-            onClick={() => {
-              localStorage.clear();
-              navigate("/");
-            }}
-            className="w-auto m-auto mt-6 bg-red-500 text-white py-2 px-6 rounded-lg hover:bg-red-600 transition duration-300"
+            <p className="text-lg font-semibold text-gray-700">
+              {t("Your level")}: {" "}
+              <span className="font-semibold text-2xl text-red-600">
+                {getLevel(totalCorrect)}
+              </span>
+            </p>
+            <p className=" font-monserat   text-lg font-semibold text-gray-700 mb-6 my-10 px-8">{t("Kelajangizni o'zgartiruvchi testni muvaffaqiyatli ishlaganingizdan juda xurzandmiz! Sizni hayotingizni tubdan o'zgartiruvchi qo'ng'irog'imizni kuting!")}</p>
+            <button
+              onClick={() => {
+                localStorage.clear();
+                navigate("/");
+              }}
+             className="w-auto m-auto mt-6 bg-red-500 text-white py-2 px-6 rounded-lg hover:bg-red-600 transition duration-300"
             >
-            {t("Back to Main Page")}
-          </button>
-        </div>
+              {t("Back to Main Page")}
+            </button>
+          </div>
+        </>
       ) : (
         <>
           <p className="text-xl font-bold text-center text-gray-800">
@@ -449,8 +466,17 @@ export default function KidsEnglishTask() {
           <div className="mt-6 flex justify-between gap-4">
             {step < 6 ? (
               <button
-                onClick={goToNextStep}
-                disabled={answers.some((answer) => answer.trim() === "")} // Disable button if any answer is empty
+                onClick={() => {
+                  if (answers.some((answer) => answer.trim() === "")) {
+                    toast.warning(t("Iltimos, barcha javoblarni to'ldiring!"), {
+                      position: "top-center",
+                      autoClose: 3000,
+                    });
+                    window.scrollTo(0, 0);
+                    return;
+                  }
+                  goToNextStep();
+                }}
                 className="w-full bg-red-500 text-white py-3 px-6 rounded-lg hover:bg-red-600 transition duration-300"
               >
                 Next
@@ -466,6 +492,7 @@ export default function KidsEnglishTask() {
           </div>
         </>
       )}
+      <ToastContainer />
     </div>
   );
 }

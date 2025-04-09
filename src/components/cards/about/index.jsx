@@ -40,12 +40,6 @@ function About() {
                     <span className="font-bold text-[#EC0000]"> {t("it is a huge family.")} </span>
                     {t("We opened our first doors for students")}
                     <span className="font-bold text-[#EC0000]"> {t("in 2021, November 8th.")} </span>
-                    {t("Our company was founded by")}
-                    <span className="font-bold text-[#EC0000]"> {t("two friends Ziyodbek Yusupov")} </span>
-                    {t("and")}
-                    <span className="font-bold text-[#EC0000]"> {t("Abduqodir Juraqulov")} </span>
-                    {t("who are")}
-                    <span className="font-bold text-[#EC0000]"> {t("MDIST graduates.")} </span>
                 </p>
 
                 <p
@@ -60,7 +54,7 @@ function About() {
                 <p
                     data-aos='zoom-in'
                     className="font-[Montserrat] text-[#222222] font-normal leading-[120%] text-center">
-                    {t('The name "Founders" is not just about two friends, but also it is our')}
+                    {t('"Founders" is about our')}
                     <span className="font-bold text-[#EC0000]"> {t("motivated")} </span>
                     {t("and")}
                     <span className="font-bold text-[#EC0000]"> {t("passionate")} </span>

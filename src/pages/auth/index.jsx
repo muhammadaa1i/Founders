@@ -63,7 +63,7 @@ export default function RegistrationForm() {
         const problem = document.getElementById("problem").value;
 
         // Check if all fields are filled
-        if (!name || !phone || !heard || !problem || !selectedRegion || selectedDistrict) {
+        if (!name || !phone || !heard || !problem || !selectedRegion ) {
             toast.error(t("Iltimos, barcha maydonlarni to'ldiring."));
             return; // Prevent navigation if any field is empty
         }
