@@ -282,11 +282,11 @@ export default function KidsEnglishTask() {
   if (!data) return <div>Loading...</div>;
 
   return (
-    <div className="p-6 max-w-lg mt-20 mx-auto bg-white shadow-lg rounded-lg">
+    <div className="p-6 w-[90%] m-auto  max-w-lg mt-28 mx-auto bg-white shadow-lg rounded-lg">
       {showFinalScore ? (
         <>
           {showConfetti && <Confetti width={width} height={height} />}
-          <div className="text-center flex flex-col p-6">
+          <div className="text-center flex flex-col">
             <p className="text-2xl font-medium mb-4 text-gray-700">
               {t("Your score")}:
             </p>
@@ -299,13 +299,13 @@ export default function KidsEnglishTask() {
                 {getLevel(totalCorrect)}
               </span>
             </p>
-            <p className=" font-monserat text-xl font-semibold text-gray-700 mb-6 px-8">{t("Kelajangizni o'zgartiruvchi testni muvaffaqiyatli ishlaganingizdan juda xurzandmiz! Sizni hayotingizni tubdan o'zgartiruvchi qo'ng'irog'imizni kuting!")}</p>
+            <p className=" font-monserat   text-lg font-semibold text-gray-700 mb-6 my-10 px-8">{t("Kelajangizni o'zgartiruvchi testni muvaffaqiyatli ishlaganingizdan juda xurzandmiz! Sizni hayotingizni tubdan o'zgartiruvchi qo'ng'irog'imizni kuting!")}</p>
             <button
               onClick={() => {
                 localStorage.clear();
                 navigate("/");
               }}
-              className="max-w-[200px] w-full m-auto mt-6 bg-red-500 text-white py-2 px-6 rounded-lg hover:bg-red-600 transition duration-300"
+             className="w-auto m-auto mt-6 bg-red-500 text-white py-2 px-6 rounded-lg hover:bg-red-600 transition duration-300"
             >
               {t("Back to Main Page")}
             </button>

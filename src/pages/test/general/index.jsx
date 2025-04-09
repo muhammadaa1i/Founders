@@ -126,7 +126,6 @@ const General = () => {
         {showResult ? (
           <>
             {showConfetti && <Confetti width={width} height={height} />}
-
             <div className="flex flex-col items-center justify-center">
               <h2 className="font-monserat font-medium text-3xl text-gray-800 mb-4">
                 {t("Your score")}:
