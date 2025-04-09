@@ -49,7 +49,7 @@ function Navbar() {
     localStorage.setItem("i18nextLng", selectedLanguage);
   };
   return (
-    <div className="fixed top-0 right-0 left-0 z-50 px-5 sm:px-[50px] lg:px-[10px] bg-[#EC0000] py-4 shadow-md transition-all duration-300">
+    <div className="fixed top-0 right-0 left-0 z-50 px-5 sm:px-[50px] lg:px-[10px] 2xl:px-[50px] bg-[#EC0000] py-4 shadow-md transition-all duration-300">
       <div className="nav-in flex items-center justify-between">
         <div
           data-aos="flip-down"
