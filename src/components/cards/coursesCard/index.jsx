@@ -8,9 +8,6 @@ import { useEffect } from "react";
 import Aos from "aos";
 import { useTranslation } from "react-i18next";
 
-
-
-
 function Course() {
   useEffect(() => {
     Aos.init({
