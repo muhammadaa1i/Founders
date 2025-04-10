@@ -4,18 +4,18 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Aos from "aos";
-import generalBook1 from "/src/assets/generalBook1.avif";
-import generalBook2 from "/src/assets/generalBook2.avif";
-import generalBook3 from "/src/assets/generalBook3.avif";
-import generalBook4 from "/src/assets/generalBook4.avif";
-import levelBook1 from "/src/assets/levelBook1.avif";
-import levelBook2 from "/src/assets/levelBook2.avif";
-import levelBook3 from "/src/assets/levelBook3.avif";
-import levelBook4 from "/src/assets/levelBook4.avif";
-import IeltsBook1 from "/src/assets/IeltsBook1.avif";
-import IeltsBook2 from "/src/assets/IeltsBook2.avif";
-import IeltsBook3 from "/src/assets/IeltsBook3.avif";
-import IeltsBook4 from "/src/assets/IeltsBook4.avif";
+import generalBook1 from "../../../assets/books5.avif";
+import generalBook2 from "../../../assets/books6.avif";
+import generalBook3 from "../../../assets/books7.avif";
+import generalBook4 from "../../../assets/books8.avif";
+import levelBook1 from "../../../assets/books9.avif";
+import levelBook2 from "../../../assets/books10.avif";
+import levelBook3 from "../../../assets/books11.avif";
+import levelBook4 from "../../../assets/books12.avif";
+import IeltsBook1 from "../../../assets/books1.avif";
+import IeltsBook2 from "../../../assets/books2.avif";
+import IeltsBook3 from "../../../assets/books3.avif";
+import IeltsBook4 from "../../../assets/books4.avif";
 import { useTranslation } from "react-i18next";
 
 function CustomPrevArrow(props) {
@@ -85,10 +85,9 @@ function Books() {
                             <h2 className="text-2xl md:text-4xl 2xl:text-5xl font-[Montserrat] font-medium text-center mb-6">
                                 {category.title}
                             </h2>
-
-                            <div className="grid grid-cols-4 gap-6 max-[450px]:grid-cols-2 place-items-center">
+                            <div className="grid grid-cols-4 gap-6 py-5 max-[550px]:grid-cols-2 place-items-center">
                                 {category.books.map((book, i) => (
-                                    <div key={i} className=" flex justify-center w-[200px] h-[200px] sm:w-[300px] sm:h-[300px] xl:w-[400px] xl:h-[400px] 2xl:w-[500px] 2xl:h-[500px] ">
+                                    <div key={i} className=" flex justify-center w-[200px] h-[200px] lg:w-[300px] lg:h-[300px] xl:w-[400px] xl:h-[400px] 2xl:w-[500px] 2xl:h-[500px] ">
                                         <img
                                             src={book}
                                             alt={`${category.title} Book ${i + 1}`}
