@@ -83,7 +83,7 @@ export default function KidsEnglishTask() {
         setShowConfetti(true);
         const stopTimer = setTimeout(() => setShowConfetti(false), 20000);
         return () => clearTimeout(stopTimer);
-      }, 100); // wait 1 second before starting
+      }, 100);
       return () => clearTimeout(startTimer);
     }
   }, [showFinalScore]);
@@ -109,34 +109,30 @@ export default function KidsEnglishTask() {
   };
 
   const checkAnswers = () => {
-    // Check if any input field is left empty
-    if (answers.some((answer) => (answer?.trim?.() ) === "")) {
-      // setError(true); 
-      
+    if (answers.some((answer) => (answer?.trim?.()) === "")) {
       toast.warning("Iltimos, barcha javoblarni to'ldiring!", {
         position: "top-center",
         autoClose: 3000,
       });
-      window.scrollTo(0, 0); // Sahifa yuqoriga siljiydi
-      return false; // Prevent proceeding
+      window.scrollTo(0, 0);
+      return false;
     }
-  
-    // Proceed with checking correctness of answers
+
     let correctCount = 0;
     const wrongAnswers = [];
-  
+
     answers.forEach((answer, index) => {
-      const trimmedAnswer = (answer?.trim?.().toLowerCase()) ;
+      const trimmedAnswer = (answer?.trim?.().toLowerCase());
       let isCorrect = false;
-      
-  
+
+
       const correctAnswer = getCorrectAnswerByStep(step, index);
       if (Array.isArray(correctAnswer)) {
         isCorrect = correctAnswer.some((ans) => ans.toLowerCase() === trimmedAnswer);
       } else {
         isCorrect = correctAnswer?.toLowerCase() === trimmedAnswer;
       }
-  
+
       if (isCorrect) {
         correctCount++;
       } else {
@@ -147,12 +143,12 @@ export default function KidsEnglishTask() {
         });
       }
     });
-  
+
     setScore((prevScore) => prevScore + correctCount);
     const existingWrongAnswers = JSON.parse(localStorage.getItem("wrongAnswers")) || [];
     const updatedWrongAnswers = [...existingWrongAnswers, ...wrongAnswers];
     localStorage.setItem("wrongAnswers", JSON.stringify(updatedWrongAnswers));
-  
+
     return true;
   };
 
@@ -169,20 +165,25 @@ export default function KidsEnglishTask() {
     }
   };
 
-  const finishTest = () => {   
-
+  const finishTest = () => {
     if (checkAnswers()) {
       setTotalCorrect(score);
       setShowFinalScore(true);
       localStorage.setItem("testCompleted", "true");
       localStorage.setItem("score", score);
-      
+
       sendFinalResult(score);
       setTimeout(() => {
         localStorage.removeItem("testCompleted");
         localStorage.removeItem("score");
+        localStorage.removeItem("testCompleted");
+        localStorage.removeItem("currentStep");
+        localStorage.removeItem("wrongAnswers");
+        for (let i = 1; i <= 6; i++) {
+          localStorage.removeItem(`step${i}Answers`);
+        }
       }, 1000);
-      
+
     }
   };
 
@@ -261,7 +262,7 @@ export default function KidsEnglishTask() {
                 {getLevel(totalCorrect)}
               </span>
             </p>
-            <p className=" font-monserat   text-lg font-semibold text-gray-700 mb-6 my-10 px-8">{t("Kelajagingizni o'zgartiruvchi testni muvaffaqiyatli ishlaganingizdan juda xurzandmiz! Hayotingizni tubdan o'zgartiruvchi qo'ng'irog'imizni kuting😊")}</p>
+            <p className="font-monserat text-lg font-semibold text-gray-700 mb-6 my-10 px-8">{t("Kelajagingizni o'zgartiruvchi testni muvaffaqiyatli ishlaganingizdan juda xursandmiz! Hayotingizni tubdan o'zgartiruvchi qo'ng'irog'imizni kuting😊")}</p>
             <button
               onClick={() => {
                 localStorage.clear();

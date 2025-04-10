@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Confetti from 'react-confetti';
-import { useWindowSize } from 'react-use'; // o‘lcham uchun kerak
+import { useWindowSize } from 'react-use'; 
 import questions from "./questions.json";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import axios from "axios"; // telegram uchun kerak
+import axios from "axios"; 
 
 const General = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -16,7 +16,6 @@ const General = () => {
   const { width, height } = useWindowSize();
   const [showConfetti, setShowConfetti] = useState(false);
 
-  // Telegramga yuborish uchun getLevel funktsiyasi
   const getLevel = (score) => {
     if (score <= 12) return "Beginner";
     if (score <= 23) return "Elementary";
@@ -55,6 +54,8 @@ const General = () => {
       text: messageContent,
     }).then(() => {
       console.log("Telegramga yuborildi");
+      localStorage.removeItem("registrationData");
+      localStorage.removeItem("quizState");
     }).catch((err) => {
       console.error("Telegramga yuborishda xatolik:", err);
     });
@@ -85,7 +86,7 @@ const General = () => {
     if (showResult) {
       sendFinalResult(score);
     }
-  }, [showResult]); // showResult true bo‘lganda yuboradi
+  }, [showResult]); 
 
   useEffect(() => {
     if (showResult) {
@@ -93,7 +94,7 @@ const General = () => {
         setShowConfetti(true);
         const stopTimer = setTimeout(() => setShowConfetti(false), 20000);
         return () => clearTimeout(stopTimer);
-      }, 100); // wait 1 second before starting
+      }, 100); 
       return () => clearTimeout(startTimer);
     }
   }, [showResult]);
@@ -137,7 +138,7 @@ const General = () => {
                 {t("Your level")}: <span className="font-semibold text-red-600">{getLevel(score)}</span>
               </p>
 
-              <p className=" font-monserat text-xl font-semibold text-gray-700 mb-6 px-8">{t("Kelajagingizni o'zgartiruvchi testni muvaffaqiyatli ishlaganingizdan juda xurzandmiz! Hayotingizni tubdan o'zgartiruvchi qo'ng'irog'imizni kuting😊")}</p>
+              <p className=" font-monserat text-xl font-semibold text-gray-700 mb-6 px-8">{t("Kelajagingizni o'zgartiruvchi testni muvaffaqiyatli ishlaganingizdan juda xursandmiz! Hayotingizni tubdan o'zgartiruvchi qo'ng'irog'imizni kuting😊")}</p>
               <button
                 onClick={() => {
                   localStorage.clear();
