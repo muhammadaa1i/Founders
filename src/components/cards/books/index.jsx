@@ -39,8 +39,6 @@ function CustomNextArrow(props) {
     );
 }
 function Books() {
-
-
     const settings = {
         dots: true,
         infinite: true,
@@ -70,7 +68,7 @@ function Books() {
         { title: t("Kids English"), books: [levelBook1, levelBook2, levelBook3, levelBook4] },
     ];
     return (
-        <div id="books" className="books bg-gray-50 relative">
+        <div id="books" className="books relative">
             <h1
                 data-aos='fade-up'
                 className="py-[30px] font-[Montserrat] text-[#EC0000] font-bold text-3xl sm:text-4xl xl:text-[50px] leading-[100%] tracking-normal text-center">

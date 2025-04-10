@@ -41,7 +41,7 @@ function CourseCard({
                     alt="Image"
                     className="rounded-[50px] w-[50px] object-cover h-[50px] lg:mr-[-8px]"
                 />
-                <h2 className="text-[24px] md:text-[40px] leading-[100%] tracking-normal text-[#2c3e50] font-bold montserrat_font_700 text-wrap">
+                <h2 className="text-[24px] md:text-3xl xl:text-[40px] leading-[100%] tracking-normal text-[#2c3e50] font-bold montserrat_font_700 text-wrap">
                     {title}
                 </h2>
             </div>
