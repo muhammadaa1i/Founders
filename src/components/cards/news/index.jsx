@@ -38,7 +38,7 @@ function News() {
         localStorage.setItem('i18nextLng', selectedLanguage)
     }
     return (
-        <div className="news px-4 sm:px-6 bg-gray-50 flex flex-col items-center overflow-hidden">
+        <div className="news px-4 sm:px-6 flex flex-col items-center overflow-hidden">
 
             <h1
                 data-aos='fade-up'
