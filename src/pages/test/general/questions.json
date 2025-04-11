@@ -60,7 +60,7 @@
     "answer": "right"
   },
   {
-    "question": "Don’t forget to get ______ the bus at station road.",
+    "question": "Don’t forget to get ______ the bus at Station Road.",
     "options": ["out", "off", "over", "down"],
     "answer": "off"
   },
@@ -195,7 +195,7 @@
     "answer": "apologize"
   },
   {
-    "question": "Look out for a petrol station because I think we’re going to run ___ of petrol soon.",
+    "question": "Look out for a petrol station because I think we’re going to run ___ off petrol soon.",
     "options": ["down", "out", "off", "through"],
     "answer": "out"
   },
@@ -260,7 +260,7 @@
     "answer": "previous"
   },
   {
-    "question": "I must remember ___ Ed to talk notes for me while I’m away next week.",
+    "question": "I must remember ___ Ed to take notes for me while I’m away next week.",
     "options": ["ask", "to ask", "asking", "for asking"],
     "answer": "to ask"
   },

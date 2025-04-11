@@ -41,9 +41,10 @@ function Footer() {
                     className="flex justify-center"
                     to="/">
                     <img
+                        loading="lazy"
                         src={Logo}
                         alt="Logo"
-                        className="w-[200px] h-[50px] xl:w-[300px] xl:h-[60px] lazyload"
+                        className="w-[200px] h-[50px] xl:w-[300px] xl:h-[60px]"
                     />
                 </Link>
 

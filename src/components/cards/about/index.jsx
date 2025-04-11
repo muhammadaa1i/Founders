@@ -36,16 +36,10 @@ function About() {
                 <p
                     data-aos='zoom-in'
                     className="font-[Montserrat] text-[#222222] font-normal leading-[120%] text-center">
-                    {t("Founders school is not just a learning center,")}
+                    {t("Founders English School is not just a learning center,")}
                     <span className="font-bold text-[#EC0000]"> {t("it is a huge family.")} </span>
                     {t("We opened our first doors for students")}
                     <span className="font-bold text-[#EC0000]"> {t("in 2021, November 8th.")} </span>
-                    {t("Our company was founded by")}
-                    <span className="font-bold text-[#EC0000]"> {t("two friends Ziyodbek Yusupov")} </span>
-                    {t("and")}
-                    <span className="font-bold text-[#EC0000]"> {t("Abduqodir Juraqulov")} </span>
-                    {t("who are")}
-                    <span className="font-bold text-[#EC0000]"> {t("MDIST graduates.")} </span>
                 </p>
 
                 <p
@@ -53,16 +47,15 @@ function About() {
                     className="font-[Montserrat] text-[#222222] font-normal leading-[120%] text-center">
                     {t("Our company has taught more than")}
                     <span className="font-bold text-[#EC0000]"> {t("2000 students")} </span>
-                    {t("so far and made a huge number of IELTS results with its students,")}
-                    <span className="font-bold text-[#EC0000]"> {t("7.0+ band scores on average.")} </span>
+                    {t("so far and achieved an")}
+                    <span className="font-bold text-[#EC0000]"> {t("average IELTS score of 7.0+.")} </span>
+                    {i18n.language === 'uz' && t("natijalariga erishdi.")}
                 </p>
 
                 <p
                     data-aos='zoom-in'
                     className="font-[Montserrat] text-[#222222] font-normal leading-[120%] text-center">
-                    {t('The name "Founders" is not just about two friends, but also it is our')}
-                    <span className="font-bold text-[#EC0000]"> {t("motivated")} </span>
-                    {t("and")}
+                    {t('"Founders" - is about our')}
                     <span className="font-bold text-[#EC0000]"> {t("passionate")} </span>
                     <span className="font-bold text-[#EC0000]"> {t("students")} </span>
                     {t("who will become future")}

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+import Confetti from 'react-confetti';
+import { useWindowSize } from 'react-use'; 
 import questions from "./questions.json";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import axios from "axios"; // telegram uchun kerak
+import axios from "axios"; 
 
 const General = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -11,8 +13,9 @@ const General = () => {
   const [selectedOption, setSelectedOption] = useState(null);
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
+  const { width, height } = useWindowSize();
+  const [showConfetti, setShowConfetti] = useState(false);
 
-  // Telegramga yuborish uchun getLevel funktsiyasi
   const getLevel = (score) => {
     if (score <= 12) return "Beginner";
     if (score <= 23) return "Elementary";
@@ -51,6 +54,8 @@ const General = () => {
       text: messageContent,
     }).then(() => {
       console.log("Telegramga yuborildi");
+      localStorage.removeItem("registrationData");
+      localStorage.removeItem("quizState");
     }).catch((err) => {
       console.error("Telegramga yuborishda xatolik:", err);
     });
@@ -81,7 +86,18 @@ const General = () => {
     if (showResult) {
       sendFinalResult(score);
     }
-  }, [showResult]); // showResult true bo‘lganda yuboradi
+  }, [showResult]); 
+
+  useEffect(() => {
+    if (showResult) {
+      const startTimer = setTimeout(() => {
+        setShowConfetti(true);
+        const stopTimer = setTimeout(() => setShowConfetti(false), 20000);
+        return () => clearTimeout(stopTimer);
+      }, 100); 
+      return () => clearTimeout(startTimer);
+    }
+  }, [showResult]);
 
   const handleAnswer = (option) => {
     if (!option) return;
@@ -109,28 +125,31 @@ const General = () => {
         style={{ boxShadow: "15px 15px 40px 0px #FF00004D" }}
       >
         {showResult ? (
-          <div className="flex flex-col items-center justify-center">
-            <h2 className="font-monserat font-medium text-3xl text-gray-800 mb-4">
-              {t("Your score")}:
-            </h2>
-            <p className="font-monserat font-semibold text-2xl text-center mb-2">
-              {score} / {questions.length}
-            </p>
-            <p className="font-monserat text-xl font-semibold text-gray-700 mb-6">
-              {t("Your level")}: <span className="font-semibold text-red-600">{getLevel(score)}</span>
-            </p>
+          <>
+            {showConfetti && <Confetti width={width} height={height} />}
+            <div className="flex flex-col items-center justify-center">
+              <h2 className="font-monserat font-medium text-3xl text-gray-800 mb-4">
+                {t("Your score")}:
+              </h2>
+              <p className="font-monserat font-semibold text-2xl text-center mb-2">
+                {score} / {questions.length}
+              </p>
+              <p className="font-monserat text-xl font-semibold text-gray-700 mb-6">
+                {t("Your level")}: <span className="font-semibold text-red-600">{getLevel(score)}</span>
+              </p>
 
-            <p className=" font-monserat text-xl my-3 font-semibold text-gray-700 mb-6 px-8">{t("Kelajangizni o'zgartiruvchi testni muvaffaqiyatli ishlaganingizdan juda xurzandmiz! Sizni hayotingizni tubdan o'zgartiruvchi qo'ng'irog'imizni kuting!")}</p>
-            <button
-              onClick={() => {
-                localStorage.clear(); 
-                navigate("/"); 
-              }}
-              className="w-auto m-auto mt-6 bg-red-500 text-white py-2 px-6 rounded-lg hover:bg-red-600 transition duration-300"
-            >
-              {t("Back to Main Page")}
-            </button>
-          </div>
+              <p className=" font-monserat text-xl font-semibold text-gray-700 mb-6 px-8">{t("Kelajagingizni o'zgartiruvchi testni muvaffaqiyatli ishlaganingizdan juda xursandmiz! Hayotingizni tubdan o'zgartiruvchi qo'ng'irog'imizni kuting😊")}</p>
+              <button
+                onClick={() => {
+                  localStorage.clear();
+                  navigate("/");
+                }}
+                className="w-auto m-auto mt-6 bg-red-500 text-white py-2 px-6 rounded-lg hover:bg-red-600 transition duration-300"
+              >
+                {t("Back to Main Page")}
+              </button>
+            </div>
+          </>
         ) : (
           <div className="w-full">
             <h2 className="text-lg sm:text-xl md:text-2xl 2xl:text-3xl font-semibold mb-6 text-gray-900 pl-4">

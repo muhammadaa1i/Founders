@@ -63,7 +63,7 @@ export default function RegistrationForm() {
         const problem = document.getElementById("problem").value;
 
         // Check if all fields are filled
-        if (!name || !phone || !heard || !problem || !selectedRegion || selectedDistrict) {
+        if (!name || !phone || !heard || !problem || !selectedRegion ) {
             toast.error(t("Iltimos, barcha maydonlarni to'ldiring."));
             return; // Prevent navigation if any field is empty
         }
@@ -107,7 +107,7 @@ export default function RegistrationForm() {
                     <input
                         required
                         id="phone"
-                        type="text"
+                        type="number"
                         placeholder="+998 90 123 45 67"
                         className="w-full p-3 border border-gray-300 rounded-lg bg-[#FFB2B2] outline-none"
                         inputMode="tel"

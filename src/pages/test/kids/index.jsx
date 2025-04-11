@@ -1,6 +1,8 @@
 import { useState, useEffect, React } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Confetti from 'react-confetti';
+import { useWindowSize } from 'react-use';
 
 import data from "../../../../public/servers/kids.json";
 import kids1 from '../../../assets/kids1.png'
@@ -10,6 +12,8 @@ import kids4 from '../../../assets/kids4.png'
 import kids5 from '../../../assets/kids5.png'
 import kids6 from '../../../assets/kids6.png'
 import { useTranslation } from "react-i18next";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function KidsEnglishTask() {
   const { t, i18n } = useTranslation();
@@ -32,11 +36,13 @@ export default function KidsEnglishTask() {
   const [error, setError] = useState(false);
   const navigate = useNavigate();
   const kidsimages = [kids1, kids2, kids3, kids4, kids5, kids6]
+  const { width, height } = useWindowSize();
+  const [showConfetti, setShowConfetti] = useState(false);
 
   const [registrationData, setRegistrationData] = useState(null);
 
   useEffect(() => {
-     window.scrollTo(0, 0);
+    window.scrollTo(0, 0);
     const saved = localStorage.getItem("registrationData");
     if (saved) {
       setRegistrationData(JSON.parse(saved));
@@ -71,6 +77,16 @@ export default function KidsEnglishTask() {
     }
   }, [step, score, totalCorrect]);
 
+  useEffect(() => {
+    if (showFinalScore) {
+      const startTimer = setTimeout(() => {
+        setShowConfetti(true);
+        const stopTimer = setTimeout(() => setShowConfetti(false), 20000);
+        return () => clearTimeout(stopTimer);
+      }, 100);
+      return () => clearTimeout(startTimer);
+    }
+  }, [showFinalScore]);
 
   const handleAnswerChange = (index, value) => {
     const newAnswers = [...answers];
@@ -93,8 +109,12 @@ export default function KidsEnglishTask() {
   };
 
   const checkAnswers = () => {
-    if (answers.every((answer) => (answer?.trim?.() || "") === "")) {
-      setError(true);
+    if (answers.some((answer) => (answer?.trim?.()) === "")) {
+      toast.warning("Iltimos, barcha javoblarni to'ldiring!", {
+        position: "top-center",
+        autoClose: 3000,
+      });
+      window.scrollTo(0, 0);
       return false;
     }
 
@@ -102,67 +122,15 @@ export default function KidsEnglishTask() {
     const wrongAnswers = [];
 
     answers.forEach((answer, index) => {
-      const trimmedAnswer = (answer?.trim?.().toLowerCase()) || "";
+      const trimmedAnswer = (answer?.trim?.().toLowerCase());
       let isCorrect = false;
 
-      if (
-        step === 1 &&
-        data.images[index]?.answer &&
-        (Array.isArray(data.images[index].answer)
-          ? data.images[index].answer.some((ans) => ans.toLowerCase() === trimmedAnswer)
-          : data.images[index].answer.toLowerCase() === trimmedAnswer)
-      ) {
-        isCorrect = true;
-      } else if (
-        step === 2 &&
-        data.words[index]?.translation &&
-        (Array.isArray(data.words[index].translation)
-          ? data.words[index].translation.some((ans) => ans.toLowerCase() === trimmedAnswer)
-          : data.words[index].translation.toLowerCase() === trimmedAnswer)
-      ) {
-        isCorrect = true;
-      } else if (step === 3) {
-        const correctAnswer = data.correctAnswers[index];
-        if (Array.isArray(correctAnswer)) {
-          if (correctAnswer.some((ans) => ans.toLowerCase() === trimmedAnswer)) {
-            isCorrect = true;
-          }
-        } else {
-          if (correctAnswer?.toLowerCase() === trimmedAnswer) {
-            isCorrect = true;
-          }
-        }
-      } else if (step === 4) {
-        const correctAnswer = data.sentencesAnswers[index];
-        if (Array.isArray(correctAnswer)) {
-          if (correctAnswer.some((ans) => ans.toLowerCase() === trimmedAnswer)) {
-            isCorrect = true;
-          }
-        } else {
-          if (correctAnswer?.toLowerCase() === trimmedAnswer) {
-            isCorrect = true;
-          }
-        }
-      } else if (
-        step === 5 &&
-        data.shortAnswers[index]?.correct &&
-        (Array.isArray(data.shortAnswers[index].correct)
-          ? data.shortAnswers[index].correct.some((ans) => ans.toLowerCase() === trimmedAnswer)
-          : data.shortAnswers[index].correct.toLowerCase() === trimmedAnswer)
-      ) {
-        isCorrect = true;
-      } else if (
-        step === 6) {
-        const correctAnswer = data.putWordsAnswers[index];
-        if (Array.isArray(correctAnswer)) {
-          if (correctAnswer.some((ans) => ans.toLowerCase() === trimmedAnswer)) {
-            isCorrect = true;
-          }
-        } else {
-          if (correctAnswer?.toLowerCase() === trimmedAnswer) {
-            isCorrect = true;
-          }
-        }
+
+      const correctAnswer = getCorrectAnswerByStep(step, index);
+      if (Array.isArray(correctAnswer)) {
+        isCorrect = correctAnswer.some((ans) => ans.toLowerCase() === trimmedAnswer);
+      } else {
+        isCorrect = correctAnswer?.toLowerCase() === trimmedAnswer;
       }
 
       if (isCorrect) {
@@ -171,13 +139,12 @@ export default function KidsEnglishTask() {
         wrongAnswers.push({
           questionIndex: index,
           userAnswer: trimmedAnswer,
-          correctAnswer: getCorrectAnswerByStep(step, index),
+          correctAnswer: correctAnswer,
         });
       }
     });
 
     setScore((prevScore) => prevScore + correctCount);
-
     const existingWrongAnswers = JSON.parse(localStorage.getItem("wrongAnswers")) || [];
     const updatedWrongAnswers = [...existingWrongAnswers, ...wrongAnswers];
     localStorage.setItem("wrongAnswers", JSON.stringify(updatedWrongAnswers));
@@ -204,7 +171,19 @@ export default function KidsEnglishTask() {
       setShowFinalScore(true);
       localStorage.setItem("testCompleted", "true");
       localStorage.setItem("score", score);
-      sendFinalResult(score); // ✅ use the actual score
+
+      sendFinalResult(score);
+      setTimeout(() => {
+        localStorage.removeItem("testCompleted");
+        localStorage.removeItem("score");
+        localStorage.removeItem("testCompleted");
+        localStorage.removeItem("currentStep");
+        localStorage.removeItem("wrongAnswers");
+        for (let i = 1; i <= 6; i++) {
+          localStorage.removeItem(`step${i}Answers`);
+        }
+      }, 1000);
+
     }
   };
 
@@ -266,34 +245,35 @@ export default function KidsEnglishTask() {
   if (!data) return <div>Loading...</div>;
 
   return (
-<div
-        className="flex flex-col mt-28 items-center justify-center w-[90%] max-w-5xl kids m-auto py-11 px-3 xl:px-10 min-[400px]:w-[80%] md:w-[70%] xl:w-[60%] h-auto rounded-2xl border-2 text-center border-[#EC0000]"
-        style={{ boxShadow: "15px 15px 40px 0px #FF00004D" }}
-      >      {showFinalScore ? (
-        <div className="text-center flex flex-col">
-          <p className="text-2xl font-medium mb-4 text-gray-700">
-            {t("Your score")}:
-          </p>
-          <span className="font-medium text-2xl">
-            {totalCorrect}/{totalQuestions}
-          </span>
-          <p className="text-lg font-semibold text-gray-700">
-            {t("Your level")}: {" "}
-            <span className="font-semibold text-2xl text-red-600">
-              {getLevel(totalCorrect)}
+    <div className="p-6 w-[90%] m-auto  max-w-lg mt-28 mx-auto bg-white shadow-lg rounded-lg">
+      {showFinalScore ? (
+        <>
+          {showConfetti && <Confetti width={width} height={height} />}
+          <div className="text-center flex flex-col">
+            <p className="text-2xl font-medium mb-4 text-gray-700">
+              {t("Your score")}:
+            </p>
+            <span className="font-medium text-2xl">
+              {totalCorrect}/{totalQuestions}
             </span>
-          </p>
-          <p className=" font-monserat text-xl my-5 font-semibold text-gray-700 mb-6 px-8">{t("Kelajangizni o'zgartiruvchi testni muvaffaqiyatli ishlaganingizdan juda xurzandmiz! Sizni hayotingizni tubdan o'zgartiruvchi qo'ng'irog'imizni kuting!")}</p>
-          <button
-            onClick={() => {
-              localStorage.clear();
-              navigate("/");
-            }}
-            className="w-auto m-auto mt-6 bg-red-500 text-white py-2 px-6 rounded-lg hover:bg-red-600 transition duration-300"
+            <p className="text-lg font-semibold text-gray-700">
+              {t("Your level")}: {" "}
+              <span className="font-semibold text-2xl text-red-600">
+                {getLevel(totalCorrect)}
+              </span>
+            </p>
+            <p className="font-monserat text-lg font-semibold text-gray-700 mb-6 my-10 px-8">{t("Kelajagingizni o'zgartiruvchi testni muvaffaqiyatli ishlaganingizdan juda xursandmiz! Hayotingizni tubdan o'zgartiruvchi qo'ng'irog'imizni kuting😊")}</p>
+            <button
+              onClick={() => {
+                localStorage.clear();
+                navigate("/");
+              }}
+              className="w-auto m-auto mt-6 bg-red-500 text-white py-2 px-6 rounded-lg hover:bg-red-600 transition duration-300"
             >
-            {t("Back to Main Page")}
-          </button>
-        </div>
+              {t("Back to Main Page")}
+            </button>
+          </div>
+        </>
       ) : (
         <>
           <p className="text-xl font-bold text-center text-gray-800">
@@ -389,7 +369,7 @@ export default function KidsEnglishTask() {
               {data.sentences.map((sentence, index) => (
                 <div key={index} className="bg-gray-50 p-4 rounded-lg shadow-sm">
                   <p className="font-semibold text-gray-700 mb-2">
-                    {index + 17}. {sentence}
+                    {index + 28}. {sentence}
                   </p>
                   <input
                     type="text"
@@ -408,7 +388,7 @@ export default function KidsEnglishTask() {
               {data.shortAnswers.map((item, index) => (
                 <div key={index} className="bg-gray-50 p-4 rounded-lg shadow-sm">
                   <p className="font-semibold text-gray-700 mb-2">
-                    {index + 28}. {item.question}
+                    {index + 39}. {item.question}
                   </p>
                   <input
                     type="text"
@@ -416,8 +396,7 @@ export default function KidsEnglishTask() {
                     onChange={(e) =>
                       handleAnswerChange(index, e.target.value)
                     }
-                    className="w-[60%] m-auto border-b-2 border-black outline-none text-[16px] text-center"
-                    dir="ltr"
+                    className="w-[80%] min-[500px]:w-[60%] m-auto border-b-2 border-black outline-none text-[16px] text-left pl-3"
                   />
                 </div>
               ))}
@@ -430,27 +409,57 @@ export default function KidsEnglishTask() {
               <p className="border-2 border-gray-300 p-4 rounded-lg text-[16px] font-semibold text-center">
                 Whisper | Suspicious | Slowly | Never | Amazing | Apron
               </p>
-              {data.putWordsQuestions.map((question, index) => (
-                <div key={index} className="bg-gray-50 p-4 rounded-lg shadow-sm">
-                  <p className="font-semibold text-gray-700 mb-2">
-                    {index + 34}. {question}
-                  </p>
-                  <input
-                    type="text"
-                    value={answers[index] || ""}
-                    onChange={(e) => handleAnswerChange(index, e.target.value)}
-                    className="min-w-[20%] w-fit m-auto border-2 border-gray-700 rounded-[10px] outline-none text-[16px] text-center"
-                  />
-                </div>
-              ))}
+              {data.putWordsQuestions.map((question, index) => {
+                const parts = question.split("________");
+
+                return (
+                  <div key={index} className="bg-gray-50 p-4 rounded-lg shadow-sm">
+                    <p className="font-semibold text-gray-700 mb-2">
+                      {index + 45}.
+                      {parts[0]}
+                      <input
+                        type="text"
+                        value={answers[index] || ""}
+                        onChange={(e) => handleAnswerChange(index, e.target.value)}
+                        className="inline-block border-b-2 border-gray-700 outline-none text-[16px] text-center w-32"
+                      />
+                      {parts[1]}
+                    </p>
+                  </div>
+                );
+              })}
+
             </div>
           )}
 
           <div className="mt-6 flex justify-between gap-4">
             {step < 6 ? (
               <button
-                onClick={goToNextStep}
-                disabled={answers.some((answer) => answer.trim() === "")} // Disable button if any answer is empty
+                onClick={() => {
+                  let currentStepAnswers = [];
+
+                  if (step === 5) {
+                    currentStepAnswers = data.shortAnswers.map((_, index) => answers[index]?.trim());
+                  } else if (step === 6) {
+                    const offset = data.shortAnswers.length;
+                    currentStepAnswers = data.putWordsQuestions.map((_, index) =>
+                      answers[offset + index]?.trim()
+                    );
+                  } else {
+                    currentStepAnswers = answers.map((ans) => ans?.trim());
+                  }
+
+                  if (currentStepAnswers.some((answer) => !answer)) {
+                    toast.warning(t("Iltimos, barcha javoblarni to'ldiring!"), {
+                      position: "top-center",
+                      autoClose: 3000,
+                    });
+                    window.scrollTo(0, 0);
+                    return;
+                  }
+
+                  goToNextStep();
+                }}
                 className="w-full bg-red-500 text-white py-3 px-6 rounded-lg hover:bg-red-600 transition duration-300"
               >
                 Next
@@ -466,6 +475,7 @@ export default function KidsEnglishTask() {
           </div>
         </>
       )}
+      <ToastContainer />
     </div>
   );
 }
