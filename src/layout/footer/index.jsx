@@ -29,8 +29,7 @@ function Footer() {
             </h1>
 
             <div
-                data-aos='fade-up'
-                className="h-[250px] w-[90%] xl:w-full md:h-[450px] xl:h-[650px] mx-auto mt-10 border-none overflow-hidden rounded-[30px] shadow-[20px_20px_25px_0px_#00000040]">
+                data-aos='fade-up'>
                 <MapWithLogo />
             </div>
 
@@ -62,7 +61,7 @@ function Footer() {
                     </div>
                 </div>
             </div>
-        </footer>
+        </footer >
     )
 }
 

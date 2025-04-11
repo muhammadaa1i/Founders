@@ -3,7 +3,7 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
 const customIcon = new L.Icon({
-    iconUrl: '/public/Group 48424.png',
+    iconUrl: '/Group 48424.png',
     iconSize: [120, 120],
     iconAnchor: [50, 100],
     popupAnchor: [0, -100],
@@ -15,7 +15,7 @@ const MapWithLogo = () => {
     const googleMapsLink = `https://maps.google.com/?q=${position[0]},${position[1]}`;
 
     return (
-        <div className="w-full h-[600px] mx-auto mt-10 rounded-[30px] shadow-[20px_20px_25px_0px_#00000040] overflow-hidden">
+        <div className="w-full h-[600px] mx-auto mt-10 rounded-[30px]  overflow-hidden">
             <MapContainer
                 center={position}
                 zoom={16}
