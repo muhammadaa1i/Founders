@@ -22,7 +22,7 @@ function Footer() {
             <h1
                 data-aos='zoom-in'
                 className="textGrow font-[Andasia Personal Use] font-normal text-3xl sm:text-5xl xl:text-[78px] text-center">
-               We grow together!
+                We grow together!
             </h1>
 
             <div
@@ -44,9 +44,10 @@ function Footer() {
                     className="flex justify-center"
                     to="/">
                     <img
+                        loading="lazy"
                         src={Logo}
                         alt="Logo"
-                        className="w-[200px] h-[50px] xl:w-[300px] xl:h-[60px] lazyload"
+                        className="w-[200px] h-[50px] xl:w-[300px] xl:h-[60px]"
                     />
                 </Link>
 
