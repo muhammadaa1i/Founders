@@ -8,8 +8,8 @@ function TeacherCard({ img, teacher, experience, position, IELTS, isMiddle }) {
   }
   return (
     <div
-      className={`bg-white m-auto max-w-[300px] w-full h-[350px] 
-        lg:w-[360px] lg:h-[420px] 2xl:w-[400px] 2xl:h-[450px] 
+      className={`bg-white m-auto max-w-[300px] w-full h-[350px] md:h-[380px]
+        xl:w-[360px] xl:h-[420px] 2xl:w-[400px] 2xl:h-[450px] 
         rounded-[30px] my-2 p-4 md:p-6 
         shadow-[0px_19.8px_10px_0px_rgba(255,223,223,0.7)_inset] 
         flex flex-col items-center transition-all duration-500 
@@ -17,10 +17,10 @@ function TeacherCard({ img, teacher, experience, position, IELTS, isMiddle }) {
         before:shadow-[0px_19.8px_10px_0px_rgba(255,223,223,0.7)_inset] 
         after:absolute after:inset-0 
         after:shadow-[0px_-19.8px_10px_0px_rgba(255,223,223,0.7)_inset] 
-        ${isMiddle ? 'lg:scale-118 lg:z-10 lg:my-14' : 'lg:scale-100 lg:my-12'}
+        ${isMiddle ? 'lg:scale-115 lg:z-10 lg:my-12' : 'lg:scale-100 lg:my-12'}
         `}
     >
-      <div className="lg:w-36 lg:h-36 w-20 h-20 mx-auto mt-3 overflow-hidden rounded-full border-4 bg-[#EC0000] border-[#EC0000] mb-4">
+      <div className="xl:w-36 xl:h-36 w-20 h-20 mx-auto mt-3 overflow-hidden rounded-full border-4 bg-[#EC0000] border-[#EC0000] mb-4">
         <img
           loading="lazy"
           src={img}

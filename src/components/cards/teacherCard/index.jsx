@@ -40,7 +40,7 @@ function Teachers() {
 
     useEffect(() => {
         if (sliderRef.current) {
-            sliderRef.current.slickPlay(); // Force autoplay to start
+            sliderRef.current.slickPlay(); 
         }
     }, []);
 
