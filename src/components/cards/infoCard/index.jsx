@@ -21,8 +21,8 @@ function InfoCard() {
     const collectionsData = [
         { num: "3+", title: t("Yillik tajriba") },
         { num: "2 000+", title: t("Mamnun o‘quvchilar") },
-        { num: "200+", title: t("Ijobiy IELTS natijalari") },
-        { num: "40+", title: t("Hodimlar soni") },
+        { num: "200+", title: t("IELTS natijalari") },
+        { num: "40+", title: t("Hodimlar") },
     ];
 
     return (

@@ -396,7 +396,7 @@ export default function KidsEnglishTask() {
                     onChange={(e) =>
                       handleAnswerChange(index, e.target.value)
                     }
-                    className="w-[60%] m-auto border-b-2 border-black outline-none text-[16px] text-center"
+                    className="w-[80%] min-[500px]:w-[60%] m-auto border-b-2 border-black outline-none text-[16px] text-left pl-3"
                   />
                 </div>
               ))}
@@ -409,19 +409,26 @@ export default function KidsEnglishTask() {
               <p className="border-2 border-gray-300 p-4 rounded-lg text-[16px] font-semibold text-center">
                 Whisper | Suspicious | Slowly | Never | Amazing | Apron
               </p>
-              {data.putWordsQuestions.map((question, index) => (
-                <div key={index} className="bg-gray-50 p-4 rounded-lg shadow-sm">
-                  <p className="font-semibold text-gray-700 mb-2">
-                    {index + 45}. {question}
-                  </p>
-                  <input
-                    type="text"
-                    value={answers[index] || ""}
-                    onChange={(e) => handleAnswerChange(index, e.target.value)}
-                    className="min-w-[20%] w-fit m-auto border-2 border-gray-700 rounded-[10px] outline-none text-[16px] text-center"
-                  />
-                </div>
-              ))}
+              {data.putWordsQuestions.map((question, index) => {
+                const parts = question.split("________");
+
+                return (
+                  <div key={index} className="bg-gray-50 p-4 rounded-lg shadow-sm">
+                    <p className="font-semibold text-gray-700 mb-2">
+                      {index + 45}.
+                      {parts[0]}
+                      <input
+                        type="text"
+                        value={answers[index] || ""}
+                        onChange={(e) => handleAnswerChange(index, e.target.value)}
+                        className="inline-block border-b-2 border-gray-700 outline-none text-[16px] text-center w-32"
+                      />
+                      {parts[1]}
+                    </p>
+                  </div>
+                );
+              })}
+
             </div>
           )}
 
@@ -432,20 +439,16 @@ export default function KidsEnglishTask() {
                   let currentStepAnswers = [];
 
                   if (step === 5) {
-                    // Step 5 uchun faqat shortAnswers
                     currentStepAnswers = data.shortAnswers.map((_, index) => answers[index]?.trim());
                   } else if (step === 6) {
-                    // Step 6 uchun putWordsQuestions (offset hisobga olinadi)
                     const offset = data.shortAnswers.length;
                     currentStepAnswers = data.putWordsQuestions.map((_, index) =>
                       answers[offset + index]?.trim()
                     );
                   } else {
-                    // Boshqa partlar uchun butun answers tekshirilsin
                     currentStepAnswers = answers.map((ans) => ans?.trim());
                   }
 
-                  // Bo‘sh javob borligini tekshiramiz
                   if (currentStepAnswers.some((answer) => !answer)) {
                     toast.warning(t("Iltimos, barcha javoblarni to'ldiring!"), {
                       position: "top-center",

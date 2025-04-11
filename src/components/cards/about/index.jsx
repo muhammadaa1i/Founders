@@ -55,7 +55,7 @@ function About() {
                 <p
                     data-aos='zoom-in'
                     className="font-[Montserrat] text-[#222222] font-normal leading-[120%] text-center">
-                    {t('"Founders" is about our')}
+                    {t('"Founders" - is about our')}
                     <span className="font-bold text-[#EC0000]"> {t("passionate")} </span>
                     <span className="font-bold text-[#EC0000]"> {t("students")} </span>
                     {t("who will become future")}
