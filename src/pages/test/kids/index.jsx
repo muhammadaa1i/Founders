@@ -110,7 +110,7 @@ export default function KidsEnglishTask() {
 
   const checkAnswers = () => {
     if (answers.some((answer) => (answer?.trim?.()) === "")) {
-      toast.warning("Iltimos, barcha javoblarni to'ldiring!", {
+      toast.warning(t("Iltimos, barcha javoblarni to'ldiring!"), {
         position: "top-center",
         autoClose: 3000,
       });
