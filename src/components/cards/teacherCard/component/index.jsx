@@ -19,7 +19,7 @@ function TeacherCard({ img, teacher, experience, position, IELTS, isMiddle }) {
         after:shadow-[0px_-19.8px_10px_0px_rgba(255,223,223,0.7)_inset] 
         ${isMiddle ? 'lg:scale-118 lg:z-10 lg:my-14' : 'lg:scale-100 lg:my-12'}
         `}
-    >
+    > 
       <div className="lg:w-36 lg:h-36 w-20 h-20 mx-auto mt-3 overflow-hidden rounded-full border-4 bg-[#EC0000] border-[#EC0000] mb-4">
         <img
           loading="lazy"
