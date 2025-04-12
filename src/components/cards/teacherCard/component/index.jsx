@@ -20,7 +20,7 @@ function TeacherCard({ img, teacher, experience, position, IELTS, isMiddle }) {
         ${isMiddle ? 'lg:scale-115 lg:z-10 lg:my-12' : 'lg:scale-100 lg:my-12'}
         `}
     >
-      <div className="lg:w-36 lg:h-36 w-20 h-20 mx-auto mt-3 overflow-hidden rounded-full border-4 bg-[#EC0000] border-[#EC0000] mb-4">
+      <div className="xl:w-36 xl:h-36 w-20 h-20 mx-auto mt-3 overflow-hidden rounded-full border-4 bg-[#EC0000] border-[#EC0000] mb-4">
         <img
           loading="lazy"
           src={img}
