@@ -390,17 +390,17 @@ export default function KidsEnglishTask() {
                   <p className="font-semibold text-gray-700 mb-2">
                     {index + 39}. {item.question}
                   </p>
+                  <p className="inline">{index === 0 ? "No, " : "Yes, "}</p>
                   <input
                     type="text"
-                    value={answers[index] || (index === 0 ? "No, " : "Yes, ")}
-                    onChange={(e) =>
-                      handleAnswerChange(index, e.target.value)
-                    }
+                    value={answers[index] || ""}
+                    onChange={(e) => handleAnswerChange(index, e.target.value)}
                     className="w-[80%] min-[500px]:w-[60%] m-auto border-b-2 border-black outline-none text-[16px] text-left pl-3"
                   />
                 </div>
               ))}
             </div>
+
           )}
 
           {/* Step 6: Render put words questions */}
