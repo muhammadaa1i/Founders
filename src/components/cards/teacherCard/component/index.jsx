@@ -8,7 +8,7 @@ function TeacherCard({ img, teacher, experience, position, IELTS, isMiddle }) {
   }
   return (
     <div
-      className={`bg-white m-auto max-w-[300px] w-full h-[350px] md:h-[380px]
+      className={`bg-white m-auto max-w-[300px] w-full h-[350px] md:h-[400px]
         xl:w-[360px] xl:h-[420px] 2xl:w-[400px] 2xl:h-[450px] 
         rounded-[30px] my-2 p-4 md:p-6 
         shadow-[0px_19.8px_10px_0px_rgba(255,223,223,0.7)_inset] 

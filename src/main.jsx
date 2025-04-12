@@ -8,7 +8,6 @@ import Root from './root.jsx'
 import './i18n.jsx'
 import 'leaflet/dist/leaflet.css';
 
-
 ReactDOM.createRoot(document.getElementById('root')).render(
   <BrowserRouter>
     <Root />

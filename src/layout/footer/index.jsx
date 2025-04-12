@@ -5,8 +5,6 @@ import Aos from "aos";
 import { useTranslation } from "react-i18next";
 import MapWithLogo from "./logo";
 
-
-
 function Footer() {
 
     useEffect(() => {
