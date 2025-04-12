@@ -3,9 +3,10 @@ import Logo from "../../assets/logof.avif";
 import { useEffect } from "react";
 import Aos from "aos";
 import { useTranslation } from "react-i18next";
-
+import MapWithLogo from "./logo";
 
 function Footer() {
+
     useEffect(() => {
         Aos.init({
             duration: 800,
@@ -26,15 +27,8 @@ function Footer() {
             </h1>
 
             <div
-                data-aos='fade-up'
-                className="h-[250px] w-[90%] xl:w-full md:h-[450px] xl:h-[650px] mx-auto mt-10 border-none overflow-hidden rounded-[30px] shadow-[20px_20px_25px_0px_#00000040]">
-                <iframe
-                    title="Google Map"
-                    src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d11979.1754389799!2d69.236541!3d41.306471!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDHCsDE4JzIzLjMiTiA2OcKwMTQnMTEuNiJF!5e0!3m2!1sen!2s!4v1711100880000!5m2!1sen!2s"
-                    width="100%"
-                    height="100%"
-                    loading="lazy"
-                ></iframe>
+                data-aos='fade-up'>
+                <MapWithLogo />
             </div>
 
             <div
@@ -65,7 +59,7 @@ function Footer() {
                     </div>
                 </div>
             </div>
-        </footer>
+        </footer >
     )
 }
 
