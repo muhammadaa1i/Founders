@@ -84,11 +84,11 @@ function Teachers() {
     }
 
     const teachersData = [
-        { img: Teacher1, teacher: t("Iskhakova Leyla"), experience: t("4 years+"), IELTS: "7.0", position: t("ESL Teacher | IELTS Instructor") },
+        { img: Teacher1, teacher: t("Iskhakova Leyla"), experience: t("4 years+"), IELTS: "7.0", position: t("Kids English Manager") },
         { img: Teacher2, teacher: t("Kambarova Omina"), experience: t("2 years+"), position: t("ESL Teacher") },
         { img: Teacher3, teacher: t("Yusupov Bunyodbek"), experience: t("2 years+"), IELTS: "7.5", position: t("ESL Teacher") },
         { img: Teacher4, teacher: t("Abdumalikova Parizoda"), experience: t("7 years+"), position: t("ESL Teacher") },
-        { img: Teacher5, teacher: t("Asadova Zarina"), experience: t("15 years+"), position: t("Senior ESL Teacher") },
+        { img: Teacher5, teacher: t("Asadova Zarina"), experience: t("15 years+"), position: t("General English Manager") },
         { img: Teacher6, teacher: t("Karajanova Kamila"), experience: t("3 years+"), position: t("ESL Teacher") },
         { img: Teacher7, teacher: t("Abatbaeva Sarbina"), experience: t("3 years+"), IELTS: "7.0", position: t("ESL Teacher") },
         { img: Teacher8, teacher: t("Soatmurodova Dinora"), experience: t("3 years+"), IELTS: "7.5", position: t("ESL Teacher") },
