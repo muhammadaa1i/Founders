@@ -217,6 +217,7 @@ export default function KidsEnglishTask() {
     const messageContent = `
 📝 Ro‘yxatdan o‘tish:
 👤 Ismi: ${registrationData.name}
+🎂 Tug'ilgan sana: ${registrationData.birthdate}
 📞 Telefon: ${registrationData.phone}
 📢 Qayerdan eshitdi: ${registrationData.heard}
 ❓ Muammo: ${registrationData.problem}

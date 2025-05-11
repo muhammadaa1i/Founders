@@ -139,7 +139,9 @@
   "Iltimos, barcha javoblarni to'ldiring!": "Пожалуйста, заполните все ответы!",
   "o'qing": "учитесь",
   "BEPUL!": "БЕСПЛАТНО!",
-  "Tumaningiz":"Ваш район",
-  "Position":"Должность",
-  "Experience":"Опыт"
+  "Tumaningiz": "Ваш район",
+  "Position": "Должность",
+  "Experience": "Опыт",
+  "Tug'ilgan sanangiz": "Ваша дата рождения",
+  "kk / oo / yyyy": "дд / мм / гггг"
 }

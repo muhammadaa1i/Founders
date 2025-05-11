@@ -4,8 +4,6 @@ import Navbar from "./navbar";
 
 function Layout({ children }) {
   const location = useLocation();
-
-  // Footerni ko‘rsatilmasligi kerak bo‘lgan yo‘llar
   const hideFooterPaths = ["/registration", "/kids", "/general"];
   const shouldHideFooter = hideFooterPaths.includes(location.pathname);
 

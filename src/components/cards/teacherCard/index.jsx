@@ -39,7 +39,7 @@ function Teachers() {
 
     useEffect(() => {
         if (sliderRef.current) {
-            sliderRef.current.slickPlay(); 
+            sliderRef.current.slickPlay();
         }
     }, []);
 
@@ -48,17 +48,19 @@ function Teachers() {
         infinite: true,
         speed: 500,
         autoplay: true,
-        autoplaySpeed: 2500,
+        autoplaySpeed: 3000,
+        pauseOnHover: false,
+        pauseOnFocus: false,
         arrows: true,
         slidesToShow: 3,
         slidesToScroll: 1,
         centerMode: true,
         centerPadding: "0px",
+        prevArrow: <PrevArrow />,
+        nextArrow: <NextArrow />,
         beforeChange: (oldIndex, newIndex) => {
             setCurrentSlide(newIndex);
         },
-        prevArrow: <PrevArrow />,
-        nextArrow: <NextArrow />,
         responsive: [
             {
                 breakpoint: 1024,
@@ -76,6 +78,7 @@ function Teachers() {
             },
         ],
     };
+
     const { t, i18n } = useTranslation()
     const ChangeLng = (selectedLanguage) => {
         i18n.changeLanguage(selectedLanguage)

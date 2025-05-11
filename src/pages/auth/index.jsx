@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from "react-i18next";
-import { toast, ToastContainer } from 'react-toastify';  // Import the toast function
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export default function RegistrationForm() {
     const { t, i18n } = useTranslation()
@@ -10,6 +12,7 @@ export default function RegistrationForm() {
         i18n.changeLanguage(selectedLanguage)
         localStorage.setItem('i18nextLng', selectedLanguage)
     }
+
     const regions = {
         [t("Toshkent shahar")]: [
             t("Bektemir"),
@@ -42,11 +45,12 @@ export default function RegistrationForm() {
 
     const [selectedRegion, setSelectedRegion] = useState("");
     const [selectedDistrict, setSelectedDistrict] = useState("");
+    const [birthdate, setBirthdate] = useState("");
     const navigate = useNavigate();
 
     const handleRegionChange = (e) => {
         setSelectedRegion(e.target.value);
-        setSelectedDistrict(""); // Reset district when region is changed
+        setSelectedDistrict("");
     };
 
     const handleDistrictChange = (e) => {
@@ -56,16 +60,15 @@ export default function RegistrationForm() {
     const Sendmessage = (e, level) => {
         e.preventDefault();
 
-        // Get form field values
         const name = document.getElementById("name").value;
         const phone = document.getElementById("phone").value;
         const heard = document.getElementById("heard").value;
         const problem = document.getElementById("problem").value;
+        const birthdate = document.getElementById("birthdate").value;
 
-        // Check if all fields are filled
-        if (!name || !phone || !heard || !problem || !selectedRegion ) {
+        if (!name || !phone || !heard || !problem || !selectedRegion || !birthdate) {
             toast.error(t("Iltimos, barcha maydonlarni to'ldiring."));
-            return; // Prevent navigation if any field is empty
+            return;
         }
 
         const data = {
@@ -75,11 +78,10 @@ export default function RegistrationForm() {
             problem: problem,
             region: selectedRegion,
             district: selectedDistrict,
+            birthdate,
         };
 
-        // Save to localStorage to pass to Kids
         localStorage.setItem("registrationData", JSON.stringify(data));
-        // Navigate to the appropriate page based on the level
         navigate(`/${level}`);
     };
 
@@ -100,6 +102,19 @@ export default function RegistrationForm() {
                         className="w-full p-3 border border-gray-300 rounded-lg bg-[#FFB2B2] outline-none"
                         pattern="[A-Za-z\s]+"
                         title="Only letters and spaces are allowed."
+                    />
+                </div>
+                <div>
+                    <input
+                        required
+                        id="birthdate"
+                        type="text"
+                        placeholder={t("kk / oo / yyyy")}
+                        onFocus={(e) => (e.target.type = "date")}
+                        onBlur={(e) => (e.target.type = "text")}
+                        value={birthdate}
+                        onChange={(e) => setBirthdate(e.target.value)}
+                        className="w-full p-3 border border-gray-300 rounded-lg bg-[#FFB2B2] text-[#616161] outline-none placeholder-[#616161] value-black"
                     />
                 </div>
                 <div>
@@ -147,7 +162,7 @@ export default function RegistrationForm() {
                             required
                             id="region"
                             className="w-full p-3 border border-gray-300 rounded-lg bg-[#FFB2B2] outline-none"
-                            onChange={handleRegionChange} // Track region
+                            onChange={handleRegionChange}
                         >
                             <option value="">{t("Viloyatingizni tanlang")}</option>
                             {Object.keys(regions).map((region, index) => (
@@ -162,7 +177,7 @@ export default function RegistrationForm() {
                                 required
                                 id="district"
                                 className="w-full p-3 border border-gray-300 rounded-lg bg-[#FFB2B2] outline-none"
-                                onChange={handleDistrictChange} 
+                                onChange={handleDistrictChange}
                             >
                                 <option value="">{t("Tumaningizni tanlang")}</option>
                                 {regions[selectedRegion].map((district, index) => (

@@ -139,10 +139,12 @@
   "Your level": "Your level",
   "Your score": "Your score",
   "Kelajagingizni o'zgartiruvchi testni muvaffaqiyatli ishlaganingizdan juda xursandmiz! Hayotingizni tubdan o'zgartiruvchi qo'ng'irog'imizni kuting😊": "We’re very happy that you successfully completed the test that will change your future! Get ready for our call that could transform your life😊",
-  "Iltimos, barcha javoblarni to'ldiring!":"Please complete all answers!",
-  "o'qing":"study",
-  "BEPUL!":"FREE!",
-  "Tumaningiz":"Your district",
-  "Experience":"Experience",
-  "Position":"Position"
+  "Iltimos, barcha javoblarni to'ldiring!": "Please complete all answers!",
+  "o'qing": "study",
+  "BEPUL!": "FREE!",
+  "Tumaningiz": "Your district",
+  "Experience": "Experience",
+  "Position": "Position",
+  "Tug'ilgan sanangiz": "Your date of birth",
+  "kk / oo / yyyy":"dd / mm / yyyy"
 }
