@@ -115,7 +115,7 @@ export default function RegistrationForm() {
                         placeholder={t("date_format_placeholder", "kk/oo/yyyy")}
                         value={birthdate}
                         onChange={(e) => setBirthdate(e.target.value)}
-                        className="w-full p-3 border border-gray-300 rounded-lg bg-[#FFB2B2] text-[#616161] outline-none placeholder-[#616161] value-black"
+                        className="w-full h-[50px] p-3 border border-gray-300 rounded-lg bg-[#FFB2B2] text-[#616161] outline-none placeholder-[#616161] value-black"
                     />
                 </div>
                 <div>
