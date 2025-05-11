@@ -3,8 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from "react-i18next";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+// import DatePicker from "react-datepicker";
+// import "react-datepicker/dist/react-datepicker.css";
 
 export default function RegistrationForm() {
     const { t, i18n } = useTranslation()
@@ -105,17 +105,14 @@ export default function RegistrationForm() {
                     />
                 </div>
                 <div>
-                    <label
-                        className="block text-[#616161] font-semibold text-lg mb-2">
+                    <label className="block text-[#616161] font-semibold text-lg mb-2">
                         {t("Tug'ilgan sanangiz")}:
                     </label>
                     <input
                         required
                         id="birthdate"
-                        type="text"
-                        placeholder={t("kk / oo / yyyy")}
-                        onFocus={(e) => (e.target.type = "date")}
-                        onBlur={(e) => (e.target.type = "text")}
+                        type="date"
+                        placeholder={t("date_format_placeholder", "kk/oo/yyyy")}
                         value={birthdate}
                         onChange={(e) => setBirthdate(e.target.value)}
                         className="w-full p-3 border border-gray-300 rounded-lg bg-[#FFB2B2] text-[#616161] outline-none placeholder-[#616161] value-black"
