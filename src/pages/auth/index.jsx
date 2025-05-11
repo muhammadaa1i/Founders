@@ -105,6 +105,10 @@ export default function RegistrationForm() {
                     />
                 </div>
                 <div>
+                    <label
+                        className="block text-[#616161] font-semibold text-lg mb-2">
+                        {t("Tug'ilgan sanangiz")}:
+                    </label>
                     <input
                         required
                         id="birthdate"
