@@ -1,10 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from "react-i18next";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-// import DatePicker from "react-datepicker";
-// import "react-datepicker/dist/react-datepicker.css";
+import IMask from 'imask';
 
 export default function RegistrationForm() {
     const { t, i18n } = useTranslation()
@@ -85,6 +84,14 @@ export default function RegistrationForm() {
         navigate(`/${level}`);
     };
 
+    useEffect(() => {
+        const birthdateInput = document.getElementById('birthdate');
+        if (birthdateInput) {
+            console.log("Applying IMask...");
+            IMask(birthdateInput, { mask: '00/00/0000' });
+        }
+    }, []);
+
     return (
         <div className="max-w-lg mx-auto my-25 p-6 shadow-lg rounded-2xl border border-[#EC0000] bg-white sm:p-8 max-[450px]:mx-[10px] lg:p-10" style={{ boxShadow: '15px 15px 40px 0px #FF00004D' }}>
             <h1 className="text-3xl font-bold mb-6 text-center sm:text-left max-[450px]:text-2xl">{t("Birinchi darsga yoziling!")}</h1>
@@ -111,11 +118,14 @@ export default function RegistrationForm() {
                     <input
                         required
                         id="birthdate"
-                        type="date"
-                        placeholder={t("date_format_placeholder", "kk/oo/yyyy")}
+                        type="text"
+                        placeholder={t("kk/oo/yyyy")}
+                        pattern="\d{2}/\d{2}/\d{4}"
+                        minLength="10"
+                        maxLength="10"
                         value={birthdate}
                         onChange={(e) => setBirthdate(e.target.value)}
-                        className="w-full h-[50px] p-3 border border-gray-300 rounded-lg bg-[#FFB2B2] text-[#616161] outline-none placeholder-[#616161] value-black"
+                        className="w-full p-3 border border-gray-300 rounded-lg bg-[#FFB2B2] text-[#616161] outline-none placeholder-[#616161] value-black"
                     />
                 </div>
                 <div>

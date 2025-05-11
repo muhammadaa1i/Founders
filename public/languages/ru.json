@@ -143,5 +143,5 @@
   "Position": "Должность",
   "Experience": "Опыт",
   "Tug'ilgan sanangiz": "Дата рождения",
-  "date_format_placeholder": "дд / мм / гггг"
+  "kk/oo/yyyy": "дд / мм / гггг"
 }

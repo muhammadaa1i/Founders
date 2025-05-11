@@ -146,5 +146,5 @@
   "Experience": "Experience",
   "Position": "Position",
   "Tug'ilgan sanangiz": "Date of birth",
-  "date_format_placeholder": "dd / mm / yyyy"
+  "kk/oo/yyyy": "dd / mm / yyyy"
 }
