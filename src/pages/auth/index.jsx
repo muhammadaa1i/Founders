@@ -16,7 +16,7 @@ export default function RegistrationForm() {
         [t("Toshkent shahar")]: [
             t("Bektemir"),
             t("Chilonzor"),
-            t("Hamza"),
+            t("Yashnobod"),
             t("Mirobod"),
             t("Mirzo Ulugʻbek"),
             t("Sergeli"),
@@ -125,7 +125,7 @@ export default function RegistrationForm() {
                         maxLength="10"
                         value={birthdate}
                         onChange={(e) => setBirthdate(e.target.value)}
-                        className="w-full p-3 border border-gray-300 rounded-lg bg-[#FFB2B2] text-[#616161] outline-none placeholder-[#616161] value-black"
+                        className="w-full p-3 border border-gray-300 rounded-lg bg-[#FFB2B2] text-[#616161] outline-none placeholder-[#785c5c] value-black"
                     />
                 </div>
                 <div>

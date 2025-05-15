@@ -1,16 +1,15 @@
-import { useState, useEffect, React } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Confetti from 'react-confetti';
 import { useWindowSize } from 'react-use';
-
 import data from "../../../../public/servers/kids.json";
-import kids1 from '../../../assets/kids1.png'
-import kids2 from '../../../assets/kids2.png'
-import kids3 from '../../../assets/kids3.png'
-import kids4 from '../../../assets/kids4.png'
-import kids5 from '../../../assets/kids5.png'
-import kids6 from '../../../assets/kids6.png'
+import kids1 from '../../../assets/kids1.png';
+import kids2 from '../../../assets/kids2.png';
+import kids3 from '../../../assets/kids3.png';
+import kids4 from '../../../assets/kids4.png';
+import kids5 from '../../../assets/kids5.png';
+import kids6 from '../../../assets/kids6.png';
 import { useTranslation } from "react-i18next";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -33,12 +32,10 @@ export default function KidsEnglishTask() {
   const [answers, setAnswers] = useState([]);
   const [showFinalScore, setShowFinalScore] = useState(false);
   const [totalCorrect, setTotalCorrect] = useState(0);
-  const [error, setError] = useState(false);
   const navigate = useNavigate();
-  const kidsimages = [kids1, kids2, kids3, kids4, kids5, kids6]
+  const kidsimages = [kids1, kids2, kids3, kids4, kids5, kids6];
   const { width, height } = useWindowSize();
   const [showConfetti, setShowConfetti] = useState(false);
-
   const [registrationData, setRegistrationData] = useState(null);
 
   useEffect(() => {
@@ -104,29 +101,27 @@ export default function KidsEnglishTask() {
       5: data.shortAnswers[index]?.correct,
       6: data.putWordsAnswers[index],
     };
-
     return stepDataMap[step];
   };
 
   const checkAnswers = () => {
-    if (answers.some((answer) => (answer?.trim?.()) === "")) {
-      toast.warning(t("Iltimos, barcha javoblarni to'ldiring!"), {
-        position: "top-center",
-        autoClose: 3000,
-      });
-      window.scrollTo(0, 0);
-      return false;
-    }
-
     let correctCount = 0;
     const wrongAnswers = [];
 
     answers.forEach((answer, index) => {
-      const trimmedAnswer = (answer?.trim?.().toLowerCase());
+      const trimmedAnswer = (answer?.trim?.().toLowerCase()) || "";
       let isCorrect = false;
 
-
       const correctAnswer = getCorrectAnswerByStep(step, index);
+      if (trimmedAnswer === "") {
+        wrongAnswers.push({
+          questionIndex: index,
+          userAnswer: trimmedAnswer,
+          correctAnswer: correctAnswer,
+        });
+        return;
+      }
+
       if (Array.isArray(correctAnswer)) {
         isCorrect = correctAnswer.some((ans) => ans.toLowerCase() === trimmedAnswer);
       } else {
@@ -156,7 +151,6 @@ export default function KidsEnglishTask() {
     if (checkAnswers()) {
       if (step < 6) {
         setStep(prevStep => prevStep + 1);
-        setError(false);
         window.scrollTo(0, 0);
       } else {
         setTotalCorrect(score);
@@ -176,14 +170,12 @@ export default function KidsEnglishTask() {
       setTimeout(() => {
         localStorage.removeItem("testCompleted");
         localStorage.removeItem("score");
-        localStorage.removeItem("testCompleted");
         localStorage.removeItem("currentStep");
         localStorage.removeItem("wrongAnswers");
         for (let i = 1; i <= 6; i++) {
           localStorage.removeItem(`step${i}Answers`);
         }
       }, 1000);
-
     }
   };
 
@@ -242,11 +234,10 @@ export default function KidsEnglishTask() {
   const totalQuestions = data ? (data.images.length + data.words.length + data.questions.length +
     data.sentences.length + data.shortAnswers.length + data.putWordsQuestions.length) : 0;
 
-
   if (!data) return <div>Loading...</div>;
 
   return (
-    <div className="p-6 w-[90%] m-auto  max-w-lg mt-28 mx-auto bg-white shadow-lg rounded-lg">
+    <div className="p-6 w-[90%] m-auto max-w-lg mt-28 mx-auto bg-white shadow-lg rounded-lg">
       {showFinalScore ? (
         <>
           {showConfetti && <Confetti width={width} height={height} />}
@@ -283,11 +274,6 @@ export default function KidsEnglishTask() {
           <h2 className="text-[#EC0000] font-semibold text-center text-xl mb-6">
             Part {step}
           </h2>
-          {error && (
-            <p className="text-red-500 text-center mb-4">
-              Please fill in all answers before proceeding!
-            </p>
-          )}
 
           {/* Step 1: Render images */}
           {step === 1 && (
@@ -363,7 +349,6 @@ export default function KidsEnglishTask() {
             </div>
           )}
 
-
           {/* Step 4: Render sentences */}
           {step === 4 && (
             <div className="space-y-4">
@@ -401,7 +386,6 @@ export default function KidsEnglishTask() {
                 </div>
               ))}
             </div>
-
           )}
 
           {/* Step 6: Render put words questions */}
@@ -429,38 +413,13 @@ export default function KidsEnglishTask() {
                   </div>
                 );
               })}
-
             </div>
           )}
 
           <div className="mt-6 flex justify-between gap-4">
             {step < 6 ? (
               <button
-                onClick={() => {
-                  let currentStepAnswers = [];
-
-                  if (step === 5) {
-                    currentStepAnswers = data.shortAnswers.map((_, index) => answers[index]?.trim());
-                  } else if (step === 6) {
-                    const offset = data.shortAnswers.length;
-                    currentStepAnswers = data.putWordsQuestions.map((_, index) =>
-                      answers[offset + index]?.trim()
-                    );
-                  } else {
-                    currentStepAnswers = answers.map((ans) => ans?.trim());
-                  }
-
-                  if (currentStepAnswers.some((answer) => !answer)) {
-                    toast.warning(t("Iltimos, barcha javoblarni to'ldiring!"), {
-                      position: "top-center",
-                      autoClose: 3000,
-                    });
-                    window.scrollTo(0, 0);
-                    return;
-                  }
-
-                  goToNextStep();
-                }}
+                onClick={goToNextStep}
                 className="w-full bg-red-500 text-white py-3 px-6 rounded-lg hover:bg-red-600 transition duration-300"
               >
                 Next

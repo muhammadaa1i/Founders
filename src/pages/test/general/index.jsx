@@ -100,12 +100,12 @@ const General = () => {
     }
   }, [showResult]);
 
-  const handleAnswer = (option) => {
-    if (!option) return;
-    setSelectedOption(option);
-
-    if (option === questions[currentQuestion].answer) {
-      setScore((prev) => prev + 1);
+  const handleAnswer = (option = null) => {
+    if (option) {
+      setSelectedOption(option);
+      if (option === questions[currentQuestion].answer) {
+        setScore((prev) => prev + 1);
+      }
     }
 
     setTimeout(() => {
@@ -117,6 +117,10 @@ const General = () => {
         setShowResult(true);
       }
     }, 500);
+  };
+
+  const handleNext = () => {
+    handleAnswer(null);
   };
 
   return (
@@ -138,8 +142,7 @@ const General = () => {
               <p className="font-monserat text-xl font-semibold text-gray-700 mb-6">
                 {t("Your level")}: <span className="font-semibold text-red-600">{getLevel(score)}</span>
               </p>
-
-              <p className=" font-monserat text-xl font-semibold text-gray-700 mb-6 px-8">{t("Kelajagingizni o'zgartiruvchi testni muvaffaqiyatli ishlaganingizdan juda xursandmiz! Hayotingizni tubdan o'zgartiruvchi qo'ng'irog'imizni kuting😊")}</p>
+              <p className="font-monserat text-xl font-semibold text-gray-700 mb-6 px-8">{t("Kelajagingizni o'zgartiruvchi testni muvaffaqiyatli ishlaganingizdan juda xursandmiz! Hayotingizni tubdan o'zgartiruvchi qo'ng'irog'imizni kuting😊")}</p>
               <button
                 onClick={() => {
                   localStorage.clear();
@@ -156,22 +159,29 @@ const General = () => {
             <h2 className="text-lg sm:text-xl md:text-2xl 2xl:text-3xl font-semibold mb-6 text-gray-900 pl-4">
               <span>{currentQuestion + 1}.</span> {questions[currentQuestion].question}
             </h2>
-
             <div className="space-y-4">
               {questions[currentQuestion].options.map((option, index) => (
                 <button
                   key={index}
                   onClick={() => handleAnswer(option)}
                   disabled={selectedOption !== null}
-                  className={`block w-full py-3 rounded-xl text-lg font-medium transition-all shadow-md ${selectedOption === option
-                    ? "bg-red-500 text-white"
-                    : "bg-gray-100 text-gray-800"
-                    }`}
+                  className={`block w-full py-3 rounded-xl text-lg font-medium transition-all shadow-md ${
+                    selectedOption === option
+                      ? "bg-red-500 text-white"
+                      : "bg-gray-100 text-gray-800 hover:bg-gray-200"
+                  }`}
                 >
                   {option}
                 </button>
               ))}
             </div>
+            <button
+              onClick={handleNext}
+              disabled={selectedOption !== null}
+              className="w-full mt-6 bg-black text-white py-3 rounded-lg hover:bg-gray-800 transition duration-300"
+            >
+              {t("Next")}
+            </button>
           </div>
         )}
       </div>
