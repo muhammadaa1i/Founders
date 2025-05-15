@@ -100,19 +100,19 @@ export default function RegistrationForm() {
                 onSubmit={Sendmessage}
                 className="space-y-6">
                 <div>
-                    <label className="block text-[#616161] font-semibold text-lg mb-2">{t("Ism")}:</label>
+                    <label className="block] font-semibold text-lg mb-2">{t("Ism")}:</label>
                     <input
                         required
                         id="name"
                         type="text"
                         placeholder={t("Ismingizni kiriting")}
-                        className="w-full p-3 border border-gray-300 rounded-lg bg-[#FFB2B2] outline-none"
+                        className="w-full p-3 border border-gray-300 rounded-lg bg-[#FFB2B2] outline-none placeholder-black"
                         pattern="[A-Za-z\s]+"
                         title="Only letters and spaces are allowed."
                     />
                 </div>
                 <div>
-                    <label className="block text-[#616161] font-semibold text-lg mb-2">
+                    <label className="block font-semibold text-lg mb-2">
                         {t("Tug'ilgan sanangiz")}:
                     </label>
                     <input
@@ -125,42 +125,42 @@ export default function RegistrationForm() {
                         maxLength="10"
                         value={birthdate}
                         onChange={(e) => setBirthdate(e.target.value)}
-                        className="w-full p-3 border border-gray-300 rounded-lg bg-[#FFB2B2] text-[#616161] outline-none placeholder-[#785c5c] value-black"
+                        className="w-full p-3 border border-gray-300 rounded-lg bg-[#FFB2B2] outline-none placeholder-black value-black"
                     />
                 </div>
                 <div>
-                    <label className="block text-[#616161] font-semibold text-lg mb-2">{t("Telefon raqam")}:</label>
+                    <label className="block font-semibold text-lg mb-2">{t("Telefon raqam")}:</label>
                     <input
                         required
                         id="phone"
                         type="number"
                         placeholder="+998 90 123 45 67"
-                        className="w-full p-3 border border-gray-300 rounded-lg bg-[#FFB2B2] outline-none"
+                        className="w-full p-3 border border-gray-300 rounded-lg bg-[#FFB2B2] outline-none placeholder-black"
                         inputMode="tel"
                         pattern="\+998\[0-9]{2}\[0-9]{3}\[0-9]{2}\[0-9]{2}"
                         title="Enter a valid phone number (e.g., +998 90 123 45 67)"
                     />
                 </div>
                 <div>
-                    <label className="block text-[#616161] font-semibold text-lg mb-2">{t("Bizni qayerdan eshitdingiz?")}</label>
+                    <label className="block font-semibold text-lg mb-2">{t("Bizni qayerdan eshitdingiz?")}</label>
                     <input
                         required
                         id="heard"
                         type="text"
                         placeholder={t("Telegram, Instagram, YouTube...")}
-                        className="w-full p-3 border border-gray-300 rounded-lg bg-[#FFB2B2] outline-none"
+                        className="w-full p-3 border border-gray-300 rounded-lg bg-[#FFB2B2] outline-none placeholder-black"
                         pattern="[A-Za-z\s,]+"
                         title="Only letters, spaces, and commas are allowed."
                     />
                 </div>
                 <div>
-                    <label className="block text-[#616161] font-semibold text-lg mb-2">{t("Ingliz tili bo’yicha muammoingiz")}:</label>
+                    <label className="block font-semibold text-lg mb-2">{t("Ingliz tili bo’yicha muammoingiz")}:</label>
                     <input
                         required
                         id="problem"
                         type="text"
                         placeholder={t("Muammoingizni yozing")}
-                        className="w-full p-3 border border-gray-300 rounded-lg bg-[#FFB2B2] outline-none"
+                        className="w-full p-3 border border-gray-300 rounded-lg bg-[#FFB2B2] outline-none placeholder-black"
                         pattern="[A-Za-z\s,]+"
                         title="Only letters, spaces, and commas are allowed."
                     />
@@ -168,11 +168,11 @@ export default function RegistrationForm() {
 
                 <div className="space-y-4">
                     <div>
-                        <label className="block text-[#616161] font-semibold text-lg mb-2">{t("Viloyatingiz")}:</label>
+                        <label className="block font-semibold text-lg mb-2">{t("Viloyatingiz")}:</label>
                         <select
                             required
                             id="region"
-                            className="w-full p-3 border border-gray-300 rounded-lg bg-[#FFB2B2] outline-none"
+                            className="w-full p-3 border border-gray-300 rounded-lg bg-[#FFB2B2] outline-none placeholder-black"
                             onChange={handleRegionChange}
                         >
                             <option value="">{t("Viloyatingizni tanlang")}</option>
@@ -183,7 +183,7 @@ export default function RegistrationForm() {
                     </div>
                     {selectedRegion && regions[selectedRegion]?.length > 0 && (
                         <div>
-                            <label className="block text-[#616161] font-semibold text-lg mb-2">{t("Tumaningiz")}:</label>
+                            <label className="block font-semibold text-lg mb-2">{t("Tumaningiz")}:</label>
                             <select
                                 required
                                 id="district"
@@ -200,7 +200,7 @@ export default function RegistrationForm() {
                 </div>
 
                 <div className="w-full mt-6">
-                    <p className="mb-4 font-semibold text-[#616161] text-lg">{t("Darajangizni tanlang")}:</p>
+                    <p className="mb-4 font-semibold text-lg">{t("Darajangizni tanlang")}:</p>
                     <div className="w-full flex flex-col sm:flex-row justify-between gap-4">
                         <button
                             className="w-full h-auto bg-[#EC0000] px-6 py-3 text-white rounded-lg hover:bg-red-600"
