@@ -28,7 +28,6 @@ const MapWithLogo = () => {
                 />
 
                 <Marker position={position} icon={customIcon} eventHandlers={{
-
                     click: () => window.open(googleMapsLink, '_blank'),
                 }}>
                     <Popup>My School</Popup>

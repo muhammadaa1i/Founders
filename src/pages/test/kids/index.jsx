@@ -13,6 +13,53 @@ import kids6 from '../../../assets/kids6.png';
 import { useTranslation } from "react-i18next";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { DndContext, closestCenter, useDraggable, useDroppable } from "@dnd-kit/core";
+import { useSortable, SortableContext, arrayMove, rectSortingStrategy } from "@dnd-kit/sortable";
+import { CSS } from '@dnd-kit/utilities';
+
+function DraggableWord({ id, word, listeners, attributes, isDragging, setNodeRef, style }) {
+  return (
+    <span
+      ref={setNodeRef}
+      {...attributes}
+      {...listeners}
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '8px 12px',
+        margin: '0 6px 6px 0',
+        background: '#f3f4f6', // always light gray
+        border: '1px solid #d1d5db',
+        borderRadius: '6px',
+        cursor: 'grab',
+        fontWeight: 500,
+        fontSize: 16,
+        minWidth: 40,
+        maxWidth: 160,
+        userSelect: 'none',
+        transition: 'background 0.2s, box-shadow 0.2s',
+        ...style,
+      }}
+    >
+      {word}
+    </span>
+  );
+}
+
+function getWordId(sentenceIdx, wordIdx) {
+  return `sentence${sentenceIdx}-word${wordIdx}`;
+}
+
+function normalizeAnswer(str) {
+  if (!str) return '';
+  // Lowercase, trim, replace multiple spaces, remove leading/trailing punctuation
+  return str
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, ' ')
+    .replace(/^[.,!?;:()\[\]{}'"-]+|[.,!?;:()\[\]{}'"-]+$/g, '');
+}
 
 export default function KidsEnglishTask() {
   const { t, i18n } = useTranslation();
@@ -37,6 +84,20 @@ export default function KidsEnglishTask() {
   const { width, height } = useWindowSize();
   const [showConfetti, setShowConfetti] = useState(false);
   const [registrationData, setRegistrationData] = useState(null);
+
+  const [sentenceOrders, setSentenceOrders] = useState(() => {
+    if (step === 4 && data && data.sentences) {
+      const saved = JSON.parse(localStorage.getItem('step4Answers'));
+      if (saved && Array.isArray(saved) && saved.length === data.sentences.length) {
+        return saved;
+      }
+      return data.sentences.map((s, sIdx) => {
+        const words = s.split('/');
+        return words.map((_, wIdx) => getWordId(sIdx, wIdx));
+      });
+    }
+    return [];
+  });
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -85,6 +146,20 @@ export default function KidsEnglishTask() {
     }
   }, [showFinalScore]);
 
+  useEffect(() => {
+    if (step === 4 && sentenceOrders.length) {
+      const joined = sentenceOrders.map((idArr, sIdx) => {
+        const words = data.sentences[sIdx].split('/');
+        return idArr.map(id => {
+          const match = id.match(/sentence\d+-word(\d+)/);
+          return match ? words[parseInt(match[1])] : '';
+        }).join(' ');
+      });
+      setAnswers(joined);
+      localStorage.setItem('step4Answers', JSON.stringify(sentenceOrders));
+    }
+  }, [sentenceOrders, step]);
+
   const handleAnswerChange = (index, value) => {
     const newAnswers = [...answers];
     newAnswers[index] = value || "";
@@ -108,24 +183,27 @@ export default function KidsEnglishTask() {
     let correctCount = 0;
     const wrongAnswers = [];
 
-    answers.forEach((answer, index) => {
-      const trimmedAnswer = (answer?.trim?.().toLowerCase()) || "";
+    // Use part6Answers for step 6, otherwise use answers
+    const currentAnswers = (step === 6) ? part6Answers : answers;
+
+    currentAnswers.forEach((answer, index) => {
+      const normalizedUser = normalizeAnswer(answer);
       let isCorrect = false;
 
       const correctAnswer = getCorrectAnswerByStep(step, index);
-      if (trimmedAnswer === "") {
+      if (normalizedUser === "") {
         wrongAnswers.push({
           questionIndex: index,
-          userAnswer: trimmedAnswer,
+          userAnswer: normalizedUser,
           correctAnswer: correctAnswer,
         });
         return;
       }
 
       if (Array.isArray(correctAnswer)) {
-        isCorrect = correctAnswer.some((ans) => ans.toLowerCase() === trimmedAnswer);
+        isCorrect = correctAnswer.some((ans) => normalizeAnswer(ans) === normalizedUser);
       } else {
-        isCorrect = correctAnswer?.toLowerCase() === trimmedAnswer;
+        isCorrect = normalizeAnswer(correctAnswer) === normalizedUser;
       }
 
       if (isCorrect) {
@@ -133,7 +211,7 @@ export default function KidsEnglishTask() {
       } else {
         wrongAnswers.push({
           questionIndex: index,
-          userAnswer: trimmedAnswer,
+          userAnswer: normalizedUser,
           correctAnswer: correctAnswer,
         });
       }
@@ -235,6 +313,164 @@ export default function KidsEnglishTask() {
     data.sentences.length + data.shortAnswers.length + data.putWordsQuestions.length) : 0;
 
   if (!data) return <div>Loading...</div>;
+
+  function SortableWord({ id, word }) {
+    const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id });
+    const style = {
+      transform: CSS.Transform.toString(transform),
+      transition,
+      zIndex: isDragging ? 2 : 1,
+    };
+    return (
+      <DraggableWord
+        id={id}
+        word={word}
+        listeners={listeners}
+        attributes={attributes}
+        setNodeRef={setNodeRef}
+        isDragging={isDragging}
+        style={style}
+      />
+    );
+  }
+
+  const handleDragEndStep4 = (event, sentenceIdx) => {
+    const { active, over } = event;
+    if (!over || active.id === over.id) return;
+    setSentenceOrders(prev => {
+      const newOrders = [...prev];
+      newOrders[sentenceIdx] = arrayMove(newOrders[sentenceIdx],
+        newOrders[sentenceIdx].indexOf(active.id),
+        newOrders[sentenceIdx].indexOf(over.id)
+      );
+      return newOrders;
+    });
+  };
+
+  // --- Part 6 Drag and Drop State ---
+  const part6Words = ["Whisper", "Suspicious", "Slowly", "Never", "Amazing", "Apron"];
+  const [part6Available, setPart6Available] = useState(part6Words);
+  const [part6Answers, setPart6Answers] = useState(Array(6).fill(null));
+
+  // Draggable for answer pool
+  function PoolDraggable({ word }) {
+    const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({ id: word });
+    // Lowercase first letter for display
+    const displayWord = word ? word.charAt(0).toLowerCase() + word.slice(1) : '';
+    return (
+      <span
+        ref={setNodeRef}
+        {...attributes}
+        {...listeners}
+        style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '8px 12px',
+          margin: '0 6px 6px 0',
+          background: '#f3f4f6',
+          border: '2px solid #000', // match input border
+          borderRadius: '6px', // match input border radius
+          cursor: 'grab',
+          fontWeight: 500,
+          fontSize: 16,
+          minWidth: 40,
+          maxWidth: 160,
+          userSelect: 'none',
+          opacity: isDragging ? 0.5 : 1,
+          zIndex: isDragging ? 2 : 1,
+          boxShadow: isDragging ? '0 2px 8px #aaa' : undefined,
+          transition: 'background 0.2s, box-shadow 0.2s, border 0.2s',
+          transform: transform ? `translate(${transform.x}px, ${transform.y}px)` : undefined,
+        }}
+      >
+        {displayWord}
+      </span>
+    );
+  }
+
+  function PoolDroppable({ children }) {
+    const { setNodeRef, isOver } = useDroppable({ id: 'answers-pool' });
+    return (
+      <div
+        ref={setNodeRef}
+        className="flex flex-wrap gap-3 justify-center mb-6 min-h-[56px]"
+        style={{
+          background: isOver ? '#f3f4f6' : undefined,
+          border: isOver ? '2px solid #EC0000' : undefined,
+          borderRadius: 8,
+          padding: 8,
+          minHeight: 56,
+          transition: 'border 0.2s, background 0.2s',
+        }}
+      >
+        {children}
+      </div>
+    );
+  }
+
+  function BlankDroppable({ idx, answer, onRemove, children }) {
+    const { setNodeRef, isOver } = useDroppable({ id: `blank-${idx}` });
+    const hasAnswer = Boolean(answer);
+    return (
+      <span
+        ref={setNodeRef}
+        style={{
+          display: 'inline-block',
+          minWidth: 80,
+          minHeight: 36,
+          border: hasAnswer ? 'none' : (isOver ? '2px solid #EC0000' : '2px solid #000'),
+          borderRadius: 6,
+          margin: '0 8px',
+          background: hasAnswer ? 'transparent' : '#fff',
+          verticalAlign: 'middle',
+          textAlign: 'center',
+          transition: 'border 0.2s, background 0.2s',
+          padding: hasAnswer ? 0 : '4px 12px',
+          boxSizing: 'border-box',
+          fontSize: 16,
+          lineHeight: '28px',
+          cursor: hasAnswer ? 'pointer' : 'default',
+        }}
+      >
+        {hasAnswer ? (
+          <PoolDraggable word={answer} />
+        ) : children}
+      </span>
+    );
+  }
+
+  // Handler for drag end in Part 6
+  const handlePart6DragEnd = (event) => {
+    const { active, over } = event;
+    if (!over) return;
+    const word = active.id;
+    // If dropped on a blank
+    if (over.id.startsWith('blank-')) {
+      const idx = parseInt(over.id.replace('blank-', ''));
+      setPart6Answers(prev => {
+        const newAnswers = [...prev];
+        // Remove word from previous blank if it was there
+        const prevIdx = newAnswers.indexOf(word);
+        if (prevIdx !== -1) newAnswers[prevIdx] = null;
+        // If this blank already has a word, return it to pool
+        if (newAnswers[idx]) setPart6Available(avail => [...avail, newAnswers[idx]]);
+        newAnswers[idx] = word;
+        return newAnswers;
+      });
+      setPart6Available(prev => prev.filter(w => w !== word));
+    } else if (over.id === 'answers-pool') {
+      // If dropped back to pool, remove from blanks
+      setPart6Answers(prev => prev.map(w => (w === word ? null : w)));
+      if (!part6Available.includes(word)) setPart6Available(prev => [...prev, word]);
+    }
+  };
+
+  // Keep available words in sync with answers
+  useEffect(() => {
+    setPart6Available(part6Words.filter(w => !part6Answers.includes(w)));
+    // eslint-disable-next-line
+  }, [part6Answers]);
 
   return (
     <div className="p-6 w-[90%] m-auto max-w-lg mt-28 mx-auto bg-white shadow-lg rounded-lg">
@@ -349,22 +585,44 @@ export default function KidsEnglishTask() {
             </div>
           )}
 
-          {/* Step 4: Render sentences */}
+          {/* Step 4: Render sentences as draggable word boxes */}
           {step === 4 && (
             <div className="space-y-4">
-              {data.sentences.map((sentence, index) => (
-                <div key={index} className="bg-gray-50 p-4 rounded-lg shadow-sm">
-                  <p className="font-semibold text-gray-700 mb-2">
-                    {index + 28}. {sentence}
-                  </p>
-                  <input
-                    type="text"
-                    value={answers[index] || ""}
-                    onChange={(e) => handleAnswerChange(index, e.target.value)}
-                    className="w-[60%] m-auto border-b-2 border-black outline-none text-[16px] text-center"
-                  />
-                </div>
-              ))}
+              {data.sentences.map((sentence, sIdx) => {
+                const words = sentence.split('/');
+                const ids = sentenceOrders[sIdx] || words.map((_, wIdx) => getWordId(sIdx, wIdx));
+                return (
+                  <div key={sIdx} className="bg-gray-50 p-4 rounded-lg shadow-sm">
+                    <p className="font-semibold text-gray-700 mb-2">
+                      {sIdx + 28}. Rearrange the words:
+                    </p>
+                    <DndContext
+                      collisionDetection={closestCenter}
+                      onDragEnd={event => handleDragEndStep4(event, sIdx)}
+                    >
+                      <SortableContext
+                        items={ids}
+                        strategy={rectSortingStrategy}
+                      >
+                        <div className="flex flex-wrap gap-2 min-h-[48px]">
+                          {ids.map((id, wIdx) => {
+                            // Map id back to word index
+                            const match = id.match(/sentence\d+-word(\d+)/);
+                            const wordIdx = match ? parseInt(match[1]) : wIdx;
+                            return (
+                              <SortableWord
+                                key={id}
+                                id={id}
+                                word={words[wordIdx]}
+                              />
+                            );
+                          })}
+                        </div>
+                      </SortableContext>
+                    </DndContext>
+                  </div>
+                );
+              })}
             </div>
           )}
 
@@ -388,31 +646,43 @@ export default function KidsEnglishTask() {
             </div>
           )}
 
-          {/* Step 6: Render put words questions */}
+          {/* Step 6: Render put words questions as drag-and-drop fill-in-the-blank */}
           {step === 6 && (
             <div className="space-y-4">
-              <p className="border-2 border-gray-300 p-4 rounded-lg text-[16px] font-semibold text-center">
-                Whisper | Suspicious | Slowly | Never | Amazing | Apron
-              </p>
-              {data.putWordsQuestions.map((question, index) => {
-                const parts = question.split("________");
-
-                return (
-                  <div key={index} className="bg-gray-50 p-4 rounded-lg shadow-sm">
-                    <p className="font-semibold text-gray-700 mb-2">
-                      {index + 45}.
-                      {parts[0]}
-                      <input
-                        type="text"
-                        value={answers[index] || ""}
-                        onChange={(e) => handleAnswerChange(index, e.target.value)}
-                        className="inline-block border-b-2 border-gray-700 outline-none text-[16px] text-center w-32"
-                      />
-                      {parts[1]}
-                    </p>
-                  </div>
-                );
-              })}
+              <DndContext onDragEnd={handlePart6DragEnd} collisionDetection={closestCenter}>
+                {/* Draggable answer pool on top */}
+                <PoolDroppable>
+                  {part6Available.map((word) => (
+                    <PoolDraggable key={word} word={word} />
+                  ))}
+                </PoolDroppable>
+                {/* Questions with drop zones */}
+                {data.putWordsQuestions.map((question, idx) => {
+                  const parts = question.split("________");
+                  return (
+                    <div key={idx} className="bg-gray-50 p-4 rounded-lg shadow-sm">
+                      <p className="font-semibold text-gray-700 mb-2">
+                        {idx + 45}. {parts[0]}
+                        <BlankDroppable
+                          idx={idx}
+                          answer={part6Answers[idx]}
+                          onRemove={(i) => {
+                            setPart6Answers(prev => {
+                              const newAnswers = [...prev];
+                              if (newAnswers[i]) setPart6Available(avail => [...avail, newAnswers[i]]);
+                              newAnswers[i] = null;
+                              return newAnswers;
+                            });
+                          }}
+                        >
+                          {part6Answers[idx] && <PoolDraggable word={part6Answers[idx]} />}
+                        </BlankDroppable>
+                        {parts[1]}
+                      </p>
+                    </div>
+                  );
+                })}
+              </DndContext>
             </div>
           )}
 
