@@ -11,13 +11,13 @@ import kids4 from '../../../assets/kids4.png';
 import kids5 from '../../../assets/kids5.png';
 import kids6 from '../../../assets/kids6.png';
 import { useTranslation } from "react-i18next";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { DndContext, closestCenter, useDraggable, useDroppable } from "@dnd-kit/core";
 import { useSortable, SortableContext, arrayMove, rectSortingStrategy } from "@dnd-kit/sortable";
 import { CSS } from '@dnd-kit/utilities';
 
-function DraggableWord({ id, word, listeners, attributes, isDragging, setNodeRef, style }) {
+function DraggableWord({ word, listeners, attributes, setNodeRef, style }) {
   return (
     <span
       ref={setNodeRef}
@@ -29,7 +29,7 @@ function DraggableWord({ id, word, listeners, attributes, isDragging, setNodeRef
         justifyContent: 'center',
         padding: '8px 12px',
         margin: '0 6px 6px 0',
-        background: '#f3f4f6', // always light gray
+        background: '#f3f4f6',
         border: '1px solid #d1d5db',
         borderRadius: '6px',
         cursor: 'grab',
@@ -53,7 +53,6 @@ function getWordId(sentenceIdx, wordIdx) {
 
 function normalizeAnswer(str) {
   if (!str) return '';
-  // Lowercase, trim, replace multiple spaces, remove leading/trailing punctuation
   return str
     .toLowerCase()
     .trim()
@@ -63,10 +62,6 @@ function normalizeAnswer(str) {
 
 export default function KidsEnglishTask() {
   const { t, i18n } = useTranslation();
-  const ChangeLng = (selectedLanguage) => {
-    i18n.changeLanguage(selectedLanguage);
-    localStorage.setItem("i18nextLng", selectedLanguage);
-  };
   const [step, setStep] = useState(() => {
     const isTestCompleted = localStorage.getItem('testCompleted') === 'true';
     if (isTestCompleted) {
@@ -83,6 +78,7 @@ export default function KidsEnglishTask() {
   const kidsimages = [kids1, kids2, kids3, kids4, kids5, kids6];
   const { width, height } = useWindowSize();
   const [showConfetti, setShowConfetti] = useState(false);
+
   const [registrationData, setRegistrationData] = useState(null);
 
   const [sentenceOrders, setSentenceOrders] = useState(() => {
@@ -168,12 +164,63 @@ export default function KidsEnglishTask() {
   };
 
   const getCorrectAnswerByStep = (step, index) => {
+    // Use provided answers for part 1 and part 2
+    const part1Answers = [
+      'Car', 'Swim', 'Suitcase', 'Newspaper', 'Anchor', 'Elbow'
+    ];
+    const part2Answers = [
+      'Сидеть / o’tirmoq',
+      'Чашка / chashka',
+      'Ронять / tushirib yubormoq',
+      'Мясо / go’sht',
+      'Зрители / tomoshabinlar',
+      'Пар / bug’, par'
+    ];
+    const part3Answers = [
+      'Her name is Molly.',
+      'She is fourteen.',
+      'She is playing.',
+      'He is a pilot.',
+      'She is going to learn Japanese.',
+      'She is a model.',
+      'He went to Turkey.',
+      'Yes, she does.',
+      'China, Japan',
+      'She is 180 cm tall.',
+      'He can draw well.',
+      'She has never been abroad.',
+      'Her sister.',
+      'There are 5 people.',
+      'Swimming, cooking and singing.'
+    ];
+    const part4Answers = [
+      'She is singing loudly.',
+      'I like bananas.',
+      'What does he do in the evening?',
+      'My sister always drinks milk.',
+      'I did not listen to music.',
+      // Accept both forms for number 33
+      ['He is going to play football.', 'Is he going to play football?'],
+      'My sister was reading something interesting.',
+      'I will not put it in the car.',
+      'My brother used to play the guitar.',
+      'He has just bought a flower.',
+      'The house will be built next year.'
+    ];
+    const part5Answers = [
+      'No, I can’t.',
+      'Yes, I do.',
+      'No, there isn’t.',
+      'Yes, it was.',
+      'Yes, he has.',
+      'Yes, I did.'
+    ];
     const stepDataMap = {
-      1: data.images[index]?.answer,
-      2: data.words[index]?.translation,
-      3: data.correctAnswers[index],
-      4: data.sentencesAnswers[index],
-      5: data.shortAnswers[index]?.correct,
+      1: part1Answers[index],
+      2: part2Answers[index],
+      3: part3Answers[index],
+      4: part4Answers[index],
+      5: part5Answers[index],
       6: data.putWordsAnswers[index],
     };
     return stepDataMap[step];
@@ -183,7 +230,6 @@ export default function KidsEnglishTask() {
     let correctCount = 0;
     const wrongAnswers = [];
 
-    // Use part6Answers for step 6, otherwise use answers
     const currentAnswers = (step === 6) ? part6Answers : answers;
 
     currentAnswers.forEach((answer, index) => {
@@ -347,15 +393,12 @@ export default function KidsEnglishTask() {
     });
   };
 
-  // --- Part 6 Drag and Drop State ---
   const part6Words = ["Whisper", "Suspicious", "Slowly", "Never", "Amazing", "Apron"];
   const [part6Available, setPart6Available] = useState(part6Words);
   const [part6Answers, setPart6Answers] = useState(Array(6).fill(null));
 
-  // Draggable for answer pool
   function PoolDraggable({ word }) {
     const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({ id: word });
-    // Lowercase first letter for display
     const displayWord = word ? word.charAt(0).toLowerCase() + word.slice(1) : '';
     return (
       <span
@@ -369,8 +412,8 @@ export default function KidsEnglishTask() {
           padding: '8px 12px',
           margin: '0 6px 6px 0',
           background: '#f3f4f6',
-          border: '2px solid #000', // match input border
-          borderRadius: '6px', // match input border radius
+          border: '2px solid #000', 
+          borderRadius: '6px',
           cursor: 'grab',
           fontWeight: 500,
           fontSize: 16,
@@ -440,36 +483,29 @@ export default function KidsEnglishTask() {
     );
   }
 
-  // Handler for drag end in Part 6
   const handlePart6DragEnd = (event) => {
     const { active, over } = event;
     if (!over) return;
     const word = active.id;
-    // If dropped on a blank
     if (over.id.startsWith('blank-')) {
       const idx = parseInt(over.id.replace('blank-', ''));
       setPart6Answers(prev => {
         const newAnswers = [...prev];
-        // Remove word from previous blank if it was there
         const prevIdx = newAnswers.indexOf(word);
         if (prevIdx !== -1) newAnswers[prevIdx] = null;
-        // If this blank already has a word, return it to pool
         if (newAnswers[idx]) setPart6Available(avail => [...avail, newAnswers[idx]]);
         newAnswers[idx] = word;
         return newAnswers;
       });
       setPart6Available(prev => prev.filter(w => w !== word));
     } else if (over.id === 'answers-pool') {
-      // If dropped back to pool, remove from blanks
       setPart6Answers(prev => prev.map(w => (w === word ? null : w)));
       if (!part6Available.includes(word)) setPart6Available(prev => [...prev, word]);
     }
   };
 
-  // Keep available words in sync with answers
   useEffect(() => {
     setPart6Available(part6Words.filter(w => !part6Answers.includes(w)));
-    // eslint-disable-next-line
   }, [part6Answers]);
 
   return (
@@ -512,81 +548,252 @@ export default function KidsEnglishTask() {
           </h2>
 
           {/* Step 1: Render images */}
-          {step === 1 && (
+          {step === 1 && data && Array.isArray(data.images) && (
             <div className="space-y-4">
-              {kidsimages.map((images, index) => (
-                <div key={index} className="bg-gray-50 p-4 rounded-lg shadow-sm">
-                  <p className="font-semibold text-gray-700 mb-2">
-                    {index + 1}. What is this?
-                  </p>
-                  <img
-                    src={images}
-                    loading='lazy'
-                    alt={`Question ${index + 1}`}
-                    className="w-24 h-24 mb-3 object-contain"
-                  />
-                  <input
-                    type="text"
-                    value={answers[index] || ""}
-                    onChange={(e) => handleAnswerChange(index, e.target.value)}
-                    className="w-[80%] min-[400px]:w-[60%] m-auto border-b-2 border-black outline-none text-[16px] text-center"
-                  />
-                </div>
-              ))}
+              {data.images.map((item, index) => {
+                // Provide options for each image based on the quiz screenshot
+                const imageOptions = [
+                  ["Track", "Machine", "Car"],
+                  ["Water", "Swim", "Ocean"],
+                  ["Bag", "Suitcase", "Chemodan"],
+                  ["Gazeta", "Journal", "Newspaper"],
+                  ["Anchor", "Yacht", "Cross"],
+                  ["Elbow", "Hand", "Arm"]
+                ];
+                const imageSrcs = [kids1, kids2, kids3, kids4, kids5, kids6];
+                const options = imageOptions[index] || [];
+                const imgSrc = imageSrcs[index] || '';
+                return (
+                  <div key={index} className="bg-gray-50 p-4 rounded-lg shadow-sm">
+                    <p className="font-semibold text-gray-700 mb-2">
+                      {index + 1}. What is this?
+                    </p>
+                    <img
+                      src={imgSrc}
+                      loading='lazy'
+                      alt={`Question ${index + 1}`}
+                      className="w-24 h-24 mb-3 object-contain"
+                    />
+                    <div className="flex flex-col gap-2">
+                      {options.map((option, optIndex) => (
+                        <label key={optIndex} className="flex items-center">
+                          <input
+                            type="radio"
+                            value={option}
+                            checked={answers[index] === option}
+                            onChange={() => handleAnswerChange(index, option)}
+                            className="mr-2"
+                          />
+                          {option}
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           )}
 
-          {/* Step 2: Render words */}
-          {step === 2 && (
+          {/* Step 2: Translate words */}
+          {step === 2 && data && Array.isArray(data.words) && (
             <div className="space-y-4">
-              {data.words.map((item, index) => (
-                <div key={index} className="bg-gray-50 p-4 rounded-lg shadow-sm">
-                  <p className="font-semibold text-gray-700 mb-2">
-                    {index + 7}. {item.word}
-                  </p>
-                  <input
-                    type="text"
-                    value={answers[index] || ""}
-                    onChange={(e) => handleAnswerChange(index, e.target.value)}
-                    className="w-[60%] m-auto border-b-2 border-black outline-none text-[16px] text-center"
-                  />
-                </div>
-              ))}
+              {data.words.map((item, index) => {
+                // Define options for each word as shown in the screenshot
+                const wordOptions = [
+                  // Sit
+                  [
+                    'Вниз / pastga',
+                    'Сидеть / o\'tirmoq',
+                    'Вставать / turmoq',
+                  ],
+                  // Cup
+                  [
+                    'Кепка / kepka',
+                    'Стакан / stakan',
+                    'Чашка / chashka',
+                  ],
+                  // Drop
+                  [
+                    'Ронять / tushirib yubormoq',
+                    'Поднимать / ko\'tarmoq',
+                    'Ставить / qo\'ymoq',
+                  ],
+                  // Meat
+                  [
+                    'Встречать / uchramoq',
+                    'Мясо / go\'sht',
+                    'Мёд / asal',
+                  ],
+                  // Audience
+                  [
+                    'Зрители / tomoshabinlar',
+                    'Музыка / musiqа',
+                    'Аудио / ovoz',
+                  ],
+                  // Steam
+                  [
+                    'Команда / komanda',
+                    'Украсть / o\'g\'irlamoq',
+                    'Пар / bug\'',
+                  ],
+                ];
+                const options = wordOptions[index] || [];
+                return (
+                  <div key={index} className="bg-gray-50 p-4 rounded-lg shadow-sm">
+                    <p className="font-semibold text-gray-700 mb-2">
+                      {index + 7}. <span className="font-bold">{item.word}</span>
+                    </p>
+                    <div className="flex flex-col gap-2">
+                      {options.map((option, optIndex) => (
+                        <label key={optIndex} className="flex items-center">
+                          <input
+                            type="radio"
+                            value={option}
+                            checked={answers[index] === option}
+                            onChange={() => handleAnswerChange(index, option)}
+                            className="mr-2"
+                          />
+                          {option}
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           )}
 
-          {/* Step 3: Render questions */}
-          {step === 3 && (
+          {/* Step 3: Read text, answer questions */}
+          {step === 3 && data && Array.isArray(data.questions) && (
             <div>
-              <div className="bg-gray-100 p-4 rounded-lg mb-6">
-                <p className="text-lg font-semibold mb-2 text-gray-700">
-                  Read the text:
-                </p>
+              <div className="bg-gray-50 p-4 rounded-lg shadow-sm mb-4">
+                <p className="font-semibold text-gray-700 mb-2">Text:</p>
                 <p className="whitespace-pre-line text-gray-600">{data.text}</p>
               </div>
               <div className="space-y-4">
-                {data.questions.map((question, index) => (
-                  <div
-                    key={index}
-                    className="bg-gray-50 p-4 rounded-lg shadow-sm"
-                  >
-                    <p className="font-semibold text-gray-700 mb-2">
-                      {index + 13}. {question}
-                    </p>
-                    <input
-                      type="text"
-                      value={answers[index] || ""}
-                      onChange={(e) => handleAnswerChange(index, e.target.value)}
-                      className="w-[80%] m-auto border-b-2 border-black outline-none text-[16px] text-center"
-                    />
-                  </div>
-                ))}
+                {data.questions.map((question, index) => {
+                  // Define options for each question as shown in the screenshots
+                  const questionOptions = [
+                    // 13. What’s her name?
+                    [
+                      'My name is Molly.',
+                      'I am Molly.',
+                      'Her name is Molly.'
+                    ],
+                    // 14. How old is she?
+                    [
+                      'She is fourteen.',
+                      'I’m fourteen.',
+                      'She is five.'
+                    ],
+                    // 15. What is her sister doing at the moment?
+                    [
+                      'She is playing.',
+                      'She is cute.',
+                      'She is a cute girl.'
+                    ],
+                    // 16. What does her father do?
+                    [
+                      'He went to Turkey.',
+                      'He is a pilot.',
+                      'He had to arrive from America.'
+                    ],
+                    // 17. What’s her future plan?
+                    [
+                      'She is going to learn Japanese.',
+                      'I’m going to learn Japanese.',
+                      'I would like to go to Egypt, Japan and China.'
+                    ],
+                    // 18. What’s her mother’s job?
+                    [
+                      'She is an artist.',
+                      'She is tall.',
+                      'She is a model.'
+                    ],
+                    // 19. What did her father do yesterday?
+                    [
+                      'He arrived to America',
+                      'His flight was canceled.',
+                      'He went to Turkey.'
+                    ],
+                    // 20. Does she have any pets?
+                    [
+                      'Yes, she does.',
+                      'Yes, she have.',
+                      'Yes, she has.'
+                    ],
+                    // 21. Which countries does she want to visit?
+                    [
+                      'America, Egypt',
+                      'China, Japan',
+                      'Turkey, Egypt'
+                    ],
+                    // 22. How tall is her mother?
+                    [
+                      'She is not tall.',
+                      'She is a model.',
+                      'She is 180 cm. tall'
+                    ],
+                    // 23. What can her brother do?
+                    [
+                      'He is an artist.',
+                      'He can draw well.',
+                      'He is a pilot.'
+                    ],
+                    // 24. Which countries has Molly been to?
+                    [
+                      'Egypt, Japan',
+                      'China, Egypt, Japan',
+                      'She has never been abroad'
+                    ],
+                    // 25. Who is younger? Molly or her sister?
+                    [
+                      'Her sister',
+                      'Molly',
+                      'Her brother'
+                    ],
+                    // 26. How many people are there in her family?
+                    [
+                      'There is 5 people.',
+                      'There are 5 people.',
+                      'There have 5 people.'
+                    ],
+                    // 27. What does Molly like doing?
+                    [
+                      'Swimming, cooking',
+                      'Swimming',
+                      'Swimming, cooking, singing'
+                    ]
+                  ];
+                  const options = questionOptions[index] || [];
+                  return (
+                    <div key={index} className="bg-gray-50 p-4 rounded-lg shadow-sm">
+                      <p className="font-semibold text-gray-700 mb-2">
+                        {index + 13}. <span className="font-bold">{question}</span>
+                      </p>
+                      <div className="flex flex-col gap-2">
+                        {options.map((option, optIndex) => (
+                          <label key={optIndex} className="flex items-center">
+                            <input
+                              type="radio"
+                              value={option}
+                              checked={answers[index] === option}
+                              onChange={() => handleAnswerChange(index, option)}
+                              className="mr-2"
+                            />
+                            {option}
+                          </label>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           )}
 
-          {/* Step 4: Render sentences as draggable word boxes */}
-          {step === 4 && (
+          {/* Step 4: Rearrange sentences */}
+          {step === 4 && data && Array.isArray(data.sentences) && (
             <div className="space-y-4">
               {data.sentences.map((sentence, sIdx) => {
                 const words = sentence.split('/');
@@ -626,28 +833,77 @@ export default function KidsEnglishTask() {
             </div>
           )}
 
-          {/* Step 5: Render short answers */}
-          {step === 5 && (
+          {/* Step 5: Short answers */}
+          {step === 5 && data && Array.isArray(data.shortAnswers) && (
             <div className="space-y-4">
-              {data.shortAnswers.map((item, index) => (
-                <div key={index} className="bg-gray-50 p-4 rounded-lg shadow-sm">
-                  <p className="font-semibold text-gray-700 mb-2">
-                    {index + 39}. {item.question}
-                  </p>
-                  <p className="inline">{index === 0 ? "No, " : "Yes, "}</p>
-                  <input
-                    type="text"
-                    value={answers[index] || ""}
-                    onChange={(e) => handleAnswerChange(index, e.target.value)}
-                    className="w-[80%] min-[500px]:w-[60%] m-auto border-b-2 border-black outline-none text-[16px] text-left pl-3"
-                  />
-                </div>
-              ))}
+              {data.shortAnswers.map((item, index) => {
+                // Define options for each question as shown in the screenshot
+                const shortAnswerOptions = [
+                  // 39. Can you fly?
+                  [
+                    'No, I am not.',
+                    'No, I can’t.',
+                    'No, I do not.'
+                  ],
+                  // 40. Do you like bananas?
+                  [
+                    'Yes, I like.',
+                    'Yes, I do.',
+                    'Yes, I am.'
+                  ],
+                  // 41. Is there a book on the table?
+                  [
+                    'No, there is.',
+                    'No, it isn’t.',
+                    'No, there isn’t.'
+                  ],
+                  // 42. Was it sunny?
+                  [
+                    'Yes, it was.',
+                    'Yes, it is.',
+                    'Yes, it can.'
+                  ],
+                  // 43. Has he brushed her hair?
+                  [
+                    'Yes, he does.',
+                    'Yes, he is.',
+                    'Yes, he has'
+                  ],
+                  // 44. Did you do your homework?
+                  [
+                    'Yes, I do.',
+                    'Yes, I did.',
+                    'Yes, I am.'
+                  ]
+                ];
+                const options = shortAnswerOptions[index] || [];
+                return (
+                  <div key={index} className="bg-gray-50 p-4 rounded-lg shadow-sm">
+                    <p className="font-semibold text-gray-700 mb-2">
+                      {index + 39}. <span className="font-bold">{item.question}</span>
+                    </p>
+                    <div className="flex flex-col gap-2">
+                      {options.map((option, optIndex) => (
+                        <label key={optIndex} className="flex items-center">
+                          <input
+                            type="radio"
+                            value={option}
+                            checked={answers[index] === option}
+                            onChange={() => handleAnswerChange(index, option)}
+                            className="mr-2"
+                          />
+                          {option}
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           )}
 
-          {/* Step 6: Render put words questions as drag-and-drop fill-in-the-blank */}
-          {step === 6 && (
+          {/* Step 6: Put the words (drag and drop) */}
+          {step === 6 && data && Array.isArray(data.putWordsQuestions) && (
             <div className="space-y-4">
               <DndContext onDragEnd={handlePart6DragEnd} collisionDetection={closestCenter}>
                 {/* Draggable answer pool on top */}
@@ -663,21 +919,8 @@ export default function KidsEnglishTask() {
                     <div key={idx} className="bg-gray-50 p-4 rounded-lg shadow-sm">
                       <p className="font-semibold text-gray-700 mb-2">
                         {idx + 45}. {parts[0]}
-                        <BlankDroppable
-                          idx={idx}
-                          answer={part6Answers[idx]}
-                          onRemove={(i) => {
-                            setPart6Answers(prev => {
-                              const newAnswers = [...prev];
-                              if (newAnswers[i]) setPart6Available(avail => [...avail, newAnswers[i]]);
-                              newAnswers[i] = null;
-                              return newAnswers;
-                            });
-                          }}
-                        >
-                          {part6Answers[idx] && <PoolDraggable word={part6Answers[idx]} />}
-                        </BlankDroppable>
-                        {parts[1]}
+                        <BlankDroppable idx={idx} answer={part6Answers[idx]} />
+                        {parts[1] || ''}
                       </p>
                     </div>
                   );
@@ -686,7 +929,8 @@ export default function KidsEnglishTask() {
             </div>
           )}
 
-          <div className="mt-6 flex justify-between gap-4">
+          {/* Navigation buttons */}
+          <div className="mt-8">
             {step < 6 ? (
               <button
                 onClick={goToNextStep}
