@@ -39,6 +39,7 @@ function DraggableWord({ word, listeners, attributes, setNodeRef, style }) {
         maxWidth: 160,
         userSelect: 'none',
         transition: 'background 0.2s, box-shadow 0.2s',
+        touchAction: 'none', // Prevent scrolling interference on mobile
         ...style,
       }}
     >
@@ -412,7 +413,7 @@ export default function KidsEnglishTask() {
           padding: '8px 12px',
           margin: '0 6px 6px 0',
           background: '#f3f4f6',
-          border: '2px solid #000', 
+          border: '2px solid #000',
           borderRadius: '6px',
           cursor: 'grab',
           fontWeight: 500,
@@ -425,6 +426,7 @@ export default function KidsEnglishTask() {
           boxShadow: isDragging ? '0 2px 8px #aaa' : undefined,
           transition: 'background 0.2s, box-shadow 0.2s, border 0.2s',
           transform: transform ? `translate(${transform.x}px, ${transform.y}px)` : undefined,
+          touchAction: 'none', // Prevent scrolling interference on mobile
         }}
       >
         {displayWord}
@@ -551,12 +553,11 @@ export default function KidsEnglishTask() {
           {step === 1 && data && Array.isArray(data.images) && (
             <div className="space-y-4">
               {data.images.map((item, index) => {
-                // Provide options for each image based on the quiz screenshot
                 const imageOptions = [
                   ["Track", "Machine", "Car"],
                   ["Water", "Swim", "Ocean"],
                   ["Bag", "Suitcase", "Chemodan"],
-                  ["Gazeta", "Journal", "Newspaper"],
+                  ["News", "Journal", "Newspaper"],
                   ["Anchor", "Yacht", "Cross"],
                   ["Elbow", "Hand", "Arm"]
                 ];
@@ -598,7 +599,6 @@ export default function KidsEnglishTask() {
           {step === 2 && data && Array.isArray(data.words) && (
             <div className="space-y-4">
               {data.words.map((item, index) => {
-                // Define options for each word as shown in the screenshot
                 const wordOptions = [
                   // Sit
                   [
@@ -614,13 +614,13 @@ export default function KidsEnglishTask() {
                   ],
                   // Drop
                   [
-                    'Ронять / tushirib yubormoq',
+                    'Понять / tushunmoq',
                     'Поднимать / ko\'tarmoq',
                     'Ставить / qo\'ymoq',
                   ],
                   // Meat
                   [
-                    'Встречать / uchramoq',
+                    'Встречать / uchrashmoq',
                     'Мясо / go\'sht',
                     'Мёд / asal',
                   ],
@@ -632,7 +632,7 @@ export default function KidsEnglishTask() {
                   ],
                   // Steam
                   [
-                    'Команда / komanda',
+                    'Команда / jamoa',
                     'Украсть / o\'g\'irlamoq',
                     'Пар / bug\'',
                   ],
@@ -806,6 +806,7 @@ export default function KidsEnglishTask() {
                     <DndContext
                       collisionDetection={closestCenter}
                       onDragEnd={event => handleDragEndStep4(event, sIdx)}
+                      activationConstraint={{ distance: 8 }} // Improve mobile drag
                     >
                       <SortableContext
                         items={ids}
@@ -905,7 +906,7 @@ export default function KidsEnglishTask() {
           {/* Step 6: Put the words (drag and drop) */}
           {step === 6 && data && Array.isArray(data.putWordsQuestions) && (
             <div className="space-y-4">
-              <DndContext onDragEnd={handlePart6DragEnd} collisionDetection={closestCenter}>
+              <DndContext onDragEnd={handlePart6DragEnd} collisionDetection={closestCenter} activationConstraint={{ distance: 8 }}>
                 {/* Draggable answer pool on top */}
                 <PoolDroppable>
                   {part6Available.map((word) => (
