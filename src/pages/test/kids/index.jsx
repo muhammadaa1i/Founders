@@ -54,7 +54,8 @@ function getWordId(sentenceIdx, wordIdx) {
 
 function normalizeAnswer(str) {
   if (!str) return '';
-  return str
+  if (Array.isArray(str)) str = str.join(' ');
+  return String(str)
     .toLowerCase()
     .trim()
     .replace(/\s+/g, ' ')
@@ -103,6 +104,22 @@ export default function KidsEnglishTask() {
       setRegistrationData(JSON.parse(saved));
     }
   }, []);
+
+  useEffect(() => {
+    if (step === 4 && data && data.sentences) {
+      const saved = JSON.parse(localStorage.getItem('step4Answers'));
+      if (saved && Array.isArray(saved) && saved.length === data.sentences.length) {
+        setSentenceOrders(saved);
+      } else {
+        setSentenceOrders(
+          data.sentences.map((s, sIdx) => {
+            const words = s.split('/');
+            return words.map((_, wIdx) => getWordId(sIdx, wIdx));
+          })
+        );
+      }
+    }
+  }, [step, data]);
 
   const initializeAnswers = () => {
     if (!data) return [];
@@ -200,10 +217,9 @@ export default function KidsEnglishTask() {
       'What does he do in the evening?',
       'My sister always drinks milk.',
       'I did not listen to music.',
-      // Accept both forms for number 33
       ['He is going to play football.', 'Is he going to play football?'],
       'My sister was reading something interesting.',
-      'I will not put it in the car.',
+      'I will not put in the car.',
       'My brother used to play the guitar.',
       'He has just bought a flower.',
       'The house will be built next year.'
@@ -286,12 +302,105 @@ export default function KidsEnglishTask() {
 
   const finishTest = () => {
     if (checkAnswers()) {
-      setTotalCorrect(score);
+      // Robust scoring: recalculate the total correct answers for all steps
+      let total = 0;
+      // Step 1
+      const part1Answers = [
+        'Car', 'Swim', 'Suitcase', 'Newspaper', 'Anchor', 'Elbow'
+      ];
+      const step1 = JSON.parse(localStorage.getItem('step1Answers')) || [];
+      part1Answers.forEach((ans, i) => {
+        if (normalizeAnswer(step1[i]) === normalizeAnswer(ans)) total++;
+      });
+      // Step 2
+      const part2Answers = [
+        'Сидеть / o’tirmoq',
+        'Чашка / chashka',
+        'Ронять / tushirib yubormoq',
+        'Мясо / go’sht',
+        'Зрители / tomoshabinlar',
+        'Пар / bug’, par'
+      ];
+      const step2 = JSON.parse(localStorage.getItem('step2Answers')) || [];
+      part2Answers.forEach((ans, i) => {
+        if (normalizeAnswer(step2[i]) === normalizeAnswer(ans)) total++;
+      });
+      // Step 3
+      const part3Answers = [
+        'Her name is Molly.',
+        'She is fourteen.',
+        'She is playing.',
+        'He is a pilot.',
+        'She is going to learn Japanese.',
+        'She is a model.',
+        'He went to Turkey.',
+        'Yes, she does.',
+        'China, Japan',
+        'She is 180 cm tall.',
+        'He can draw well.',
+        'She has never been abroad.',
+        'Her sister.',
+        'There are 5 people.',
+        'Swimming, cooking and singing.'
+      ];
+      const step3 = JSON.parse(localStorage.getItem('step3Answers')) || [];
+      part3Answers.forEach((ans, i) => {
+        if (normalizeAnswer(step3[i]) === normalizeAnswer(ans)) total++;
+      });
+      // Step 4
+      const part4Answers = [
+        'She is singing loudly.',
+        'I like bananas.',
+        'What does he do in the evening?',
+        'My sister always drinks milk.',
+        'I did not listen to music.',
+        ['He is going to play football.', 'Is he going to play football?'],
+        'My sister was reading something interesting.',
+        'I will not put in the car.',
+        'My brother used to play the guitar.',
+        'He has just bought a flower.',
+        'The house will be built next year.'
+      ];
+      const step4 = JSON.parse(localStorage.getItem('step4Answers')) || [];
+      part4Answers.forEach((ans, i) => {
+        const user = step4[i] || '';
+        if (Array.isArray(ans)) {
+          if (ans.some(a => normalizeAnswer(user) === normalizeAnswer(a))) total++;
+        } else {
+          if (normalizeAnswer(user) === normalizeAnswer(ans)) total++;
+        }
+      });
+      // Step 5
+      const part5Answers = [
+        'No, I can’t.',
+        'Yes, I do.',
+        'No, there isn’t.',
+        'Yes, it was.',
+        'Yes, he has.',
+        'Yes, I did.'
+      ];
+      const step5 = JSON.parse(localStorage.getItem('step5Answers')) || [];
+      part5Answers.forEach((ans, i) => {
+        if (normalizeAnswer(step5[i]) === normalizeAnswer(ans)) total++;
+      });
+      // Step 6
+      const part6Answers = [
+        'slowly',
+        'amazing',
+        'whisper',
+        'apron',
+        'never',
+        'suspicious'
+      ];
+      const step6 = JSON.parse(localStorage.getItem('step6Answers')) || [];
+      part6Answers.forEach((ans, i) => {
+        if (normalizeAnswer(step6[i]) === normalizeAnswer(ans)) total++;
+      });
+      setTotalCorrect(total);
       setShowFinalScore(true);
       localStorage.setItem("testCompleted", "true");
-      localStorage.setItem("score", score);
-
-      sendFinalResult(score);
+      localStorage.setItem("score", total);
+      sendFinalResult(total);
       setTimeout(() => {
         localStorage.removeItem("testCompleted");
         localStorage.removeItem("score");
@@ -614,7 +723,7 @@ export default function KidsEnglishTask() {
                   ],
                   // Drop
                   [
-                    'Понять / tushunmoq',
+                    'Ронять / tushirib yubormoq',
                     'Поднимать / ko\'tarmoq',
                     'Ставить / qo\'ymoq',
                   ],
@@ -634,7 +743,7 @@ export default function KidsEnglishTask() {
                   [
                     'Команда / jamoa',
                     'Украсть / o\'g\'irlamoq',
-                    'Пар / bug\'',
+                    'Пар / bug\', par',
                   ],
                 ];
                 const options = wordOptions[index] || [];
@@ -762,7 +871,7 @@ export default function KidsEnglishTask() {
                     [
                       'Swimming, cooking',
                       'Swimming',
-                      'Swimming, cooking, singing'
+                      'Swimming, cooking, skiing'
                     ]
                   ];
                   const options = questionOptions[index] || [];
@@ -798,6 +907,7 @@ export default function KidsEnglishTask() {
               {data.sentences.map((sentence, sIdx) => {
                 const words = sentence.split('/');
                 const ids = sentenceOrders[sIdx] || words.map((_, wIdx) => getWordId(sIdx, wIdx));
+                // Only render drop zones for the number of words in the sentence
                 return (
                   <div key={sIdx} className="bg-gray-50 p-4 rounded-lg shadow-sm">
                     <p className="font-semibold text-gray-700 mb-2">
@@ -813,8 +923,7 @@ export default function KidsEnglishTask() {
                         strategy={rectSortingStrategy}
                       >
                         <div className="flex flex-wrap gap-2 min-h-[48px]">
-                          {ids.map((id, wIdx) => {
-                            // Map id back to word index
+                          {ids.slice(0, words.length).map((id, wIdx) => {
                             const match = id.match(/sentence\d+-word(\d+)/);
                             const wordIdx = match ? parseInt(match[1]) : wIdx;
                             return (
