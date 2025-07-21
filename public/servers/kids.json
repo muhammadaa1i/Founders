@@ -10,7 +10,7 @@
     "words": [
       { "word": "Sit", "translation": ["o'tirish", "o'tirmoq", "сидеть"] },
       { "word": "Cups", "translation": ["stakanlar", "стаканы"] },
-      { "word": "Drop", "translation": ["tushirish", "tushirmoq", "ронять"] },
+      { "word": "Drop", "translation": ["tushirish", "tushirmoq", "Уронить"] },
       { "word": "Meat", "translation": ["go'sht", "мясо"] },
       { "word": "Audience", "translation": ["tomoshabinlar", "tomoshabin", "аудитория"] },
       { "word": "Steam", "translation": ["bug'", "bug'lanish", "bug'lanmoq", "пар"] }
@@ -56,7 +56,7 @@
       "does/do/evening?/he/what/in/the",
       "always/milk/my sister/drinks",
       "did/listen/not/to/I/music",
-      "is/he/play/to/football?/going",
+      "is/he/play/to/football/going",
       "my/sister/something/reading/interesting/was",
       "will/in/car/the/I/not/put",
       "used to/my brother/play/the guitar",
@@ -69,7 +69,7 @@
       "What does he do in the evening?",
       "My sister always drinks milk",
       "I did not listen to music",
-      "Is he going to play football?",
+      "he is going to play football",
       "My sister was reading something interesting",
       "I will not put it in the car",
       "My brother used to play the guitar",
