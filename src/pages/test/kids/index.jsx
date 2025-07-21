@@ -247,38 +247,75 @@ export default function KidsEnglishTask() {
     let correctCount = 0;
     const wrongAnswers = [];
 
-    const currentAnswers = (step === 6) ? part6Answers : answers;
-
-    currentAnswers.forEach((answer, index) => {
-      const normalizedUser = normalizeAnswer(answer);
-      let isCorrect = false;
-
-      const correctAnswer = getCorrectAnswerByStep(step, index);
-      if (normalizedUser === "") {
-        wrongAnswers.push({
-          questionIndex: index,
-          userAnswer: normalizedUser,
-          correctAnswer: correctAnswer,
-        });
-        return;
+    // For Part 6, allow retry: if a word is in the wrong blank, return it to the pool
+    if (step === 6) {
+      let newPart6Answers = [...part6Answers];
+      let newPart6Available = [...part6Available];
+      let hasIncorrect = false;
+      const correctAnswers = [
+        'slowly',
+        'amazing',
+        'whisper',
+        'apron',
+        'never',
+        'suspicious'
+      ];
+      newPart6Answers.forEach((answer, index) => {
+        if (normalizeAnswer(answer) === normalizeAnswer(correctAnswers[index])) {
+          correctCount++;
+        } else {
+          if (answer) {
+            newPart6Available.push(answer);
+          }
+          newPart6Answers[index] = null;
+          hasIncorrect = true;
+          wrongAnswers.push({
+            questionIndex: index,
+            userAnswer: answer,
+            correctAnswer: correctAnswers[index],
+          });
+        }
+      });
+      setPart6Answers(newPart6Answers);
+      setPart6Available(Array.from(new Set(newPart6Available)));
+      // If there are incorrect answers, do not advance
+      if (hasIncorrect) {
+        setTimeout(() => {
+          document.getElementById('part6-section')?.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+        return false;
       }
-
-      if (Array.isArray(correctAnswer)) {
-        isCorrect = correctAnswer.some((ans) => normalizeAnswer(ans) === normalizedUser);
-      } else {
-        isCorrect = normalizeAnswer(correctAnswer) === normalizedUser;
-      }
-
-      if (isCorrect) {
-        correctCount++;
-      } else {
-        wrongAnswers.push({
-          questionIndex: index,
-          userAnswer: normalizedUser,
-          correctAnswer: correctAnswer,
-        });
-      }
-    });
+    } else {
+      // Use answers for other steps
+      const currentAnswers = answers;
+      currentAnswers.forEach((answer, index) => {
+        const normalizedUser = normalizeAnswer(answer);
+        let isCorrect = false;
+        const correctAnswer = getCorrectAnswerByStep(step, index);
+        if (normalizedUser === "") {
+          wrongAnswers.push({
+            questionIndex: index,
+            userAnswer: normalizedUser,
+            correctAnswer: correctAnswer,
+          });
+          return;
+        }
+        if (Array.isArray(correctAnswer)) {
+          isCorrect = correctAnswer.some((ans) => normalizeAnswer(ans) === normalizedUser);
+        } else {
+          isCorrect = normalizeAnswer(correctAnswer) === normalizedUser;
+        }
+        if (isCorrect) {
+          correctCount++;
+        } else {
+          wrongAnswers.push({
+            questionIndex: index,
+            userAnswer: normalizedUser,
+            correctAnswer: correctAnswer,
+          });
+        }
+      });
+    }
 
     setScore((prevScore) => prevScore + correctCount);
     const existingWrongAnswers = JSON.parse(localStorage.getItem("wrongAnswers")) || [];
@@ -1014,7 +1051,7 @@ export default function KidsEnglishTask() {
 
           {/* Step 6: Put the words (drag and drop) */}
           {step === 6 && data && Array.isArray(data.putWordsQuestions) && (
-            <div className="space-y-4">
+            <div className="space-y-4" id="part6-section">
               <DndContext onDragEnd={handlePart6DragEnd} collisionDetection={closestCenter} activationConstraint={{ distance: 8 }}>
                 {/* Draggable answer pool on top */}
                 <PoolDroppable>
