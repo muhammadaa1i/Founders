@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Confetti from "react-confetti";
@@ -18,6 +18,11 @@ import {
   closestCenter,
   useDraggable,
   useDroppable,
+  PointerSensor,
+  TouchSensor,
+  useSensor,
+  useSensors,
+  DragOverlay,
 } from "@dnd-kit/core";
 import {
   useSortable,
@@ -58,30 +63,73 @@ function DraggableWord({ word, listeners, attributes, setNodeRef, style }) {
   );
 }
 
-function PoolDraggable({ word }) {
+function PoolDraggable({ word, inBlank = false, overlay = false }) {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id: word,
   });
 
-  const style = {
-    transform: CSS.Transform.toString(transform),
-    display: "inline-flex",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: "8px 12px",
-    margin: "0 6px 6px 0",
-    background: "#f3f4f6",
-    border: "1px solid #d1d5db",
-    borderRadius: "6px",
-    cursor: "grab",
-    fontWeight: 500,
-    fontSize: 16,
-    minWidth: 40,
-    maxWidth: 160,
-    userSelect: "none",
-    transition: "background 0.2s, box-shadow 0.2s",
-    touchAction: "none",
-  };
+  const style = overlay
+    ? {
+        display: "inline-flex",
+        alignItems: "center",
+        justifyContent: "center",
+        fontWeight: 500,
+        fontSize: 16,
+        minWidth: 40,
+        maxWidth: 160,
+        background: "#f3f4f6",
+        border: "1px solid #d1d5db",
+        borderRadius: "6px",
+        cursor: "grab",
+        userSelect: "none",
+        touchAction: "none",
+        boxSizing: "border-box",
+        outline: "none",
+        zIndex: 9999,
+        pointerEvents: "none",
+        padding: "8px 12px",
+        margin: 0,
+      }
+    : inBlank
+    ? {
+        display: "inline-flex",
+        alignItems: "center",
+        justifyContent: "center",
+        fontWeight: 500,
+        fontSize: 16,
+        minWidth: 40,
+        maxWidth: "100%",
+        width: "auto",
+        background: "transparent",
+        border: "none",
+        margin: 0,
+        padding: 0,
+        cursor: "grab",
+        userSelect: "none",
+        touchAction: "none",
+        boxSizing: "border-box",
+        outline: "none",
+        verticalAlign: "middle",
+      }
+    : {
+        transform: CSS.Transform.toString(transform),
+        display: "inline-flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "8px 12px",
+        margin: "0 6px 6px 0",
+        background: "#f3f4f6",
+        border: "1px solid #d1d5db",
+        borderRadius: "6px",
+        cursor: "grab",
+        fontWeight: 500,
+        fontSize: 16,
+        minWidth: 40,
+        maxWidth: 160,
+        userSelect: "none",
+        transition: "background 0.2s, box-shadow 0.2s",
+        touchAction: "none",
+      };
 
   return (
     <span ref={setNodeRef} style={style} {...listeners} {...attributes}>
@@ -90,22 +138,27 @@ function PoolDraggable({ word }) {
   );
 }
 
-function PoolDroppable({ children }) {
-  const { setNodeRef } = useDroppable({
-    id: "pool",
-  });
-
+function PoolDroppable({ children, id = 'answers-pool', activeDragWord }) {
+  const { setNodeRef, isOver } = useDroppable({ id });
   return (
     <div
       ref={setNodeRef}
-      className="flex flex-wrap gap-2 p-4 bg-gray-100 border border-gray-300 rounded-lg mb-4 min-h-[64px]"
+      className="flex flex-wrap gap-3 justify-center mb-6 min-h-[56px]"
+      style={{
+        background: isOver ? '#f3f4f6' : undefined,
+        border: isOver ? '2px solid #EC0000' : undefined,
+        borderRadius: 8,
+        padding: 8,
+        minHeight: 56,
+        transition: 'border 0.2s, background 0.2s',
+      }}
     >
       {children}
     </div>
   );
 }
 
-function BlankDroppable({ idx, answer }) {
+function BlankDroppable({ idx, answer, activeDragWord }) {
   const { setNodeRef, isOver } = useDroppable({
     id: `blank-${idx}`,
   });
@@ -115,9 +168,9 @@ function BlankDroppable({ idx, answer }) {
       ref={setNodeRef}
       className={`inline-flex items-center justify-center px-3 py-1 border-2 border-dashed rounded-md min-w-[80px] h-10 ${
         isOver ? "border-green-500 bg-green-100" : "border-gray-400 bg-gray-200"
-      } ${answer ? "border-solid bg-gray-50" : ""}`}
+      } ${answer && answer !== activeDragWord ? "border-solid bg-gray-50" : ""}`}
     >
-      {answer || " "}
+      {answer && answer !== activeDragWord ? <PoolDraggable word={answer} inBlank={true} /> : " "}
     </span>
   );
 }
@@ -166,6 +219,7 @@ export default function KidsEnglishTask() {
   ];
   const [part6Available, setPart6Available] = useState(part6Words);
   const [part6Answers, setPart6Answers] = useState(Array(6).fill(null));
+  const [activeDragWord, setActiveDragWord] = useState(null);
 
   const [sentenceOrders, setSentenceOrders] = useState(() => {
     if (step === 4 && data && data.sentences) {
@@ -299,15 +353,38 @@ export default function KidsEnglishTask() {
     });
   };
 
+  // Utility to detect touch device
+  const isTouchDevice = useMemo(
+    () =>
+      typeof window !== "undefined" &&
+      ("ontouchstart" in window || navigator.maxTouchPoints > 0),
+    []
+  );
+
+  // Use sensors based on device type
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    ...(isTouchDevice
+      ? [
+          useSensor(TouchSensor, {
+            activationConstraint: {
+              delay: 200,
+              tolerance: 8,
+            },
+          }),
+        ]
+      : [])
+  );
+
+  // Update handlePart6DragEnd for robust mobile/tablet support
   const handlePart6DragEnd = (event) => {
     const { active, over } = event;
     if (!over) return;
-
     const word = active.id;
     const overId = over.id;
 
     if (overId === "pool") {
-      // Return word to pool
+      // Return word to pool from any blank
       setPart6Answers((prev) => {
         const newAnswers = [...prev];
         const idx = newAnswers.indexOf(word);
@@ -331,9 +408,9 @@ export default function KidsEnglishTask() {
         if (existingIdx !== -1) {
           newAnswers[existingIdx] = null;
         }
-        // If the target blank has a word, return it to the pool
+        // If the target blank has a word, swap it back to the pool
         const replacedWord = newAnswers[blankIdx];
-        if (replacedWord) {
+        if (replacedWord && replacedWord !== word) {
           setPart6Available((prev) => {
             if (!prev.includes(replacedWord)) {
               return [...prev, replacedWord];
@@ -420,22 +497,22 @@ export default function KidsEnglishTask() {
     return stepDataMap[step];
   };
 
+  // Update checkAnswers for Part 6 retry logic
   const checkAnswers = () => {
     let correctCount = 0;
     const wrongAnswers = [];
 
-    // For Part 6, allow retry: if a word is in the wrong blank, return it to the pool
     if (step === 6) {
       let newPart6Answers = [...part6Answers];
       let newPart6Available = [...part6Available];
       let hasIncorrect = false;
       const correctAnswers = [
-        'slowly',
-        'amazing',
-        'whisper',
-        'apron',
-        'never',
-        'suspicious'
+        "slowly",
+        "amazing",
+        "whisper",
+        "apron",
+        "never",
+        "suspicious",
       ];
       newPart6Answers.forEach((answer, index) => {
         if (normalizeAnswer(answer) === normalizeAnswer(correctAnswers[index])) {
@@ -455,15 +532,13 @@ export default function KidsEnglishTask() {
       });
       setPart6Answers(newPart6Answers);
       setPart6Available(Array.from(new Set(newPart6Available)));
-      // If there are incorrect answers, do not advance
       if (hasIncorrect) {
         setTimeout(() => {
-          document.getElementById('part6-section')?.scrollIntoView({ behavior: 'smooth' });
+          document.getElementById("part6-section")?.scrollIntoView({ behavior: "smooth" });
         }, 100);
         return false;
       }
     } else {
-      // Use answers for other steps
       const currentAnswers = answers;
       currentAnswers.forEach((answer, index) => {
         const normalizedUser = normalizeAnswer(answer);
@@ -948,6 +1023,7 @@ export default function KidsEnglishTask() {
                         collisionDetection={closestCenter}
                         onDragEnd={(event) => handleDragEndStep4(event, sIdx)}
                         activationConstraint={{ distance: 8 }}
+                        sensors={sensors}
                       >
                         <SortableContext
                           items={ids}
@@ -1019,12 +1095,24 @@ export default function KidsEnglishTask() {
             {/* Step 6: Put the words (drag and drop) */}
             {step === 6 && data && Array.isArray(data.putWordsQuestions) && (
               <div className="space-y-4" id="part6-section">
-                <DndContext onDragEnd={handlePart6DragEnd} collisionDetection={closestCenter} activationConstraint={{ distance: 8 }}>
+                <DndContext
+                  sensors={sensors}
+                  onDragStart={event => setActiveDragWord(event.active.id)}
+                  onDragEnd={event => {
+                    handlePart6DragEnd(event);
+                    setActiveDragWord(null);
+                  }}
+                  onDragCancel={() => setActiveDragWord(null)}
+                  collisionDetection={closestCenter}
+                  activationConstraint={{ distance: 8 }}
+                >
                   {/* Draggable answer pool on top */}
-                  <PoolDroppable>
-                    {part6Available.map((word) => (
-                      <PoolDraggable key={word} word={word} />
-                    ))}
+                  <PoolDroppable id="pool" activeDragWord={activeDragWord}>
+                    {part6Available
+                      .filter(word => word !== activeDragWord)
+                      .map((word) => (
+                        <PoolDraggable key={word} word={word} />
+                      ))}
                   </PoolDroppable>
                   {/* Questions with drop zones */}
                   {data.putWordsQuestions.map((question, idx) => {
@@ -1039,12 +1127,18 @@ export default function KidsEnglishTask() {
                           <BlankDroppable
                             idx={idx}
                             answer={part6Answers[idx]}
+                            activeDragWord={activeDragWord}
                           />
                           {parts[1] || ""}
                         </p>
                       </div>
                     );
                   })}
+                  <DragOverlay>
+                    {activeDragWord ? (
+                      <PoolDraggable word={activeDragWord} inBlank={true} overlay={true} />
+                    ) : null}
+                  </DragOverlay>
                 </DndContext>
               </div>
             )}
