@@ -1057,7 +1057,7 @@ export default function KidsEnglishTask() {
                   const shortAnswerOptions = [
                     ["No, I am not.", "No, I can't.", "No, I do not."],
                     ["Yes, I like.", "Yes, I do.", "Yes, I am."],
-                    ["No, there is.", "No, it isn't.", "Yes, there is"],
+                    ["Yes, there is.", "No, it isn't.", "Yes, there is"],
                     ["Yes, it was.", "Yes, it is.", "Yes, it can."],
                     ["Yes, he does.", "Yes, he is.", "Yes, he has"],
                     ["Yes, I do.", "Yes, I did.", "Yes, I am."],
