@@ -25,14 +25,8 @@ function About() {
             <div
                 data-aos='zoom-in'
                 className="w-full h-full flex justify-center my-6">
-                <iframe
-                    src="https://www.youtube.com/embed/z7WIMyySMAE?si=VT8If3_JzDJ4yijV"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    className="w-[90vw] h-[40vh] min-[450px]:h-[50vh] sm:h-[60vh] md:h-[80vh] rounded-xl shadow-xl"
-                ></iframe>
             </div>
-            <div className="space-y-6 px-[50px] pt-6 pb-10 text-xl md:text-xl xl:text-2xl 2xl:text-3xl ">
+            <div className="space-y-6 px-[50px] pb-10 text-xl md:text-xl xl:text-2xl 2xl:text-3xl ">
                 <p
                     data-aos='zoom-in'
                     className="font-[Montserrat] text-[#222222] font-normal leading-[120%] text-center">
@@ -65,7 +59,6 @@ function About() {
                     {t("of successful companies.")}
                 </p>
             </div>
-
 
         </div>
     )

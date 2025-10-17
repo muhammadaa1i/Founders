@@ -2,7 +2,6 @@ import Aos from "aos";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-
 function FAQ() {
     const { t, i18n } = useTranslation()
     const ChangeLng = (selectedLanguage) => {
@@ -62,7 +61,6 @@ function FAQ() {
             <h3
                 data-aos='fade-up'
                 className="font-medium text-2xl md:text-3xl 2xl:text-4xl font-[Montserrat] text-center mb-8">{t("Ko‘p beriladigan savollarga javob beramiz!")}</h3>
-
 
             <div
                 data-aos="zoom-in"

@@ -138,7 +138,7 @@ function PoolDraggable({ word, inBlank = false, overlay = false }) {
   );
 }
 
-function PoolDroppable({ children, id = 'answers-pool', activeDragWord }) {
+function PoolDroppable({ children, id = 'answers-pool' }) {
   const { setNodeRef, isOver } = useDroppable({ id });
   return (
     <div
@@ -361,19 +361,17 @@ export default function KidsEnglishTask() {
     []
   );
 
-  // Use sensors based on device type
+  // Sensors: call hooks unconditionally, choose based on device type
+  const pointerSensor = useSensor(PointerSensor);
+  const touchSensor = useSensor(TouchSensor, {
+    activationConstraint: {
+      delay: 200,
+      tolerance: 8,
+    },
+  });
   const sensors = useSensors(
-    useSensor(PointerSensor),
-    ...(isTouchDevice
-      ? [
-          useSensor(TouchSensor, {
-            activationConstraint: {
-              delay: 200,
-              tolerance: 8,
-            },
-          }),
-        ]
-      : [])
+    pointerSensor,
+    ...(isTouchDevice ? [touchSensor] : [])
   );
 
   // Update handlePart6DragEnd for robust mobile/tablet support
@@ -1107,7 +1105,7 @@ export default function KidsEnglishTask() {
                   activationConstraint={{ distance: 8 }}
                 >
                   {/* Draggable answer pool on top */}
-                  <PoolDroppable id="pool" activeDragWord={activeDragWord}>
+                  <PoolDroppable id="pool">
                     {part6Available
                       .filter(word => word !== activeDragWord)
                       .map((word) => (
