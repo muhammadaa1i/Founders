@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Confetti from 'react-confetti';
-import { useWindowSize } from 'react-use'; 
+import { useWindowSize } from 'react-use';
 import questions from "./questions.json";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import axios from "axios"; 
+import axios from "axios";
 
 const General = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -87,7 +87,7 @@ const General = () => {
     if (showResult) {
       sendFinalResult(score);
     }
-  }, [showResult]); 
+  }, [showResult]);
 
   useEffect(() => {
     if (showResult) {
@@ -95,7 +95,7 @@ const General = () => {
         setShowConfetti(true);
         const stopTimer = setTimeout(() => setShowConfetti(false), 20000);
         return () => clearTimeout(stopTimer);
-      }, 100); 
+      }, 100);
       return () => clearTimeout(startTimer);
     }
   }, [showResult]);
@@ -165,11 +165,10 @@ const General = () => {
                   key={index}
                   onClick={() => handleAnswer(option)}
                   disabled={selectedOption !== null}
-                  className={`block w-full py-3 rounded-xl text-lg font-medium transition-all shadow-md ${
-                    selectedOption === option
+                  className={`block w-full py-3 rounded-xl text-lg font-medium transition-all shadow-md ${selectedOption === option
                       ? "bg-red-500 text-white"
                       : "bg-gray-100 text-gray-800 hover:bg-gray-200"
-                  }`}
+                    }`}
                 >
                   {option}
                 </button>
