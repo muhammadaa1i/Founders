@@ -45,6 +45,8 @@ export default function RegistrationForm() {
     const [selectedRegion, setSelectedRegion] = useState("");
     const [selectedDistrict, setSelectedDistrict] = useState("");
     const [birthdate, setBirthdate] = useState("");
+    const [selectedLevel, setSelectedLevel] = useState("");
+    const [selectedTestType, setSelectedTestType] = useState("");
     const navigate = useNavigate();
 
     const handleRegionChange = (e) => {
@@ -59,14 +61,27 @@ export default function RegistrationForm() {
     const Sendmessage = (e, level) => {
         e.preventDefault();
 
-        const name = document.getElementById("name").value;
-        const phone = document.getElementById("phone").value;
-        const heard = document.getElementById("heard").value;
-        const problem = document.getElementById("problem").value;
-        const birthdate = document.getElementById("birthdate").value;
+        const name = document.getElementById("name").value.trim();
+        const phone = document.getElementById("phone").value.trim();
+        const heard = document.getElementById("heard").value.trim();
+        const problem = document.getElementById("problem").value.trim();
+        const birthdate = document.getElementById("birthdate").value.trim();
 
+        // Validate all required fields
         if (!name || !phone || !heard || !problem || !selectedRegion || !birthdate) {
             toast.error(t("Iltimos, barcha maydonlarni to'ldiring."));
+            return;
+        }
+
+        // Validate birthdate format
+        if (birthdate.length !== 10 || !/^\d{2}\/\d{2}\/\d{4}$/.test(birthdate)) {
+            toast.error(t("Iltimos, to'g'ri tug'ilgan sanani kiriting (kk/oo/yyyy)."));
+            return;
+        }
+
+        // Validate test type is selected
+        if (!selectedTestType) {
+            toast.error(t("Iltimos, test turini tanlang."));
             return;
         }
 
@@ -81,7 +96,23 @@ export default function RegistrationForm() {
         };
 
         localStorage.setItem("registrationData", JSON.stringify(data));
-        navigate(`/${level}`);
+        if (selectedTestType) {
+            localStorage.setItem("selectedTestType", selectedTestType);
+        }
+        if (selectedTestType === "perception") {
+            navigate("/perception");
+        } else if (selectedTestType === "temperament") {
+            navigate(selectedLevel === "kids" ? "/temperament" : "/temperament-general");
+        } else if (selectedTestType === "iq") {
+            navigate(selectedLevel === "kids" ? "/iq-kids" : "/iq-general");
+        } else {
+            navigate(`/${level}`);
+        }
+    };
+
+    const handleChooseLevel = (e, level) => {
+        e.preventDefault();
+        setSelectedLevel(level);
     };
 
     useEffect(() => {
@@ -201,20 +232,66 @@ export default function RegistrationForm() {
 
                 <div className="w-full mt-6">
                     <p className="mb-4 font-semibold text-lg">{t("Darajangizni tanlang")}:</p>
-                    <div className="w-full flex flex-col sm:flex-row justify-between gap-4">
-                        <button
-                            className="w-full h-auto bg-[#EC0000] px-6 py-3 text-white rounded-lg hover:bg-red-600"
-                            onClick={(e) => Sendmessage(e, "kids")}
-                        >
-                            {t("Kids")}
-                        </button>
-                        <button
-                            className="w-full h-auto bg-[#EC0000] px-6 py-3 text-white rounded-lg hover:bg-red-600"
-                            onClick={(e) => Sendmessage(e, "general")}
-                        >
-                            {t("General")}
-                        </button>
-                    </div>
+                    {!selectedLevel ? (
+                        <div className="w-full flex flex-col sm:flex-row justify-between gap-4">
+                            <button
+                                type="button"
+                                className="w-full h-auto bg-[#EC0000] px-6 py-3 text-white rounded-lg hover:bg-red-600"
+                                onClick={(e) => handleChooseLevel(e, "kids")}
+                            >
+                                {t("Kids")}
+                            </button>
+                            <button
+                                type="button"
+                                className="w-full h-auto bg-[#EC0000] px-6 py-3 text-white rounded-lg hover:bg-red-600"
+                                onClick={(e) => handleChooseLevel(e, "general")}
+                            >
+                                {t("General")}
+                            </button>
+                        </div>
+                    ) : (
+                        <div className="w-full flex">
+                            <button
+                                type="button"
+                                className="w-full h-auto bg-[#EC0000] px-6 py-3 text-white rounded-lg cursor-default"
+                                disabled
+                            >
+                                {t(selectedLevel === "kids" ? "Kids" : "General")}
+                            </button>
+                        </div>
+                    )}
+
+                    {selectedLevel && (
+                        <div className="mt-4 space-y-3">
+                            <label className="block font-semibold text-lg mb-2">
+                                {t("Test turini tanlang")}:
+                            </label>
+                            <select
+                                className="w-full p-3 border border-gray-300 rounded-lg bg-[#FFB2B2] outline-none"
+                                value={selectedTestType}
+                                onChange={(e) => setSelectedTestType(e.target.value)}
+                            >
+                                <option value="">{t("Test turini tanlang")}</option>
+                                <option value="level">{t("Darajangizni tekshirish")}</option>
+                                <option value="temperament">{t("Temperamentingizni tekshirish")}</option>
+                                <option value="perception">{t("Axborotni qabul qilish")}</option>
+                                <option value="iq">{t("IQni tekshirish")}</option>
+                            </select>
+                            <button
+                                type="button"
+                                className="w-full h-auto bg-[#EC0000] px-6 py-3 text-white rounded-lg hover:bg-red-600"
+                                onClick={(e) => {
+                                    if (!selectedTestType) {
+                                        toast.error(t("Iltimos, barcha maydonlarni to'ldiring."));
+                                        return;
+                                    }
+                                    Sendmessage(e, selectedLevel);
+                                }}
+                            >
+                                {t("Testni boshlash")}
+                            </button>
+                        </div>
+                    )}
                 </div>
 
             </form>

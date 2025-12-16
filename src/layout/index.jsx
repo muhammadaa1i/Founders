@@ -10,7 +10,9 @@ function Layout({ children }) {
   return (
     <div className="main max-w-[1920px] w-full mx-auto">
       <Navbar />
-      {children}
+      <div className="pt-24 sm:pt-28">
+        {children}
+      </div>
       {!shouldHideFooter && <Footer />}
     </div>
   );
