@@ -17,17 +17,45 @@
   <meta property="og:image" content="https://www.foundersenglishschool.uz/images/social_share_image.jpg" />
 
   <link rel="icon" href="/public/Logo.svg" />
+  
+  <!-- DNS Prefetch for faster font loading -->
+  <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+  <link rel="dns-prefetch" href="https://fonts.cdnfonts.com">
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+  
+  <!-- Preconnect to font sources -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.cdnfonts.com" crossorigin>
+  
+  <!-- Preload critical fonts -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" as="style">
+  
+  <!-- Font Awesome with media query for non-blocking -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
     integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-    crossorigin="anonymous" media="all" />
-  <link rel="preconnect" href="https://fonts.cdnfonts.com" crossorigin="anonymous">
-  <link href="https://fonts.cdnfonts.com/css/montserrat" rel="stylesheet" />
-  <link href="https://fonts.cdnfonts.com/css/andasia-personal-use" rel="stylesheet" />
-  <link rel="stylesheet" href="bower_components/aos/dist/aos.css" media="all" />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
-    rel="stylesheet">
+    crossorigin="anonymous" media="print" onload="this.media='all'" />
+  
+  <!-- Load fonts with display=swap for better performance -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.cdnfonts.com/css/andasia-personal-use" rel="stylesheet">
+  <link href="https://fonts.cdnfonts.com/css/andasia-personal-use" rel="stylesheet" media="print" onload="this.media='all'">
+  
+  <!-- Noscript fallback for fonts -->
+  <noscript>
+    <link href="https://fonts.cdnfonts.com/css/andasia-personal-use" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="bower_components/aos/dist/aos.css">
+  </noscript>
+  
+  <link rel="stylesheet" href="bower_components/aos/dist/aos.css" media="print" onload="this.media='all'" />
+  
+  <!-- Inline critical CSS to prevent FOUT -->
+  <style>
+    body {
+      font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+  </style>
 
   <title>Founders School</title>
 </head>
