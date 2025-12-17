@@ -4,7 +4,6 @@ import { useWindowSize } from 'react-use';
 import questions from "./questions.json";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import axios from "axios";
 
 const General = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -26,40 +25,15 @@ const General = () => {
   };
 
   const sendFinalResult = (finalScore) => {
-    const registrationData = JSON.parse(localStorage.getItem("registrationData"));
-    const token = "7753612890:AAGI_u4Slr5ABK1IX2T4asGh01BBvayCSYw";
-    const chat_id = -1002585473961;
-    const url = `https://api.telegram.org/bot${token}/sendMessage`;
-
-    if (!registrationData) return;
-
-    const totalQuestions = questions.length;
-
-    const messageContent = `
-📝 Ro‘yxatdan o‘tish:
-👤 Ismi: ${registrationData.name}
-🎂 Tug'ilgan sana: ${registrationData.birthdate}
-📞 Telefon: ${registrationData.phone}
-📢 Qayerdan eshitdi: ${registrationData.heard}
-❓ Muammo: ${registrationData.problem}
-📍 Viloyat: ${registrationData.region}
-🏙 Tuman: ${registrationData.district}
-
-📊 General test yakuni:
-✅ To'g'ri javoblar: ${finalScore}/${totalQuestions}
-🎯 Daraja: ${getLevel(finalScore)}
-`;
-
-    axios.post(url, {
-      chat_id,
-      text: messageContent,
-    }).then(() => {
-      console.log("Telegramga yuborildi");
-      localStorage.removeItem("registrationData");
-      localStorage.removeItem("quizState");
-    }).catch((err) => {
-      console.error("Telegramga yuborishda xatolik:", err);
-    });
+    // Save result to localStorage - will be sent with all other test results
+    const level = getLevel(finalScore);
+    localStorage.setItem("generalResult", JSON.stringify({ 
+      score: finalScore, 
+      total: questions.length, 
+      level 
+    }));
+    
+    localStorage.removeItem("quizState");
   };
 
   const ChangeLng = (selectedLanguage) => {
@@ -145,12 +119,14 @@ const General = () => {
               <p className="font-monserat text-xl font-semibold text-gray-700 mb-6 px-8">{t("Kelajagingizni o'zgartiruvchi testni muvaffaqiyatli ishlaganingizdan juda xursandmiz! Hayotingizni tubdan o'zgartiruvchi qo'ng'irog'imizni kuting😊")}</p>
               <button
                 onClick={() => {
-                  localStorage.clear();
-                  navigate("/");
+                  const testFlow = JSON.parse(localStorage.getItem("testFlow") || '{"completed": []}');
+                  testFlow.completed.push("level");
+                  localStorage.setItem("testFlow", JSON.stringify(testFlow));
+                  navigate("/perception");
                 }}
                 className="w-auto m-auto mt-6 bg-red-500 text-white py-2 px-6 rounded-lg hover:bg-red-600 transition duration-300"
               >
-                {t("Back to Main Page")}
+                {t("Keyingi testga o'tish")}
               </button>
             </div>
           </>

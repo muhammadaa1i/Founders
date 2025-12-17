@@ -155,8 +155,45 @@ export default function TemperamentGeneral() {
     const labels = { choleric: t("Xolerik"), sanguine: t("Sangvinik"), phlegmatic: t("Flegmatik"), melancholic: t("Melanxolik") };
 
     if (registrationData) {
-      const messageContent = `\n📝 Ro‘yxatdan o‘tish:\n👤 Ismi: ${registrationData.name}\n🎂 Tug'ilgan sana: ${registrationData.birthdate}\n📞 Telefon: ${registrationData.phone}\n📢 Qayerdan eshitdi: ${registrationData.heard}\n❓ Muammo: ${registrationData.problem}\n📍 Viloyat: ${registrationData.region}\n🏙 Tuman: ${registrationData.district}\n\n📊 ${t("Temperament testi natijasi")} (General):\n🔥 ${labels.choleric}: ${counts[CHOLERIC]}\n😊 ${labels.sanguine}: ${counts[SANGUINE]}\n🌿 ${labels.phlegmatic}: ${counts[PHLEGMATIC]}\n🌧️ ${labels.melancholic}: ${counts[MELANCHOLIC]}\n⭐ Temperament: ${labels[dominant]}\n`;
-      try { await axios.post(url, { chat_id, text: messageContent }); localStorage.removeItem("registrationData"); } catch {}
+      // Collect all test results
+      const levelResult = localStorage.getItem("generalResult");
+      const iqResult = localStorage.getItem("iqGeneralResult");
+      const perceptionResult = localStorage.getItem("perceptionResult");
+      
+      let messageContent = `\n📝 ${t("Ro'yxatdan o'tish")}:\n👤 ${t("Ismi")}: ${registrationData.name}\n🎂 ${t("Tug'ilgan sana")}: ${registrationData.birthdate}\n📞 ${t("Telefon")}: ${registrationData.phone}\n📢 ${t("Qayerdan eshitdi")}: ${registrationData.heard}\n❓ ${t("Muammo")}: ${registrationData.problem}\n📍 ${t("Viloyat")}: ${registrationData.region}\n🏙 ${t("Tuman")}: ${registrationData.district}\n\n`;
+      
+      // Add Level/IQ test result
+      if (levelResult) {
+        const result = JSON.parse(levelResult);
+        messageContent += `📚 ${t("Darajangizni tekshirish")} (General):\n📊 ${t("Daraja")}: ${result.level}\n\n`;
+      } else if (iqResult) {
+        const result = JSON.parse(iqResult);
+        messageContent += `🧠 ${t("IQ testi (General)")}: ${result.score}/${result.total}\n📊 ${t("Daraja")}: ${result.level}\n\n`;
+      }
+      
+      // Add Perception test result
+      if (perceptionResult) {
+        const result = JSON.parse(perceptionResult);
+        messageContent += `👁️ ${t("Axborotni qabul qilish uslubi testi")}:\n`;
+        messageContent += `👁️ ${t("Vizual")}: ${result.visualCount}\n`;
+        messageContent += `🎧 ${t("Audial")}: ${result.auditoryCount}\n`;
+        messageContent += `✋ ${t("Kinestetik")}: ${result.kinestheticCount}\n`;
+        messageContent += `⭐ ${t("Dominant uslub")}: ${result.dominant}\n\n`;
+      }
+      
+      // Add Temperament test result
+      messageContent += `📊 ${t("Temperament testi natijasi")} (General):\n🔥 ${labels.choleric}: ${counts[CHOLERIC]}\n😊 ${labels.sanguine}: ${counts[SANGUINE]}\n🌿 ${labels.phlegmatic}: ${counts[PHLEGMATIC]}\n🌧️ ${labels.melancholic}: ${counts[MELANCHOLIC]}\n⭐ Temperament: ${labels[dominant]}\n`;
+      
+      try { 
+        await axios.post(url, { chat_id, text: messageContent }); 
+        // Clear all test data after sending
+        localStorage.removeItem("registrationData");
+        localStorage.removeItem("generalResult");
+        localStorage.removeItem("iqGeneralResult");
+        localStorage.removeItem("perceptionResult");
+        localStorage.removeItem("temperamentGeneralResult");
+        localStorage.removeItem("testFlow");
+      } catch {}
     }
 
     // Do not navigate immediately; show result panel first
@@ -220,7 +257,7 @@ function ResultCard({ data, total, t, onDone }) {
       <div className="grid grid-cols-1 gap-3 w-full max-w-md mb-6">
         <TypeRow emoji="😠" name={`${labels.choleric}`} value={`${percent(counts.choleric)}%`} />
         <TypeRow emoji="😊" name={`${labels.sanguine}`} value={`${percent(counts.sanguine)}%`} />
-        <TypeRow emoji="🫶" name={`${labels.phlegmatic}`} value={`${percent(counts.phlegmatic)}%`} />
+        <TypeRow emoji="😌" name={`${labels.phlegmatic}`} value={`${percent(counts.phlegmatic)}%`} />
         <TypeRow emoji="😔" name={`${labels.melancholic}`} value={`${percent(counts.melancholic)}%`} />
       </div>
 

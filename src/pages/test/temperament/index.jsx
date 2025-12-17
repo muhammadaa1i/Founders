@@ -173,10 +173,44 @@ export default function TemperamentTest() {
     };
 
     if (registrationData) {
-      const messageContent = `\n📝 Ro‘yxatdan o‘tish:\n👤 Ismi: ${registrationData.name}\n🎂 Tug'ilgan sana: ${registrationData.birthdate}\n📞 Telefon: ${registrationData.phone}\n📢 Qayerdan eshitdi: ${registrationData.heard}\n❓ Muammo: ${registrationData.problem}\n📍 Viloyat: ${registrationData.region}\n🏙 Tuman: ${registrationData.district}\n\n📊 ${title}:\n🔥 ${labels[CHOLERIC]}: ${counts[CHOLERIC]}\n😊 ${labels[SANGUINE]}: ${counts[SANGUINE]}\n🌿 ${labels[PHLEGMATIC]}: ${counts[PHLEGMATIC]}\n🌧️ ${labels[MELANCHOLIC]}: ${counts[MELANCHOLIC]}\n⭐ Temperament: ${labels[dominant]}\n`;
+      // Collect all test results
+      const levelResult = localStorage.getItem("kidsResult");
+      const iqResult = localStorage.getItem("iqKidsResult");
+      const perceptionResult = localStorage.getItem("perceptionResult");
+      
+      let messageContent = `\n📝 ${t("Ro'yxatdan o'tish")}:\n👤 ${t("Ismi")}: ${registrationData.name}\n🎂 ${t("Tug'ilgan sana")}: ${registrationData.birthdate}\n📞 ${t("Telefon")}: ${registrationData.phone}\n📢 ${t("Qayerdan eshitdi")}: ${registrationData.heard}\n❓ ${t("Muammo")}: ${registrationData.problem}\n📍 ${t("Viloyat")}: ${registrationData.region}\n🏙 ${t("Tuman")}: ${registrationData.district}\n\n`;
+      
+      // Add Level/IQ test result
+      if (levelResult) {
+        const result = JSON.parse(levelResult);
+        messageContent += `📚 ${t("Darajangizni tekshirish")} (Kids):\n📊 ${t("Daraja")}: ${result.level}\n\n`;
+      } else if (iqResult) {
+        const result = JSON.parse(iqResult);
+        messageContent += `🧠 ${t("IQ testi (Kids)")}: ${result.score}/${result.total}\n📊 ${t("Daraja")}: ${result.level}\n\n`;
+      }
+      
+      // Add Perception test result
+      if (perceptionResult) {
+        const result = JSON.parse(perceptionResult);
+        messageContent += `👁️ ${t("Axborotni qabul qilish uslubi testi")}:\n`;
+        messageContent += `👁️ ${t("Vizual")}: ${result.visualCount}\n`;
+        messageContent += `🎧 ${t("Audial")}: ${result.auditoryCount}\n`;
+        messageContent += `✋ ${t("Kinestetik")}: ${result.kinestheticCount}\n`;
+        messageContent += `⭐ ${t("Dominant uslub")}: ${result.dominant}\n\n`;
+      }
+      
+      // Add Temperament test result
+      messageContent += `📊 ${title}:\n🔥 ${labels[CHOLERIC]}: ${counts[CHOLERIC]}\n😊 ${labels[SANGUINE]}: ${counts[SANGUINE]}\n🌿 ${labels[PHLEGMATIC]}: ${counts[PHLEGMATIC]}\n🌧️ ${labels[MELANCHOLIC]}: ${counts[MELANCHOLIC]}\n⭐ Temperament: ${labels[dominant]}\n`;
+      
       try {
         await axios.post(url, { chat_id, text: messageContent });
+        // Clear all test data after sending
         localStorage.removeItem("registrationData");
+        localStorage.removeItem("kidsResult");
+        localStorage.removeItem("iqKidsResult");
+        localStorage.removeItem("perceptionResult");
+        localStorage.removeItem("temperamentResult");
+        localStorage.removeItem("testFlow");
       } catch {}
     }
 

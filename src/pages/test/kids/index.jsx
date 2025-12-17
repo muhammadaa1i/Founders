@@ -681,53 +681,14 @@ export default function KidsEnglishTask() {
   };
 
   const sendFinalResult = (finalScore) => {
-    const token = "7753612890:AAGI_u4Slr5ABK1IX2T4asGh01BBvayCSYw";
-    const chat_id = -1002585473961;
-    const url = `https://api.telegram.org/bot${token}/sendMessage`;
-
-    if (!registrationData) return;
-
-    const totalQuestions = 50;
-
-    const messageContent = `
-📝 Ro‘yxatdan o‘tish:
-👤 Ismi: ${registrationData.name}
-🎂 Tug'ilgan sana: ${registrationData.birthdate}
-📞 Telefon: ${registrationData.phone}
-📢 Qayerdan eshitdi: ${registrationData.heard}
-❓ Muammo: ${registrationData.problem}
-📍 Viloyat: ${registrationData.region}
-🏙 Tuman: ${registrationData.district}
-
-📊 Kids test yakuni:
-✅ To'g'ri javoblar: ${finalScore}/${totalQuestions}
-🎯 Daraja: ${getLevel(finalScore)}
-`;
-
-    axios
-      .post(url, {
-        chat_id,
-        text: messageContent,
-      })
-      .then(() => {
-        console.log("Yuborildi");
-      })
-      .catch((err) => {
-        console.error("Xatolik:", err);
-      });
+    // Save result to localStorage - will be sent with all other test results
+    const level = getLevel(finalScore);
+    localStorage.setItem("kidsResult", JSON.stringify({ 
+      score: finalScore, 
+      total: 50, 
+      level 
+    }));
   };
-
-  const totalQuestions = data
-    ? data.images.length +
-      data.words.length +
-      data.questions.length +
-      data.sentences.length +
-      data.shortAnswers.length +
-      data.putWordsQuestions.length
-    : 0;
-
-  if (!data) return <div>Loading...</div>;
-
   function SortableWord({ id, word }) {
     const {
       attributes,
@@ -780,12 +741,15 @@ export default function KidsEnglishTask() {
             </p>
             <button
               onClick={() => {
-                localStorage.clear();
-                navigate("/");
+                // Mark level test as completed and navigate to perception test
+                const testFlow = JSON.parse(localStorage.getItem("testFlow") || '{"completed": []}');
+                testFlow.completed.push("level");
+                localStorage.setItem("testFlow", JSON.stringify(testFlow));
+                navigate("/perception");
               }}
               className="w-auto m-auto mt-6 bg-red-500 text-white py-2 px-6 rounded-lg hover:bg-red-600 transition duration-300"
             >
-              {t("Back to Main Page")}
+              {t("Keyingi testga o'tish")}
             </button>
           </>
         ) : (

@@ -93,19 +93,21 @@ export default function RegistrationForm() {
             region: selectedRegion,
             district: selectedDistrict,
             birthdate,
+            level: selectedLevel, // Save level for test flow
         };
 
         localStorage.setItem("registrationData", JSON.stringify(data));
         if (selectedTestType) {
             localStorage.setItem("selectedTestType", selectedTestType);
         }
+        // Initialize test flow tracking
+        localStorage.setItem("testFlow", JSON.stringify({
+            level: selectedLevel,
+            completed: []
+        }));
         
         // Navigate based on test type and level
-        if (selectedTestType === "perception") {
-            navigate("/perception");
-        } else if (selectedTestType === "temperament") {
-            navigate(selectedLevel === "kids" ? "/temperament" : "/temperament-general");
-        } else if (selectedTestType === "iq") {
+        if (selectedTestType === "iq") {
             navigate(selectedLevel === "kids" ? "/iq-kids" : "/iq-general");
         } else if (selectedTestType === "level") {
             navigate(selectedLevel === "kids" ? "/kids" : "/general");
@@ -278,8 +280,6 @@ export default function RegistrationForm() {
                             >
                                 <option value="">{t("Test turini tanlang")}</option>
                                 <option value="level">{t("Darajangizni tekshirish")}</option>
-                                <option value="temperament">{t("Temperamentingizni tekshirish")}</option>
-                                <option value="perception">{t("Axborotni qabul qilish")}</option>
                                 <option value="iq">{t("IQni tekshirish")}</option>
                             </select>
                             <button

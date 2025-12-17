@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 
 export default function PerceptionTest() {
   const { t } = useTranslation();
@@ -141,39 +140,14 @@ export default function PerceptionTest() {
       },
       { visual: 0, auditory: 0, kinesthetic: 0 }
     );
-    localStorage.setItem("perceptionResult", JSON.stringify(counts));
-    const registrationData = JSON.parse(localStorage.getItem("registrationData"));
-    const token = "7753612890:AAGI_u4Slr5ABK1IX2T4asGh01BBvayCSYw";
-    const chat_id = -1002585473961;
-    const url = `https://api.telegram.org/bot${token}/sendMessage`;
-
+    
     const dom = Object.entries(counts).sort((a, b) => b[1] - a[1])[0][0];
-    const modalityMap = {
-      visual: "Vizual (ko'rish orqali)",
-      auditory: "Audial (eshitish orqali)",
-      kinesthetic: "Kinestetik (harakat va his orqali)",
-    };
-
-    if (registrationData) {
-      const messageContent = `
-📝 ${t("Ro'yxatdan o'tish")}:
-👤 ${t("Ismi")}: ${registrationData.name}
-🎂 ${t("Tug'ilgan sana")}: ${registrationData.birthdate}
-📞 ${t("Telefon")}: ${registrationData.phone}
-📢 ${t("Qayerdan eshitdi")}: ${registrationData.heard}
-❓ ${t("Muammo")}: ${registrationData.problem}
-📍 ${t("Viloyat")}: ${registrationData.region}
-🏙 ${t("Tuman")}: ${registrationData.district}
-
-📊 ${t("Axborotni qabul qilish testi natijasi")}:
-👁️ ${t("Vizual")}: ${counts.visual}
-🎧 ${t("Audial")}: ${counts.auditory}
-✋ ${t("Kinestetik")}: ${counts.kinesthetic}
-⭐ ${t("Uslub")}: ${modalityMap[dom]}
-`;
-
-      axios.post(url, { chat_id, text: messageContent }).catch(() => {});
-    }
+    localStorage.setItem("perceptionResult", JSON.stringify({
+      visualCount: counts.visual,
+      auditoryCount: counts.auditory,
+      kinestheticCount: counts.kinesthetic,
+      dominant: dom
+    }));
 
     setResult(counts);
     setDominant(dom);
@@ -269,10 +243,17 @@ export default function PerceptionTest() {
             </div>
             <div className="flex justify-center pt-4">
               <button
-                onClick={() => navigate("/")}
+                onClick={() => {
+                  const testFlow = JSON.parse(localStorage.getItem("testFlow") || '{"completed": [], "level": "general"}');
+                  testFlow.completed.push("perception");
+                  localStorage.setItem("testFlow", JSON.stringify(testFlow));
+                  // Navigate to appropriate temperament test based on level
+                  const temperamentRoute = testFlow.level === "kids" ? "/temperament" : "/temperament-general";
+                  navigate(temperamentRoute);
+                }}
                 className="bg-gradient-to-r from-red-500 to-red-600 text-white font-semibold py-3 px-8 rounded-xl hover:from-red-600 hover:to-red-700 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
               >
-                {t("Back to Main Page")}
+                {t("Keyingi testga o'tish")}
               </button>
             </div>
           </div>

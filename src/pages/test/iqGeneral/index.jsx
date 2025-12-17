@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 
 // Shape components for visual IQ questions
 const Square = ({ size = 16, color = "#000", filled = false, className = "" }) => (
@@ -237,25 +236,6 @@ export default function IQGeneral() {
 
     localStorage.setItem("iqGeneralResult", JSON.stringify({ score: calculatedScore, total: questions.length, level: levelText }));
 
-    const registrationData = JSON.parse(localStorage.getItem("registrationData"));
-    const token = "7753612890:AAGI_u4Slr5ABK1IX2T4asGh01BBvayCSYw";
-    const chat_id = -1002585473961;
-    const url = `https://api.telegram.org/bot${token}/sendMessage`;
-
-    if (registrationData) {
-      const toLetter = (idx) => idx === 0 ? 'A' : idx === 1 ? 'B' : idx === 2 ? 'C' : 'D';
-      const details = answers
-        .map((ans, i) => {
-          const ansLetter = ans === null ? '-' : toLetter(ans);
-          const corLetter = toLetter(questions[i].correct);
-          return `${i+1}) ${ansLetter} / ${corLetter}`;
-        })
-        .join("\n");
-
-      const messageContent = `\n📝 ${t("Ro'yxatdan o'tish")}:\n👤 ${t("Ismi")}: ${registrationData.name}\n🎂 ${t("Tug'ilgan sana")}: ${registrationData.birthdate}\n📞 ${t("Telefon")}: ${registrationData.phone}\n📢 ${t("Qayerdan eshitdi")}: ${registrationData.heard}\n❓ ${t("Muammo")}: ${registrationData.problem}\n📍 ${t("Viloyat")}: ${registrationData.region}\n🏙 ${t("Tuman")}: ${registrationData.district}\n\n🧠 ${t("IQ testi (General)")}: ${calculatedScore}/${questions.length}\n📊 ${t("Daraja")}: ${levelText}\n\n${t("Javoblar (Tanlangan/To'g'ri)")}:\n${details}`;
-      try { await axios.post(url, { chat_id, text: messageContent }); } catch {}
-    }
-
     setShowResult(true);
   };
 
@@ -323,10 +303,15 @@ export default function IQGeneral() {
 
             <div className="flex justify-center">
               <button
-                onClick={() => navigate("/")}
+                onClick={() => {
+                  const testFlow = JSON.parse(localStorage.getItem("testFlow") || '{"completed": []}');
+                  testFlow.completed.push("iq");
+                  localStorage.setItem("testFlow", JSON.stringify(testFlow));
+                  navigate("/perception");
+                }}
                 className="bg-gradient-to-r from-red-500 to-red-600 text-white font-semibold py-3 px-8 rounded-xl hover:from-red-600 hover:to-red-700 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
               >
-                {t("Back to Main Page")}
+                {t("Keyingi testga o'tish")}
               </button>
             </div>
           </div>
