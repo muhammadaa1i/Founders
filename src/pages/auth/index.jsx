@@ -99,14 +99,19 @@ export default function RegistrationForm() {
         if (selectedTestType) {
             localStorage.setItem("selectedTestType", selectedTestType);
         }
+        
+        // Navigate based on test type and level
         if (selectedTestType === "perception") {
             navigate("/perception");
         } else if (selectedTestType === "temperament") {
             navigate(selectedLevel === "kids" ? "/temperament" : "/temperament-general");
         } else if (selectedTestType === "iq") {
             navigate(selectedLevel === "kids" ? "/iq-kids" : "/iq-general");
+        } else if (selectedTestType === "level") {
+            navigate(selectedLevel === "kids" ? "/kids" : "/general");
         } else {
-            navigate(`/${level}`);
+            // Fallback navigation
+            navigate("/");
         }
     };
 
