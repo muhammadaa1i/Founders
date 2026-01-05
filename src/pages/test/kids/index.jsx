@@ -191,6 +191,8 @@ function normalizeAnswer(str) {
 
 export default function KidsEnglishTask() {
   const { t } = useTranslation();
+  const totalQuestions = 50; // Total number of questions across all 6 parts
+  
   const [step, setStep] = useState(() => {
     const isTestCompleted = localStorage.getItem("testCompleted") === "true";
     if (isTestCompleted) {
@@ -685,7 +687,7 @@ export default function KidsEnglishTask() {
     const level = getLevel(finalScore);
     localStorage.setItem("kidsResult", JSON.stringify({ 
       score: finalScore, 
-      total: 50, 
+      total: totalQuestions, 
       level 
     }));
   };

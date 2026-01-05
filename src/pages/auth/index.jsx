@@ -125,7 +125,6 @@ export default function RegistrationForm() {
     useEffect(() => {
         const birthdateInput = document.getElementById('birthdate');
         if (birthdateInput) {
-            console.log("Applying IMask...");
             IMask(birthdateInput, { mask: '00/00/0000' });
         }
     }, []);
